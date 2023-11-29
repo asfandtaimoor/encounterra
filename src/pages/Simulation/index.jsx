@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 
+import Header from "@/components/Common/Header";
 import Footer from "@/components/Common/Footer";
 
 export default function Simulation() {
@@ -13,26 +14,7 @@ export default function Simulation() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{" "}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={""}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
-
+        <Header />
         <Footer />
       </main>
     </>
