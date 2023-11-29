@@ -3,6 +3,8 @@ import Image from "next/image";
 
 import Container from "react-bootstrap/Container";
 
+import { Instagram, Facebook, Twitter, Discord } from "@/Icons/index";
+
 function Footer() {
   return (
     <div className="ts-footer">
@@ -19,7 +21,7 @@ function Footer() {
             />
 
             <FooterLinks />
-            <p className="mb-0">
+            <p className="text-center mb-0">
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industries standard dummy text
               ever since the 1500s, when an unknown printer took a galley of
@@ -27,6 +29,7 @@ function Footer() {
               survived not only five centuries, but also the leap into
               electronic typesetting, remai
             </p>
+            <FooterSocialMedia />
           </div>
         </div>
         <hr />
@@ -40,6 +43,24 @@ function Footer() {
 
 export default Footer;
 
+function FooterSocialMedia() {
+  return (
+    <nav className="d-flex  gap-4 flex-wrap">
+      <a className="ts-footer__sociallink" href="#">
+        <Discord Width="31" Height="25" Fill="#999999" />
+      </a>
+      <a className="ts-footer__sociallink" href="#">
+        <Facebook Width="31" Height="25" Fill="#999999" />
+      </a>
+      <a className="ts-footer__sociallink" href="#">
+        <Instagram Width="31" Height="25" Fill="#999999" />
+      </a>
+      <a className="ts-footer__sociallink" href="#">
+        <Twitter Width="31" Height="25" Fill="#999999" />
+      </a>
+    </nav>
+  );
+}
 function FooterLinks() {
   return (
     <nav className="d-flex  gap-4 gap-md-5 flex-wrap">

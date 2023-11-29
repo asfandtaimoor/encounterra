@@ -3,6 +3,33 @@
   color: $color-white;
   padding-top: 30px;
 
+  &__main {
+    max-width: 1075px;
+    margin-inline: auto;
+  }
+  &__sociallink {
+    background-color: $color-gray-2;
+    width: 3.5625rem;
+    height: 3.5625rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: background-color 300ms ease-in-out;
+    svg {
+      path {
+        transition: fill 300ms ease-in-out;
+      }
+    }
+    &:hover {
+      background-color: $color-primary;
+      svg {
+        path {
+          fill: $color-white;
+        }
+      }
+    }
+  }
   &__link {
     color: white;
     text-decoration: none;
