@@ -17,3 +17,13 @@ $color-gray-7: #cecece;
 $color-gray-8: #efefef;
 $color-gray-9: #cfd3d7;
 $color-gray-10: #dadada;
+
+.ts {
+  &-text {
+    &-gray {
+      &-2 {
+        color: $color-gray-2;
+      }
+    }
+  }
+}

@@ -3,6 +3,8 @@ import { Container, Tab, Nav } from "react-bootstrap";
 
 import Header from "@/components/Common/Header";
 import Footer from "@/components/Common/Footer";
+import MapMain from "@/components/Map";
+import SocialMedia from "@/components/Common/SocialMedia";
 
 const projectTabs = [
   {
@@ -27,13 +29,14 @@ export default function Home() {
       </Head>
       <main>
         <Header />
+        <SocialMedia />
         <div className="ts-main-content">
           <Container fluid className="ts-container">
             <Tab.Container
               id="GiveAwayTabs"
-              defaultActiveKey={projectTabs[0].title}
+              defaultActiveKey={projectTabs[1].title}
             >
-              <div className="d-flex justify-content-center">
+              <div className="d-flex justify-content-center mb-08">
                 <Nav variant="pills" className="ts-tabs ts-tabs-primary">
                   {projectTabs.map((tabItem, index) => {
                     return (
@@ -53,7 +56,7 @@ export default function Home() {
                   {projectTabs[0].title}
                 </Tab.Pane>
                 <Tab.Pane eventKey={projectTabs[1].title}>
-                  {projectTabs[1].title}
+                  <MapMain />
                 </Tab.Pane>
                 <Tab.Pane eventKey={projectTabs[2].title}>
                   {projectTabs[2].title}
