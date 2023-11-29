@@ -5,6 +5,7 @@ import Header from "@/components/Common/Header";
 import Footer from "@/components/Common/Footer";
 import MapMain from "@/components/Map";
 import SocialMedia from "@/components/Common/SocialMedia";
+import Simulation from "@/components/Simulation";
 
 const projectTabs = [
   {
@@ -29,12 +30,14 @@ export default function Home() {
       </Head>
       <main>
         <Header />
-        <SocialMedia />
+        <div className="d-none d-lg-block">
+          <SocialMedia />
+        </div>
         <div className="ts-main-content">
           <Container fluid className="ts-container">
             <Tab.Container
               id="GiveAwayTabs"
-              defaultActiveKey={projectTabs[1].title}
+              defaultActiveKey={projectTabs[2].title}
             >
               <div className="d-flex justify-content-center mb-08">
                 <Nav variant="pills" className="ts-tabs ts-tabs-primary">
@@ -59,13 +62,12 @@ export default function Home() {
                   <MapMain />
                 </Tab.Pane>
                 <Tab.Pane eventKey={projectTabs[2].title}>
-                  {projectTabs[2].title}
+                  <Simulation />
                 </Tab.Pane>
               </Tab.Content>
             </Tab.Container>
           </Container>
         </div>
-
         <Footer />
       </main>
     </>
