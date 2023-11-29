@@ -83,6 +83,64 @@ function RecourceLevel() {
               </ul>
             </div>
           </div>
+          <div>
+            <div className="ts-card-1">
+              <h1 className="ts-fs-30 ts-text-red text-center text-uppercase fw-bold mb-09">
+                Red Team
+              </h1>
+
+              <ul className="list-unstyled p-0">
+                <li className="mb-05">
+                  <div class="form-check ts-check-card d-flex align-items-center gap-3 ">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="teamred"
+                      id="AllIn"
+                    />
+                    <label
+                      class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
+                      for="AllIn"
+                    >
+                      All In
+                    </label>
+                  </div>
+                </li>
+                <li className="mb-05">
+                  <div class="form-check ts-check-card d-flex align-items-center gap-3 ">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="teamred"
+                      id="Moderate"
+                    />
+                    <label
+                      class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
+                      for="Moderate"
+                    >
+                      Moderate
+                    </label>
+                  </div>
+                </li>
+                <li className="mb-05">
+                  <div class="form-check ts-check-card d-flex align-items-center gap-3 ">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="teamred"
+                      id="Conservative"
+                    />
+                    <label
+                      class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
+                      for="Conservative"
+                    >
+                      Conservative
+                    </label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
 
