@@ -1,0 +1,14 @@
+.ts-footer {
+  background-color: $color-secondary;
+  color: $color-white;
+  padding-top: 30px;
+
+  &__link {
+    color: white;
+    text-decoration: none;
+    transition: color 300ms ease-in-out;
+    &:hover {
+      color: $color-primary;
+    }
+  }
+}
