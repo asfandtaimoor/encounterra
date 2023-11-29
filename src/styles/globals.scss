@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap");
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import "./colors";
 @import "./utils.scss";
-@import "./Components/header";
-@import "./Components/footer";
+
+@import "./Components/index.scss";
 
 * {
   box-sizing: border-box;
@@ -30,4 +30,7 @@ a {
 .ts-container {
   max-width: 80rem;
   margin: auto;
+}
+.ts-main-content {
+  padding-block: 3.125rem;
 }

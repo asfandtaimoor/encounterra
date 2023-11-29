@@ -1,0 +1,19 @@
+@import "header";
+@import "footer";
+
+.ts-tabs {
+  background-color: $color-white;
+  border-radius: 0.625rem;
+  font-family: "Space Grotesk", sans-serif;
+  .nav-link {
+    color: $color-gray-3;
+    font-weight: 500;
+    font-size: 20px;
+    border-radius: 0.625rem;
+    padding-inline: 1.25rem;
+  }
+  & .nav-link.active,
+  & .show > .nav-link {
+    background-color: $color-primary;
+  }
+}
