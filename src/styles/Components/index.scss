@@ -1,6 +1,32 @@
 @import "header";
 @import "footer";
 
+.ts-modal {
+  &__sociallink {
+    background-color: $color-gray-8;
+    width: 3.5625rem;
+    height: 3.5625rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.625rem;
+    transition: background-color 300ms ease-in-out;
+    svg {
+      path {
+        transition: fill 300ms ease-in-out;
+      }
+    }
+    &:hover {
+      background-color: $color-primary;
+      svg {
+        path {
+          fill: $color-white;
+        }
+      }
+    }
+  }
+}
+
 .ts-tabs {
   background-color: $color-white;
   border-radius: 0.625rem;
@@ -117,6 +143,13 @@
 }
 
 // Form
+
+.form-control {
+  &:focus {
+    box-shadow: none;
+    border-color: $color-primary;
+  }
+}
 .ts-check-card {
   background: #fff;
   box-shadow: 0px 5px 10px 0px rgba(100, 100, 111, 0.2);
