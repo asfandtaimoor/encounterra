@@ -27,6 +27,17 @@
   }
 }
 
+.ts-separator {
+  display: flex;
+  align-items: center;
+  .line {
+    height: 2px;
+    flex: 1;
+    background-color: #4b5768;
+    padding-inline: 1rem;
+  }
+}
+
 .ts-tabs {
   background-color: $color-white;
   border-radius: 0.625rem;
