@@ -31,12 +31,11 @@ function Header() {
               <ExclamationCircle Width="18" Height="16" Stroke="#008170" />
             </div>
             <div class="vr"></div>
-            <p className="text-uppercase mb-0">user name</p>
-            <Person Width="36" Height="36" Fill="#fff" />
+            {/* <p className="text-uppercase mb-0">user name</p>
+            <Person Width="36" Height="36" Fill="#fff" /> */}
+            <Modals />
           </div>
         </div>
-
-        <Modals />
       </Container>
     </div>
   );
@@ -66,9 +65,17 @@ function Modals() {
   return (
     <>
       {/* Reset Password Button */}
-      <Button variant="primary" onClick={handleShowResetPassword}>
+      {/* <Button variant="primary" onClick={handleShowResetPassword}>
         Reset Password Button
+      </Button> */}
+      {/* Login Button */}
+      <Button className="ts-btn ts-btn-primary" onClick={handleShowLogin}>
+        Login
       </Button>
+      {/* Create Account Button */}
+      {/* <Button variant="primary" onClick={handleShowCreateAccount}>
+        Create Account Button
+      </Button> */}
 
       {/* Reset Password Modal */}
       <Modal
@@ -110,11 +117,6 @@ function Modals() {
           </div>
         </Modal.Body>
       </Modal>
-
-      {/* Login Button */}
-      <Button variant="primary" onClick={handleShowLogin}>
-        Login Button
-      </Button>
 
       {/* Login Modal */}
       <Modal
@@ -183,11 +185,6 @@ function Modals() {
           </p>
         </Modal.Body>
       </Modal>
-
-      {/* Create Account Button */}
-      <Button variant="primary" onClick={handleShowCreateAccount}>
-        Create Account Button
-      </Button>
 
       {/* Create Account Modal */}
       <Modal

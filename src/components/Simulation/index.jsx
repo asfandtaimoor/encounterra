@@ -1,8 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import { Form } from "react-bootstrap";
-import { ExclamationCircle } from "@/Icons/index";
+import { ExclamationCircle, PlusFill, MinusFill } from "@/Icons/index";
 
 function Simulation() {
   return (
@@ -24,7 +23,7 @@ function RecourceLevel() {
         resourse qngagment level
       </h1>
       <div className="mx-auto" style={{ maxWidth: "920px" }}>
-        <div className="row row-cols-sm-2 mb-10">
+        <div className="row row-cols-sm-2 mb-10 gap-4 gap-sm-0">
           <div>
             <div className="ts-card-1">
               <h1 className="ts-fs-30 ts-text-skyblue text-center text-uppercase fw-bold mb-09">
@@ -38,11 +37,12 @@ function RecourceLevel() {
                       class="form-check-input"
                       type="radio"
                       name="teamblue"
-                      id="AllIn"
+                      id="teamblueAllIn"
+                      checked
                     />
                     <label
                       class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
-                      for="AllIn"
+                      for="teamblueAllIn"
                     >
                       All In
                     </label>
@@ -54,11 +54,11 @@ function RecourceLevel() {
                       class="form-check-input"
                       type="radio"
                       name="teamblue"
-                      id="Moderate"
+                      id="teamblueModerate"
                     />
                     <label
                       class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
-                      for="Moderate"
+                      for="teamblueModerate"
                     >
                       Moderate
                     </label>
@@ -70,11 +70,11 @@ function RecourceLevel() {
                       class="form-check-input"
                       type="radio"
                       name="teamblue"
-                      id="Conservative"
+                      id="teamblueConservative"
                     />
                     <label
                       class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
-                      for="Conservative"
+                      for="teamblueConservative"
                     >
                       Conservative
                     </label>
@@ -96,11 +96,12 @@ function RecourceLevel() {
                       class="form-check-input"
                       type="radio"
                       name="teamred"
-                      id="AllIn"
+                      id="teamredAllIn"
+                      checked
                     />
                     <label
                       class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
-                      for="AllIn"
+                      for="teamredAllIn"
                     >
                       All In
                     </label>
@@ -112,11 +113,11 @@ function RecourceLevel() {
                       class="form-check-input"
                       type="radio"
                       name="teamred"
-                      id="Moderate"
+                      id="teamredModerate"
                     />
                     <label
                       class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
-                      for="Moderate"
+                      for="teamredModerate"
                     >
                       Moderate
                     </label>
@@ -128,11 +129,11 @@ function RecourceLevel() {
                       class="form-check-input"
                       type="radio"
                       name="teamred"
-                      id="Conservative"
+                      id="teamredConservative"
                     />
                     <label
                       class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
-                      for="Conservative"
+                      for="teamredConservative"
                     >
                       Conservative
                     </label>
@@ -142,6 +143,7 @@ function RecourceLevel() {
             </div>
           </div>
         </div>
+        <Iteration />
       </div>
 
       <div className="d-flex justify-content-center gap-4">
@@ -155,6 +157,38 @@ function RecourceLevel() {
     </section>
   );
 }
+
+function Iteration() {
+  return (
+    <div className="ts-map-card__header mb-08">
+      <div className="d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <h1 className="ts-fs-22 ts-text-gray-5 mb-0 text-uppercase">
+          SIMULATION ITRATION
+        </h1>{" "}
+        <div className="d-flex  gap-3 align-items-center ">
+          <div className="d-flex gap-3">
+            <button className="btn border-0 p-0">
+              <MinusFill Width="28" Height="28" Fill="white" />
+            </button>
+            <input
+              style={{ width: "140px" }}
+              type="number"
+              class="form-control text-center fw-bold"
+              value="150"
+            />
+
+            <button className="btn border-0 y p-0">
+              <PlusFill Width="28" Height="28" Fill="white" />
+            </button>
+          </div>
+          <div class=" d-flex align-items-center gap-3">
+            <ExclamationCircle Width="18" Height="16" Stroke="#6B7280 " />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 function Results() {
   return (
     <section className="ts-card-2">
@@ -165,7 +199,7 @@ function Results() {
       <div className="mb-06">
         <TsProgressBar BlueTeamProgress={76} RedTeamProgress={24} />
       </div>
-      <div className="mx-auto" style={{ maxWidth: "920px" }}>
+      <div className="mx-auto ts-text-gray-2" style={{ maxWidth: "920px" }}>
         <div className="row row-cols-sm-2 mb-10">
           <div>
             <div className="ts-card-1">
