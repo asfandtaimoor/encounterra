@@ -27,7 +27,7 @@ function Header() {
 
           <div className="d-flex gap-3 align-items-center">
             <div className="d-flex gap-3 align-items-center">
-              <p className="text-uppercase mb-0">200 credits</p>
+              <p className="text-uppercase text-white mb-0">200 credits</p>
               <ExclamationCircle Width="18" Height="16" Stroke="#008170" />
             </div>
             <div class="vr"></div>

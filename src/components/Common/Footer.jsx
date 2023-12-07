@@ -21,7 +21,7 @@ function Footer() {
             />
 
             <FooterLinks />
-            <p className="text-center mb-0">
+            <p className="text-center text-white mb-0">
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industries standard dummy text
               ever since the 1500s, when an unknown printer took a galley of
@@ -34,7 +34,9 @@ function Footer() {
         </div>
         <hr />
         <div className="ts-footer__footer pb-4">
-          <p className="text-center mb-0 ">&copy; Copyright Encounterra</p>
+          <p className="text-center mb-0 text-white">
+            &copy; Copyright Encounterra
+          </p>
         </div>
       </Container>
     </div>

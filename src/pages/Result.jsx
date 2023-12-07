@@ -3,9 +3,7 @@ import { Container, Tab, Nav } from "react-bootstrap";
 
 import Header from "@/components/Common/Header";
 import Footer from "@/components/Common/Footer";
-import MapMain from "@/components/Map";
 import SocialMedia from "@/components/Common/SocialMedia";
-import Simulation from "@/components/Simulation";
 
 export default function Home() {
   return (
@@ -23,9 +21,20 @@ export default function Home() {
         </div>
         <div className="my-5">
           <div className="ts-container">
-            <h1 className="ts-fs-40 text-center">simulation results</h1>
+            <a
+              className="ts-btn ts-btn-gray rounded-3  px-4 d-inline-block mb-04"
+              href="./"
+            >
+              {" "}
+              Back
+            </a>
 
-            <Results />
+            <h1 className="ts-fs-40 text-uppercase text-center mb-09 fw-bold">
+              simulation results
+            </h1>
+            <div className="ts-card-2 px-4 py-5">
+              <Results />
+            </div>
           </div>
         </div>
         <Footer />
@@ -37,62 +46,192 @@ export default function Home() {
 import Accordion from "react-bootstrap/Accordion";
 
 function Results() {
+  const Results = [
+    {
+      id: 1,
+      statistics: {
+        total_users: 1000,
+        active_users: 750,
+        registered_users: 900,
+        average_session_duration: "00:15:30",
+        conversion_rate: 0.15,
+        revenue: {
+          total: 50000,
+          monthly: 12000,
+        },
+        page_views: {
+          total: 200000,
+          daily_average: 8000,
+        },
+        products: {
+          total: 50,
+          popular_categories: [
+            {
+              category: "Electronics",
+              products: 15,
+            },
+            {
+              category: "Clothing",
+              products: 10,
+            },
+            {
+              category: "Home and Garden",
+              products: 8,
+            },
+          ],
+        },
+      },
+    },
+    {
+      id: 2,
+      statistics: {
+        total_users: 1000,
+        active_users: 750,
+        registered_users: 900,
+        average_session_duration: "00:15:30",
+        conversion_rate: 0.15,
+        revenue: {
+          total: 50000,
+          monthly: 12000,
+        },
+        page_views: {
+          total: 200000,
+          daily_average: 8000,
+        },
+        products: {
+          total: 50,
+          popular_categories: [
+            {
+              category: "Electronics",
+              products: 15,
+            },
+            {
+              category: "Clothing",
+              products: 10,
+            },
+            {
+              category: "Home and Garden",
+              products: 8,
+            },
+          ],
+        },
+      },
+    },
+    {
+      id: 3,
+      statistics: {
+        total_users: 1000,
+        active_users: 750,
+        registered_users: 900,
+        average_session_duration: "00:15:30",
+        conversion_rate: 0.15,
+        revenue: {
+          total: 50000,
+          monthly: 12000,
+        },
+        page_views: {
+          total: 200000,
+          daily_average: 8000,
+        },
+        products: {
+          total: 50,
+          popular_categories: [
+            {
+              category: "Electronics",
+              products: 15,
+            },
+            {
+              category: "Clothing",
+              products: 10,
+            },
+            {
+              category: "Home and Garden",
+              products: 8,
+            },
+          ],
+        },
+      },
+    },
+    {
+      id: 4,
+      statistics: {
+        total_users: 1000,
+        active_users: 750,
+        registered_users: 900,
+        average_session_duration: "00:15:30",
+        conversion_rate: 0.15,
+        revenue: {
+          total: 50000,
+          monthly: 12000,
+        },
+        page_views: {
+          total: 200000,
+          daily_average: 8000,
+        },
+        products: {
+          total: 50,
+          popular_categories: [
+            {
+              category: "Electronics",
+              products: 15,
+            },
+            {
+              category: "Clothing",
+              products: 10,
+            },
+            {
+              category: "Home and Garden",
+              products: 8,
+            },
+          ],
+        },
+      },
+    },
+  ];
+
   return (
     <Accordion defaultActiveKey="0">
-      <Accordion.Item eventKey="0">
-        <Accordion.Header>Statistics</Accordion.Header>
-        <Accordion.Body>
-          <div>
-            <strong>Total Users:</strong> 1000
-          </div>
-          <div>
-            <strong>Active Users:</strong> 750
-          </div>
-          <div>
-            <strong>Registered Users:</strong> 900
-          </div>
-          <div>
-            <strong>Average Session Duration:</strong> 00:15:30
-          </div>
-          <div>
-            <strong>Conversion Rate:</strong> 0.15
-          </div>
-          <div>
-            <strong>Revenue:</strong>
-            <ul>
-              <li>Total: $50,000</li>
-              <li>Monthly: $12,000</li>
-            </ul>
-          </div>
-          <div>
-            <strong>Page Views:</strong>
-            <ul>
-              <li>Total: 200,000</li>
-              <li>Daily Average: 8,000</li>
-            </ul>
-          </div>
-          <div>
-            <strong>Products:</strong>
-            <ul>
-              <li>Total: 50</li>
-              <li>
-                Popular Categories:
-                <ul>
-                  <li>Electronics: 15</li>
-                  <li>Clothing: 10</li>
-                  <li>Home and Garden: 8</li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </Accordion.Body>
-      </Accordion.Item>
-      <Accordion.Item eventKey="1">
-        <Accordion.Header>Accordion Item #2</Accordion.Header>
-        <Accordion.Body>
-          {/* Add your content for Accordion Item #2 here */}
-        </Accordion.Body>
-      </Accordion.Item>
+      {Results.map((item, index) => (
+        <AccordionItem key={index} data={item} />
+      ))}
     </Accordion>
+  );
+}
+
+function AccordionItem({ key, data }) {
+  const jsonString = JSON.stringify(data.statistics, null, 2);
+
+  return (
+    <Accordion.Item eventKey={data.id}>
+      <Accordion.Header>
+        <div className="row row-cols-2 row-cols-md-4 w-100 ">
+          <div className="text-center mb-4 mb-md-0">
+            <h3 className="ts-fs-22 text-uppercase fw-bold">DATE</h3>
+            <p className="ts-fs-20 fw-medium mb-0">01-11-2023</p>
+          </div>
+          <div className="text-center mb-4 mb-md-0">
+            <h3 className="ts-fs-22 text-uppercase fw-bold">iterntions</h3>
+            <p className="ts-fs-20 fw-medium mb-0">01-11-2023</p>
+          </div>
+          <div className="text-center ">
+            <h3 className="ts-fs-22 ts-text-skyblue text-uppercase fw-bold">
+              Blue Team
+            </h3>
+            <p className="ts-fs-20 fw-medium mb-0">01-11-2023</p>
+          </div>
+          <div className="text-center">
+            <h3 className="ts-fs-22 ts-text-red text-uppercase fw-bold">
+              Red Team
+            </h3>
+            <p className="ts-fs-20 fw-medium mb-0">01-11-2023</p>
+          </div>
+        </div>
+      </Accordion.Header>
+      <Accordion.Body>
+        <pre>
+          <code>{jsonString}</code>
+        </pre>
+      </Accordion.Body>
+    </Accordion.Item>
   );
 }

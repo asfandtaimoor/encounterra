@@ -92,6 +92,16 @@
       background-color: transparent;
     }
   }
+  &-gray {
+    background-color: $color-gray-6;
+    border: 1px solid $color-gray-6;
+    color: white;
+    &:hover {
+      color: $color-gray-6;
+      border: 1px solid $color-gray-6;
+      background-color: transparent;
+    }
+  }
   &-outline-secondary {
     color: $color-gray-4;
     border: 1px solid $color-gray-4;
@@ -218,5 +228,22 @@
   .ts-red-team {
     background-color: $color-red;
     border-radius: 0 5px 5px 0;
+  }
+}
+
+.accordion {
+  --bs-accordion-active-bg: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  &-item {
+    border-radius: 8px !important;
+    // margin-bottom: 1rem;
+    overflow: hidden;
+  }
+  &-button {
+    &:focus {
+      box-shadow: none;
+    }
   }
 }

@@ -19,8 +19,12 @@ body {
 }
 
 body {
+  color: $color-gray-2;
   background-color: $color-bg;
   font-family: "Roboto", sans-serif;
+}
+* {
+  color: $color-gray-2;
 }
 .ts-btn,
 .ts-heading-font {
@@ -34,6 +38,7 @@ a {
 .ts-container {
   max-width: 80rem;
   margin: auto;
+  padding-inline: 1rem;
 }
 .ts-main-content {
   padding-block: 3.125rem;
