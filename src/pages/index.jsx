@@ -6,6 +6,7 @@ import Footer from "@/components/Common/Footer";
 import MapMain from "@/components/Map";
 import SocialMedia from "@/components/Common/SocialMedia";
 import Simulation from "@/components/Simulation";
+import Compatant from "@/components/Compatant";
 
 const projectTabs = [
   {
@@ -37,7 +38,7 @@ export default function Home() {
           <Container fluid className="ts-container">
             <Tab.Container
               id="GiveAwayTabs"
-              defaultActiveKey={projectTabs[2].title}
+              defaultActiveKey={projectTabs[0].title}
             >
               <div className="d-flex justify-content-center mb-08">
                 <Nav variant="pills" className="ts-tabs ts-tabs-primary">
@@ -56,7 +57,7 @@ export default function Home() {
 
               <Tab.Content>
                 <Tab.Pane eventKey={projectTabs[0].title}>
-                  {projectTabs[0].title}
+                  <Compatant />
                 </Tab.Pane>
                 <Tab.Pane eventKey={projectTabs[1].title}>
                   <MapMain />

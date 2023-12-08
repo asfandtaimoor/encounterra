@@ -159,3 +159,115 @@ export function MinusFill({ Width, Height, Fill = "000", Stroke = "#008170" }) {
     </svg>
   );
 }
+export function Close({ Width, Height, Fill = "000", Stroke = "#008170" }) {
+  return (
+    <svg
+      width={Width}
+      height={Height}
+      viewBox="0 0 9 9"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M8.36971 1.29971C8.44137 1.23056 8.49855 1.14783 8.5379 1.05634C8.57725 0.964857 8.59798 0.866452 8.59889 0.766868C8.5998 0.667285 8.58088 0.568516 8.54321 0.476327C8.50554 0.384137 8.44989 0.300372 8.37951 0.22992C8.30912 0.159467 8.22541 0.103738 8.13325 0.0659841C8.0411 0.02823 7.94235 0.00920731 7.84276 0.0100254C7.74318 0.0108435 7.64476 0.0314862 7.55323 0.0707492C7.46171 0.110012 7.37893 0.167109 7.30971 0.238708L4.30371 3.24371L1.29871 0.238708C1.23005 0.165022 1.14725 0.105919 1.05525 0.0649275C0.963247 0.0239355 0.863934 0.0018935 0.763231 0.00011672C0.662528 -0.00166006 0.562499 0.0168648 0.469111 0.0545858C0.375723 0.0923068 0.290889 0.148451 0.21967 0.21967C0.148451 0.290889 0.0923068 0.375722 0.0545858 0.46911C0.0168648 0.562499 -0.00166006 0.662528 0.00011672 0.763231C0.0018935 0.863934 0.0239355 0.963247 0.0649275 1.05525C0.105919 1.14725 0.165022 1.23005 0.238708 1.29871L3.24171 4.30471L0.236709 7.30971C0.104229 7.45188 0.0321051 7.63993 0.0355333 7.83423C0.0389615 8.02853 0.117674 8.21392 0.255087 8.35133C0.3925 8.48874 0.577885 8.56745 0.772186 8.57088C0.966487 8.57431 1.15453 8.50219 1.29671 8.36971L4.30371 5.36471L7.30871 8.37071C7.45088 8.50319 7.63893 8.57531 7.83323 8.57188C8.02753 8.56846 8.21292 8.48974 8.35033 8.35233C8.48774 8.21492 8.56645 8.02953 8.56988 7.83523C8.57331 7.64093 8.50119 7.45288 8.36871 7.31071L5.36571 4.30471L8.36971 1.29971Z"
+        fill={Fill}
+      />
+    </svg>
+  );
+}
+export function PlusCircle({
+  Width,
+  Height,
+  Fill = "000",
+  Stroke = "#008170",
+}) {
+  return (
+    <svg
+      width={Width}
+      height={Height}
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="0.210938"
+        y="0.105469"
+        width="15.7895"
+        height="15.7895"
+        rx="7.89474"
+        fill="url(#paint0_linear_283_18868)"
+      />
+      <path
+        d="M8.10547 4.92969V11.07"
+        stroke="white"
+        stroke-width="1.31579"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M5.03613 8H11.1765"
+        stroke="white"
+        stroke-width="1.31579"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_283_18868"
+          x1="8.10567"
+          y1="0.105469"
+          x2="8.10567"
+          y2="15.8949"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#94A3B8" />
+          <stop offset="1" stop-color="#717D8C" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+export function MinusCircle({
+  Width,
+  Height,
+  Fill = "000",
+  Stroke = "#008170",
+}) {
+  return (
+    <svg
+      width={Width}
+      height={Height}
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        y="0.105469"
+        width="15.7895"
+        height="15.7895"
+        rx="7.89474"
+        fill="url(#paint0_linear_283_18871)"
+      />
+      <path
+        d="M4.8252 8H10.9655"
+        stroke="white"
+        stroke-width="1.31579"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_283_18871"
+          x1="7.89474"
+          y1="0.105469"
+          x2="7.89474"
+          y2="15.8949"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#94A3B8" />
+          <stop offset="1" stop-color="#717D8C" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
