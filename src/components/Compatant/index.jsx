@@ -1,5 +1,10 @@
-import React from "react";
-import { ExclamationCircle, Close } from "@/Icons/index";
+import React, { useState } from "react";
+import {
+  ExclamationCircle,
+  Close,
+  MinusSquare,
+  PlusSquare,
+} from "@/Icons/index";
 import CartIncrementDecrement from "./CartIncrementDecrement";
 function index() {
   return (
@@ -39,58 +44,9 @@ function Combatants() {
       </h1>
 
       <div className="mx-auto ts-text-gray-2 ts-card-1  mb-10">
-        <div className="row gap-4 gap-md-0">
-          <div className="col-lg-5">
-            <div className="">
-              <div className="d-flex justify-content-between gap-2 mb-06">
-                <h1 className="ts-fs-30 ts-text-skyblue text-center text-uppercase fw-bold mb-0">
-                  Blue Team
-                </h1>
-                <h1 className="ts-fs-20 ">3/6</h1>
-              </div>
-
-              <ul className="d-flex flex-column gap-3 list-unstyled ts-fs-22 fw-medium p-0 mb-0">
-                <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
-                  <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
-                  <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    <span class="vr my-1"></span>
-                    <span className="ts-tag-level rounded-pill">
-                      Level 3{" "}
-                    </span>{" "}
-                    <span class="vr my-1"></span>{" "}
-                    <button className="btn p-0 border-0">
-                      <Close Width="18" Height="18" Fill="#353535" />
-                    </button>
-                  </div>
-                </li>
-                <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
-                  <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
-                  <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    <span class="vr my-1"></span>
-                    <span className="ts-tag-level rounded-pill">
-                      Level 3{" "}
-                    </span>{" "}
-                    <span class="vr my-1"></span>{" "}
-                    <button className="btn p-0 border-0">
-                      <Close Width="18" Height="18" Fill="#353535" />
-                    </button>
-                  </div>
-                </li>
-                <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
-                  <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
-                  <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    <span class="vr my-1"></span>
-                    <span className="ts-tag-level rounded-pill">
-                      Level 3{" "}
-                    </span>{" "}
-                    <span class="vr my-1"></span>{" "}
-                    <button className="btn p-0 border-0">
-                      <Close Width="18" Height="18" Fill="#353535" />
-                    </button>
-                  </div>
-                </li>
-              </ul>
-            </div>
+        <div className="row gap-4 gap-lg-0 ">
+          <div className="col-lg-5 ts-list-data-left pb-3 pb-lg-0">
+            <ListData />
           </div>
           <div className="col-lg-7">
             <div className="mb-4">
@@ -155,6 +111,92 @@ function Combatants() {
         </button>
       </div>
     </section>
+  );
+}
+
+function ListData() {
+  const DataList = [
+    {
+      title: "Team",
+      SubList: [
+        {
+          title: "Heros",
+          data: ["brown bear", "snow white"],
+        },
+        {
+          title: "level",
+          data: ["brown bear", "snow white"],
+        },
+      ],
+    },
+    {
+      title: "monsters",
+      SubList: [
+        {
+          title: "Heros",
+          data: ["brown bear", "snow white"],
+        },
+      ],
+    },
+    {
+      title: "monsters",
+    },
+  ];
+
+  return (
+    <div>
+      <div class="mb-3">
+        <input type="text" class="form-control" placeholder="Search" />
+      </div>
+
+      {DataList.map((item, index) => {
+        return <ListDetailsItem key={index} data={item} />;
+      })}
+    </div>
+  );
+}
+
+function ListDetailsItem({ data }) {
+  const [isListOpen, setListOpen] = useState(true);
+
+  const toggleList = () => {
+    setListOpen(!isListOpen);
+  };
+  return (
+    <div>
+      <div className="ts-list">
+        <button
+          className="btn d-flex gap-2 align-items-center border-0 p-0 ts-fs-20 text-uppercase fw-medium mb-2"
+          onClick={toggleList}
+        >
+          {isListOpen ? (
+            <MinusSquare Width="20" Height="20" />
+          ) : (
+            <PlusSquare Width="20" Height="20" />
+          )}
+          {data.title}
+        </button>
+
+        {isListOpen && data.SubList && (
+          <ul className="ts-list-data ps-5 list-unstyled">
+            {data.SubList.map((subItem, index) => (
+              <ListDetailsItem key={index} data={subItem} />
+            ))}
+          </ul>
+        )}
+
+        {isListOpen && data.data && (
+          <ul className="ts-list-data ps-5 list-unstyled">
+            {/* Render data elements */}
+            {Object.entries(data.data).map(([key, value], index) => (
+              <li key={index}>
+                <h4 className="ts-fs-20">{value}</h4>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
   );
 }
 

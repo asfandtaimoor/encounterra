@@ -305,3 +305,11 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   display: none;
 }
+
+.ts-list-data-left {
+  border-bottom: 1px solid $color-primary;
+  @media (min-width: 992px) {
+    border: 0;
+    border-right: 1px solid $color-primary;
+  }
+}
