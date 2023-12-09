@@ -23,6 +23,11 @@ body {
   background-color: $color-bg;
   font-family: "Roboto", sans-serif;
 }
+.modal,
+body {
+  padding-right: 0 !important;
+}
+
 // * {
 //   color: $color-gray-2;
 // }
@@ -45,5 +50,8 @@ a {
 }
 
 .btn {
-  box-shadow: none;
+  box-shadow: none !important;
+  &:focus {
+    box-shadow: none !important;
+  }
 }

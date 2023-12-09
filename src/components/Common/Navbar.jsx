@@ -57,11 +57,13 @@ function Modals() {
   const [showCreateAccount, setShowCreateAccount] = useState(false);
 
   const handleCloseResetPassword = () => setShowResetPassword(false);
-  const handleShowResetPassword = () => {
+
+  const handleShowForgetPassword = () => {
     setShowResetPassword(true);
-    setShowCreateAccount(false);
-    setShowResetPassword(false);
+    handleCloseLogin();
+    handleCloseCreateAccount();
   };
+
   const handleCloseLogin = () => setShowLogin(false);
   const handleShowLogin = () => {
     setShowLogin(true);
@@ -76,22 +78,12 @@ function Modals() {
 
   return (
     <>
-      {/* Reset Password Button */}
-      {/* <Button variant="primary" onClick={handleShowResetPassword}>
-        Reset Password Button
-      </Button> */}
-      {/* Login Button */}
       <Button
         className="ts-btn ts-btn-primary px-3 px-sm-4"
         onClick={handleShowLogin}
       >
         Login
       </Button>
-      {/* Create Account Button */}
-      {/* <Button variant="primary" onClick={handleShowCreateAccount}>
-        Create Account Button
-      </Button> */}
-
       {/* Reset Password Modal */}
       <Modal
         show={showResetPassword}
@@ -148,7 +140,8 @@ function Modals() {
                 <span>Password</span>
                 <span
                   className="ts-link btn-link "
-                  onClick={handleShowResetPassword}
+                  onClick={handleShowForgetPassword}
+                  role="button"
                 >
                   Forgot Password?
                 </span>
@@ -217,7 +210,8 @@ function Modals() {
                 <span>Password</span>
                 <span
                   className="ts-link btn-link "
-                  onClick={handleShowResetPassword}
+                  onClick={handleShowForgetPassword}
+                  role="button"
                 >
                   Forgot Password?
                 </span>
