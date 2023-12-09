@@ -10,7 +10,7 @@ import { ExclamationCircle } from "@/Icons/index";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-import { Instagram, Facebook, Twitter, Discord } from "@/Icons/index";
+// import { Instagram, Facebook, Twitter, Discord } from "@/Icons/index";
 function Header() {
   return (
     <div className="ts-header">
