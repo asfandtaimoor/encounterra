@@ -13,39 +13,40 @@ import Modal from "react-bootstrap/Modal";
 // import { Instagram, Facebook, Twitter, Discord } from "@/Icons/index";
 function Header() {
   return (
-    <div className="ts-header">
-      <Container fluid className="ts-container">
-        <div className="ts-header__main d-flex justify-content-between align-items-center">
-          <div className=" ts-gap-20">
-            <Image
-              src="/images/logo-sm.png"
-              alt="Vercel Logo"
-              className={""}
-              width={77}
-              height={79}
-              priority
-            />
-          </div>
+    <h1>Workin</h1>
+    // <div className="ts-header">
+    //   <Container fluid className="ts-container">
+    //     <div className="ts-header__main d-flex justify-content-between align-items-center">
+    //       <div className=" ts-gap-20">
+    //         <Image
+    //           src="/images/logo-sm.png"
+    //           alt="Vercel Logo"
+    //           className={""}
+    //           width={77}
+    //           height={79}
+    //           priority
+    //         />
+    //       </div>
 
-          <div className="d-flex gap-2  gap-sm-3 align-items-center">
-            <div className="d-flex gap-2  gap-sm-3 align-items-center">
-              <p className="text-uppercase text-white mb-0">200 credits</p>
-              <OverlayTrigger
-                overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
-              >
-                <span className="d-inline-block ">
-                  <ExclamationCircle Width="18" Height="16" Stroke="#008170" />
-                </span>
-              </OverlayTrigger>
-            </div>
-            <div class="d-none d-sm-block vr"></div>
-            {/* <p className="text-uppercase mb-0">user name</p>
-            <Person Width="36" Height="36" Fill="#fff" /> */}
-            <Modals />
-          </div>
-        </div>
-      </Container>
-    </div>
+    //       <div className="d-flex gap-2  gap-sm-3 align-items-center">
+    //         <div className="d-flex gap-2  gap-sm-3 align-items-center">
+    //           <p className="text-uppercase text-white mb-0">200 credits</p>
+    //           <OverlayTrigger
+    //             overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
+    //           >
+    //             <span className="d-inline-block ">
+    //               <ExclamationCircle Width="18" Height="16" Stroke="#008170" />
+    //             </span>
+    //           </OverlayTrigger>
+    //         </div>
+    //         <div class="d-none d-sm-block vr"></div>
+    //         {/* <p className="text-uppercase mb-0">user name</p>
+    //         <Person Width="36" Height="36" Fill="#fff" /> */}
+    //         <Modals />
+    //       </div>
+    //     </div>
+    //   </Container>
+    // </div>
   );
 }
 
