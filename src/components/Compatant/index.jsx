@@ -140,6 +140,7 @@ function ListData() {
     },
     {
       title: "monsters",
+      data: ["brown bear", "snow white"],
     },
   ];
 
@@ -149,9 +150,11 @@ function ListData() {
         <input type="text" class="form-control" placeholder="Search" />
       </div>
 
-      {DataList.map((item, index) => {
-        return <ListDetailsItem key={index} data={item} />;
-      })}
+      <div className="ts-data-list-container">
+        {DataList.map((item, index) => {
+          return <ListDetailsItem key={index} data={item} />;
+        })}
+      </div>
     </div>
   );
 }
@@ -190,7 +193,7 @@ function ListDetailsItem({ data }) {
             {/* Render data elements */}
             {Object.entries(data.data).map(([key, value], index) => (
               <li key={index}>
-                <h4 className="ts-fs-20">{value}</h4>
+                <h4 className="ts-fs-18 text-uppercase">{value}</h4>
               </li>
             ))}
           </ul>

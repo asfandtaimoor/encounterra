@@ -313,3 +313,22 @@ input::-webkit-inner-spin-button {
     border-right: 1px solid $color-primary;
   }
 }
+
+.ts-data-list-container {
+  height: 300px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
