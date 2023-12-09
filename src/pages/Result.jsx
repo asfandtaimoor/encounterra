@@ -204,7 +204,7 @@ function AccordionItem({ key, data }) {
   return (
     <Accordion.Item eventKey={data.id}>
       <Accordion.Header>
-        <div className="row row-cols-2 row-cols-md-4 w-100 ">
+        <div className="row row-cols-2 row-cols-md-4 w-100 ts-text-gray-2">
           <div className="text-center mb-4 mb-md-0">
             <h3 className="ts-fs-22 text-uppercase fw-bold">DATE</h3>
             <p className="ts-fs-20 fw-medium mb-0">01-11-2023</p>
