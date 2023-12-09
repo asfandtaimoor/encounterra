@@ -25,12 +25,12 @@ function Header() {
             />
           </div>
 
-          <div className="d-flex gap-3 align-items-center">
-            <div className="d-flex gap-3 align-items-center">
+          <div className="d-flex gap-2  gap-sm-3 align-items-center">
+            <div className="d-flex gap-2  gap-sm-3 align-items-center">
               <p className="text-uppercase text-white mb-0">200 credits</p>
               <ExclamationCircle Width="18" Height="16" Stroke="#008170" />
             </div>
-            <div class="vr"></div>
+            <div class="d-none d-sm-block vr"></div>
             {/* <p className="text-uppercase mb-0">user name</p>
             <Person Width="36" Height="36" Fill="#fff" /> */}
             <Modals />
@@ -69,7 +69,10 @@ function Modals() {
         Reset Password Button
       </Button> */}
       {/* Login Button */}
-      <Button className="ts-btn ts-btn-primary" onClick={handleShowLogin}>
+      <Button
+        className="ts-btn ts-btn-primary px-3 px-sm-4"
+        onClick={handleShowLogin}
+      >
         Login
       </Button>
       {/* Create Account Button */}
