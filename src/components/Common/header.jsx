@@ -5,7 +5,7 @@ import { Container, Form } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
-import { ExclamationCircle, Person } from "@/Icons/index";
+import { ExclamationCircle } from "@/Icons/index";
 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
