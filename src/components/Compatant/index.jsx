@@ -4,6 +4,7 @@ import {
   Close,
   MinusSquare,
   PlusSquare,
+  Search,
 } from "@/Icons/index";
 import CartIncrementDecrement from "./CartIncrementDecrement";
 function index() {
@@ -146,8 +147,11 @@ function ListData() {
 
   return (
     <div>
-      <div class="mb-3">
+      <div class="ts-searchbar mb-3">
         <input type="text" class="form-control" placeholder="Search" />
+        <button className="btn p-0 border-0 ts-search-btn">
+          <Search Width="20" Height="20" />
+        </button>
       </div>
 
       <div className="ts-data-list-container">
