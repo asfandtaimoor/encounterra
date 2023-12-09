@@ -94,7 +94,7 @@ function Combatants() {
 
       <Skills />
 
-      <div className="d-flex justify-content-center gap-4">
+      <div className="d-flex flex-column flex-sm-row justify-content-center gap-4">
         <button
           className="btn ts-btn ts-fs-20 fw-bold ts-btn-primary text-uppercase  py-2"
           style={{ lineHeight: "140%" }}

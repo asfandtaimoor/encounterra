@@ -38,7 +38,7 @@ function RecourceLevel() {
                       type="radio"
                       name="teamblue"
                       id="teamblueAllIn"
-                      checked
+                      defaultChecked
                     />
                     <label
                       class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
@@ -97,7 +97,7 @@ function RecourceLevel() {
                       type="radio"
                       name="teamred"
                       id="teamredAllIn"
-                      checked
+                      defaultChecked
                     />
                     <label
                       class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
