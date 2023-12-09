@@ -1,8 +1,9 @@
 import Head from "next/head";
 
-// import Header from "@/components/Common/Header";
+import Navbar from "@/components/Common/Navbar";
 import Footer from "@/components/Common/Footer";
 import SocialMedia from "@/components/Common/SocialMedia";
+import { ArrowLeft } from "@/Icons/index";
 
 export default function Home() {
   return (
@@ -14,17 +15,20 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        {/* <Header /> */}
+        <Navbar />
         <div className="d-none d-lg-block">
           <SocialMedia />
         </div>
         <div className="my-5">
           <div className="ts-container">
             <a
-              className="ts-btn ts-btn-gray rounded-3  px-4 d-inline-block mb-04"
+              className="ts-btn ts-btn-gray rounded-3  px-3 d-inline-flex  align-items-center mb-04"
               href="./"
             >
               {" "}
+              <span className="me-2">
+                <ArrowLeft Width="16" Height="16" Fill="white" />
+              </span>
               Back
             </a>
 
