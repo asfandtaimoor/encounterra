@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Container, Tab, Nav } from "react-bootstrap";
 
-import Header from "../components/Common/Header";
+import Header from "@/components/Common/Header";
 import Footer from "@/components/Common/Footer";
 import MapMain from "@/components/Map";
 import SocialMedia from "@/components/Common/SocialMedia";
