@@ -257,21 +257,21 @@ function Modals() {
   );
 }
 
-function ModalSocialMedia() {
-  return (
-    <nav className="d-flex justify-content-center  gap-4 flex-wrap">
-      <a className="ts-modal__sociallink" href="#">
-        <Discord Width="31" Height="25" Fill="#808080" />
-      </a>
-      <a className="ts-modal__sociallink" href="#">
-        <Facebook Width="31" Height="25" Fill="#808080" />
-      </a>
-      <a className="ts-modal__sociallink" href="#">
-        <Instagram Width="31" Height="25" Fill="#808080" />
-      </a>
-      <a className="ts-modal__sociallink" href="#">
-        <Twitter Width="31" Height="25" Fill="#808080" />
-      </a>
-    </nav>
-  );
-}
+// function ModalSocialMedia() {
+//   return (
+//     <nav className="d-flex justify-content-center  gap-4 flex-wrap">
+//       <a className="ts-modal__sociallink" href="#">
+//         <Discord Width="31" Height="25" Fill="#808080" />
+//       </a>
+//       <a className="ts-modal__sociallink" href="#">
+//         <Facebook Width="31" Height="25" Fill="#808080" />
+//       </a>
+//       <a className="ts-modal__sociallink" href="#">
+//         <Instagram Width="31" Height="25" Fill="#808080" />
+//       </a>
+//       <a className="ts-modal__sociallink" href="#">
+//         <Twitter Width="31" Height="25" Fill="#808080" />
+//       </a>
+//     </nav>
+//   );
+// }
