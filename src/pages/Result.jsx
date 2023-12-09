@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-import Header from "@/components/Common/Header";
+// import Header from "@/components/Common/Header";
 import Footer from "@/components/Common/Footer";
 import SocialMedia from "@/components/Common/SocialMedia";
 
@@ -14,7 +14,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Header />
+        {/* <Header /> */}
         <div className="d-none d-lg-block">
           <SocialMedia />
         </div>
