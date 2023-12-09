@@ -6,7 +6,7 @@
 
 .ts-fs {
   &-40 {
-    font-size: clamp(2rem, 3.5vw, 2.5rem);
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
   }
   &-35 {
     font-size: clamp(1.9rem, 3.2vw, 2.1875rem);
@@ -22,5 +22,13 @@
   }
   &-18 {
     font-size: clamp(1.05rem, 2vw, 1.125rem);
+  }
+}
+
+.btn-link {
+  color: $color-primary;
+  text-decoration: none;
+  &:hover {
+    color: $color-primary;
   }
 }

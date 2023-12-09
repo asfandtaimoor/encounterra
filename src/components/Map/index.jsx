@@ -1,7 +1,9 @@
 import React from "react";
 import Image from "next/image";
 
-import { Form } from "react-bootstrap";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+
 import { ExclamationCircle } from "@/Icons/index";
 
 const MapList = [
@@ -26,8 +28,8 @@ function index() {
   return (
     <div>
       <section>
-        <Header />
         <div className="mx-auto" style={{ maxWidth: "920px" }}>
+          <Header />
           <div className="row row-cols-sm-2">
             {MapList.map((map, index) => {
               return (
@@ -57,38 +59,64 @@ export default index;
 function Header() {
   return (
     <header className="ts-map-card__header mb-08">
-      <div className="d-flex flex-wrap align-items-center gap-3">
-        <h1 className="ts-fs-22 mb-0 text-uppercase">Startting Point</h1>{" "}
-        <div class="vr"></div>
-        <div className="d-flex  gap-3 align-items-center">
-          <div class="form-check d-flex align-items-center gap-3">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="startingpoint"
-              id="RANDOM"
-              checked
-            />
-            <label
-              class="form-check-label ts-fs-22 fw-medium text-uppercase"
-              for="RANDOM"
-            >
-              RANDOM
-            </label>
-          </div>
-          <div class="form-check d-flex align-items-center gap-3">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="startingpoint"
-              id="TWOSIDES1"
-            />
-            <label
-              class="form-check-label ts-fs-22 fw-medium text-uppercase"
-              for="TWOSIDES1"
-            >
-              TWO SIDES
-            </label>
+      <div className="d-flex flex-wrap align-items-center justify-content-center gap-2 gap-sm-3">
+        <h1 className="ts-fs-22 mb-0 text-uppercase text-center text-sm-start">
+          Startting Point
+        </h1>{" "}
+        <div class="vr d-none d-sm-block my-1"></div>
+        <div className="flex-grow-1 px-4">
+          <div className="row   align-items-center">
+            <div class="col-6 col-lg-5 form-check d-flex align-items-center gap-3">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="startingpoint"
+                id="RANDOM"
+                defaultChecked
+              />
+              <label
+                class="form-check-label ts-fs-22 fw-medium text-uppercase d-flex align-items-center gap-2"
+                for="RANDOM"
+              >
+                <span>RANDOM</span>
+                <OverlayTrigger
+                  overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
+                >
+                  <span className="d-inline-block ">
+                    <ExclamationCircle
+                      Width="18"
+                      Height="16"
+                      Stroke="#008170"
+                    />
+                  </span>
+                </OverlayTrigger>
+              </label>
+            </div>
+            <div class="col-6 col-lg-5 form-check d-flex align-items-center gap-3">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="startingpoint"
+                id="TWOSIDES1"
+              />
+              <label
+                class="form-check-label ts-fs-22 fw-medium text-uppercase d-flex align-items-center gap-2"
+                for="TWOSIDES1"
+              >
+                <span>TWO SIDES</span>
+                <OverlayTrigger
+                  overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
+                >
+                  <span className="d-inline-block ">
+                    <ExclamationCircle
+                      Width="18"
+                      Height="16"
+                      Stroke="#008170"
+                    />
+                  </span>
+                </OverlayTrigger>
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -102,7 +130,7 @@ function MapCard({ Title, ImageSrc }) {
         <span className="ts-map-card__tag  fw-bold ts-fs-22 ts-text-gray-2">
           <span className="d-inline-flex align-items-center gap-2 text-uppercase">
             {Title}
-            <ExclamationCircle Width="20" Height="20" Stroke="#6B7280" />
+            <ExclamationCircle Width="20" Height="20" Stroke="#008170" />
           </span>
         </span>
       </div>

@@ -1,5 +1,6 @@
-import React from "react";
-import Image from "next/image";
+import React, { useState } from "react";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 import { ExclamationCircle, PlusFill, MinusFill } from "@/Icons/index";
 
@@ -159,6 +160,18 @@ function RecourceLevel() {
 }
 
 function Iteration() {
+  const [iterationValue, setIterationValue] = useState(150);
+
+  const handleIncrement = () => {
+    setIterationValue(iterationValue + 1);
+  };
+
+  const handleDecrement = () => {
+    if (iterationValue > 0) {
+      setIterationValue(iterationValue - 1);
+    }
+  };
+
   return (
     <div className="ts-map-card__header mb-08">
       <div className="d-flex flex-wrap align-items-center justify-content-between gap-3">
@@ -167,22 +180,28 @@ function Iteration() {
         </h1>{" "}
         <div className="d-flex  gap-3 align-items-center ">
           <div className="d-flex gap-3">
-            <button className="btn border-0 p-0">
+            <button className="btn border-0 p-0" onClick={handleDecrement}>
               <MinusFill Width="28" Height="28" Fill="white" />
             </button>
             <input
               style={{ width: "140px" }}
               type="number"
-              class="form-control text-center fw-bold"
-              value="150"
+              className="form-control text-center fw-bold"
+              value={iterationValue}
+              readOnly
             />
-
-            <button className="btn border-0 y p-0">
+            <button className="btn border-0 y p-0" onClick={handleIncrement}>
               <PlusFill Width="28" Height="28" Fill="white" />
             </button>
           </div>
-          <div class=" d-flex align-items-center gap-3">
-            <ExclamationCircle Width="18" Height="16" Stroke="#6B7280 " />
+          <div className="d-flex align-items-center gap-3">
+            <OverlayTrigger
+              overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
+            >
+              <span className="d-inline-block ">
+                <ExclamationCircle Width="18" Height="16" Stroke="#6B7280" />
+              </span>
+            </OverlayTrigger>
           </div>
         </div>
       </div>

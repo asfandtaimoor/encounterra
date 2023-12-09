@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+
 import {
   ExclamationCircle,
   Close,
@@ -215,7 +218,17 @@ function Skills() {
           <div className="ts-skill-tag text-uppercase ">
             <div className="d-flex align-items-center justify-content-between gap-4">
               <div className="d-flex align-items-center gap-2">
-                <ExclamationCircle Width="21" Height="19" Stroke="#6B7280" />
+                <OverlayTrigger
+                  overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
+                >
+                  <span className="d-inline-block ">
+                    <ExclamationCircle
+                      Width="18"
+                      Height="16"
+                      Stroke="#6b7280"
+                    />
+                  </span>
+                </OverlayTrigger>
                 <h2 className="ts-fs-20 fw-bold mb-0">rocketless attack</h2>
               </div>
               <button className="btn p-0 border-0">
@@ -226,7 +239,17 @@ function Skills() {
           <div className="ts-skill-tag text-uppercase ">
             <div className="d-flex align-items-center justify-content-between gap-4">
               <div className="d-flex align-items-center gap-2">
-                <ExclamationCircle Width="21" Height="19" Stroke="#6B7280" />
+                <OverlayTrigger
+                  overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
+                >
+                  <span className="d-inline-block ">
+                    <ExclamationCircle
+                      Width="18"
+                      Height="16"
+                      Stroke="#6b7280"
+                    />
+                  </span>
+                </OverlayTrigger>
                 <h2 className="ts-fs-20 fw-bold mb-0">rocketless attack</h2>
               </div>
               <button className="btn p-0 border-0">
@@ -237,7 +260,17 @@ function Skills() {
           <div className="ts-skill-tag text-uppercase ">
             <div className="d-flex align-items-center justify-content-between gap-4">
               <div className="d-flex align-items-center gap-2">
-                <ExclamationCircle Width="21" Height="19" Stroke="#6B7280" />
+                <OverlayTrigger
+                  overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
+                >
+                  <span className="d-inline-block ">
+                    <ExclamationCircle
+                      Width="18"
+                      Height="16"
+                      Stroke="#6b7280"
+                    />
+                  </span>
+                </OverlayTrigger>
                 <h2 className="ts-fs-20 fw-bold mb-0">rocketless attack</h2>
               </div>
               <button className="btn p-0 border-0">
@@ -248,7 +281,17 @@ function Skills() {
           <div className="ts-skill-tag text-uppercase ">
             <div className="d-flex align-items-center justify-content-between gap-4">
               <div className="d-flex align-items-center gap-2">
-                <ExclamationCircle Width="21" Height="19" Stroke="#6B7280" />
+                <OverlayTrigger
+                  overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
+                >
+                  <span className="d-inline-block ">
+                    <ExclamationCircle
+                      Width="18"
+                      Height="16"
+                      Stroke="#6b7280"
+                    />
+                  </span>
+                </OverlayTrigger>
                 <h2 className="ts-fs-20 fw-bold mb-0">rocketless attack</h2>
               </div>
               <button className="btn p-0 border-0">
@@ -259,7 +302,17 @@ function Skills() {
           <div className="ts-skill-tag text-uppercase ">
             <div className="d-flex align-items-center justify-content-between gap-4">
               <div className="d-flex align-items-center gap-2">
-                <ExclamationCircle Width="21" Height="19" Stroke="#6B7280" />
+                <OverlayTrigger
+                  overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
+                >
+                  <span className="d-inline-block ">
+                    <ExclamationCircle
+                      Width="18"
+                      Height="16"
+                      Stroke="#6b7280"
+                    />
+                  </span>
+                </OverlayTrigger>
                 <h2 className="ts-fs-20 fw-bold mb-0">rocketless attack</h2>
               </div>
               <button className="btn p-0 border-0">

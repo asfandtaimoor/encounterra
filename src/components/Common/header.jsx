@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 import { Container, Form } from "react-bootstrap";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 import { ExclamationCircle, Person } from "@/Icons/index";
 
@@ -28,7 +30,13 @@ function Header() {
           <div className="d-flex gap-2  gap-sm-3 align-items-center">
             <div className="d-flex gap-2  gap-sm-3 align-items-center">
               <p className="text-uppercase text-white mb-0">200 credits</p>
-              <ExclamationCircle Width="18" Height="16" Stroke="#008170" />
+              <OverlayTrigger
+                overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
+              >
+                <span className="d-inline-block ">
+                  <ExclamationCircle Width="18" Height="16" Stroke="#008170" />
+                </span>
+              </OverlayTrigger>
             </div>
             <div class="d-none d-sm-block vr"></div>
             {/* <p className="text-uppercase mb-0">user name</p>
@@ -40,6 +48,7 @@ function Header() {
     </div>
   );
 }
+
 export default Header;
 
 function Modals() {
@@ -48,8 +57,11 @@ function Modals() {
   const [showCreateAccount, setShowCreateAccount] = useState(false);
 
   const handleCloseResetPassword = () => setShowResetPassword(false);
-  const handleShowResetPassword = () => setShowResetPassword(true);
-
+  const handleShowResetPassword = () => {
+    setShowResetPassword(true);
+    setShowCreateAccount(false);
+    setShowResetPassword(false);
+  };
   const handleCloseLogin = () => setShowLogin(false);
   const handleShowLogin = () => {
     setShowLogin(true);
@@ -90,32 +102,20 @@ function Modals() {
       >
         <Modal.Header className="border-0" closeButton></Modal.Header>
         <Modal.Body>
-          <h1 className="ts-heading-font fw-bold text-uppercase ts-fs-40 ts-text-gray-6 text-center mb-08">
-            reset password
+          <h1 className="ts-heading-font fw-bold text-uppercase ts-fs-35 ts-text-gray-6 text-center mb-08">
+            Forget password
           </h1>{" "}
           <Form className="mb-5">
             <Form.Group className="mb-4">
-              <Form.Label className="ts-text-gray-5 ts-fs-22 fw-medium">
-                Old Password
+              <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium">
+                Email
               </Form.Label>
-              <Form.Control size="lg" type="password" />
-            </Form.Group>
-            <Form.Group className="mb-4">
-              <Form.Label className="ts-text-gray-5 ts-fs-22 fw-medium">
-                New Password
-              </Form.Label>
-              <Form.Control size="lg" type="password" />
-            </Form.Group>
-            <Form.Group className="mb-4">
-              <Form.Label className="ts-text-gray-5 ts-fs-22 fw-medium">
-                Confirm New Password
-              </Form.Label>
-              <Form.Control size="lg" type="password" />
+              <Form.Control size="lg" type="email" />
             </Form.Group>
           </Form>
           <div className="text-center">
-            <button class="btn ts-btn ts-btn--lg ts-fs-22 fw-bold ts-btn-primary text-uppercase mb-06">
-              update password
+            <button class="btn ts-btn ts-btn--lg ts-fs-20 fw-bold ts-btn-primary text-uppercase mb-06">
+              Continue
             </button>
           </div>
         </Modal.Body>
@@ -132,59 +132,55 @@ function Modals() {
         <Modal.Header className="border-0" closeButton></Modal.Header>
         <Modal.Body>
           {/* ... (Login form structure) */}
-          <h1 className="ts-heading-font fw-bold text-uppercase ts-fs-40 ts-text-gray-6 text-center mb-08">
+          <h1 className="ts-heading-font fw-bold text-uppercase ts-fs-35 ts-text-gray-6 text-center mb-08">
             creat new account
           </h1>{" "}
           <Form className="mb-5">
             <Form.Group className="mb-4">
-              <Form.Label className="ts-text-gray-5 ts-fs-22 fw-medium">
+              <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium">
                 Email Address
               </Form.Label>
               <Form.Control size="lg" type="email" />
             </Form.Group>
 
             <Form.Group className="mb-4">
-              <div className="d-flex justify-content-between">
-                <Form.Label className="ts-text-gray-5 ts-fs-22 fw-medium">
-                  Password
-                </Form.Label>
-                {/* Forget Password Button */}
-                <Button
-                  className="ts-link"
-                  href="#"
-                  variant="link"
+              <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium d-flex justify-content-between ">
+                <span>Password</span>
+                <span
+                  className="ts-link btn-link "
                   onClick={handleShowResetPassword}
                 >
                   Forgot Password?
-                </Button>
-              </div>
+                </span>
+              </Form.Label>
               <Form.Control size="lg" type="password" />
             </Form.Group>
           </Form>
           <div className="text-center">
-            <button class="btn ts-btn ts-btn--lg ts-fs-22 fw-bold ts-btn-primary text-uppercase mb-5">
+            <button class="btn ts-btn ts-btn--lg ts-fs-20 fw-bold ts-btn-primary text-uppercase mb-05">
               Continue
             </button>
           </div>
-          <div class="ts-separator mb-5">
+          {/* Login In With Social Media */}
+          {/* <div class="ts-separator mb-5">
             <div class="line "></div>
-            <h2 className="text-uppercase ts-fs-22 fw-bold ts-text-gray-6 mb-0 mx-3">
+            <h2 className="text-uppercase ts-fs-20 fw-bold ts-text-gray-6 mb-0 mx-3">
               or log in with
             </h2>
             <div class="line"></div>
           </div>
           <div className="mb-07">
             <ModalSocialMedia />
-          </div>
+          </div> */}
           <p className="text-center">
             Don’t have an Account?
-            <Button
-              className="p-0 ms-2"
-              variant="link"
+            <span
+              className="p-0 ms-2 btn-link"
               onClick={handleShowCreateAccount}
+              role="button"
             >
               Sign up here
-            </Button>
+            </span>
           </p>
         </Modal.Body>
       </Modal>
@@ -200,55 +196,51 @@ function Modals() {
         <Modal.Header className="border-0" closeButton></Modal.Header>
         <Modal.Body>
           {/* ... (Login form structure) */}
-          <h1 className="ts-heading-font fw-bold text-uppercase ts-fs-40 ts-text-gray-6 text-center mb-08">
+          <h1 className="ts-heading-font fw-bold text-uppercase ts-fs-35 ts-text-gray-6 text-center mb-08">
             creat new account
           </h1>{" "}
           <Form className="mb-5">
             <Form.Group className="mb-4">
-              <Form.Label className="ts-text-gray-5 ts-fs-22 fw-medium">
+              <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium">
                 Email Address
               </Form.Label>
               <Form.Control size="lg" type="email" />
             </Form.Group>
             <Form.Group className="mb-4">
-              <Form.Label className="ts-text-gray-5 ts-fs-22 fw-medium">
+              <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium">
                 Phone
               </Form.Label>
               <Form.Control size="lg" type="tel" />
             </Form.Group>
             <Form.Group className="mb-4">
-              <div className="d-flex justify-content-between">
-                <Form.Label className="ts-text-gray-5 ts-fs-22 fw-medium">
-                  Password
-                </Form.Label>
-                {/* Forget Password Button */}
-                <Button
-                  className="ts-link"
-                  href="#"
-                  variant="link"
+              <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium d-flex justify-content-between ">
+                <span>Password</span>
+                <span
+                  className="ts-link btn-link "
                   onClick={handleShowResetPassword}
                 >
                   Forgot Password?
-                </Button>
-              </div>
+                </span>
+              </Form.Label>
               <Form.Control size="lg" type="password" />
             </Form.Group>
           </Form>
           <div className="text-center">
-            <button class="btn ts-btn ts-btn--lg ts-fs-22 fw-bold ts-btn-primary text-uppercase mb-5">
+            <button class="btn ts-btn ts-btn--lg ts-fs-20 fw-bold ts-btn-primary text-uppercase mb-05">
               Continue
             </button>
           </div>
-          <div class="ts-separator mb-5">
+          {/* Login In With Social Media */}
+          {/* <div class="ts-separator mb-5">
             <div class="line "></div>
-            <h2 className="text-uppercase ts-fs-22 fw-bold ts-text-gray-6 mb-0 mx-3">
+            <h2 className="text-uppercase ts-fs-20 fw-bold ts-text-gray-6 mb-0 mx-3">
               or log in with
             </h2>
             <div class="line"></div>
           </div>
           <div className="mb-07">
             <ModalSocialMedia />
-          </div>
+          </div> */}
           <p className="text-center">
             Already have an account?
             <Button
