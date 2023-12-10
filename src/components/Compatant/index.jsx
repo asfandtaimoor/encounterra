@@ -79,9 +79,7 @@ function Combatants() {
               </div>
             </div>
             <div>
-              <h2 className="ts-fs-22 text-uppercase fw-bold mb-06">
-                saving throws
-              </h2>
+              <h2 className="ts-fs-22 text-uppercase fw-bold mb-06">Skills</h2>
               <div className="d-flex gap-3 flex-wrap">
                 {SkillsData.map((skill, index) => (
                   <CartIncrementDecrement
@@ -329,10 +327,6 @@ function Skills() {
 function Results() {
   return (
     <section className="ts-card-2">
-      <h1 className="ts-fs-40 ts-heading-font fw-bold ts-text-gray-2 text-center mb-07">
-        RESULTS
-      </h1>
-
       <div className="mx-auto ts-text-gray-2">
         <div className="row row-cols-md-2 gap-4 gap-md-0 mb-10">
           <div>

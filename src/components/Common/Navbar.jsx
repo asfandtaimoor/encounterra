@@ -125,7 +125,7 @@ function Modals() {
         <Modal.Body>
           {/* ... (Login form structure) */}
           <h1 className="ts-heading-font fw-bold text-uppercase ts-fs-35 ts-text-gray-6 text-center mb-08">
-            creat new account
+            Login
           </h1>{" "}
           <Form className="mb-5">
             <Form.Group className="mb-4">
@@ -199,12 +199,7 @@ function Modals() {
               </Form.Label>
               <Form.Control size="lg" type="email" />
             </Form.Group>
-            <Form.Group className="mb-4">
-              <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium">
-                Phone
-              </Form.Label>
-              <Form.Control size="lg" type="tel" />
-            </Form.Group>
+
             <Form.Group className="mb-4">
               <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium d-flex justify-content-between ">
                 <span>Password</span>
@@ -215,6 +210,12 @@ function Modals() {
                 >
                   Forgot Password?
                 </span>
+              </Form.Label>
+              <Form.Control size="lg" type="password" />
+            </Form.Group>
+            <Form.Group className="mb-4">
+              <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium ">
+                <span>Repeat Password</span>
               </Form.Label>
               <Form.Control size="lg" type="password" />
             </Form.Group>

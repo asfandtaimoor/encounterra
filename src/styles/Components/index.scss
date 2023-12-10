@@ -60,6 +60,8 @@
   border-radius: 10px;
   padding: clamp(12px, 3vw, 1.5rem);
   box-shadow: 0px 5px 10px 0px rgba(100, 100, 111, 0.2);
+  border: 2px solid white;
+  cursor: pointer;
   &__header {
     background-color: white;
     border-radius: 10px;
@@ -71,7 +73,11 @@
   &__tag {
     border: 2px solid $color-gray-10;
     border-radius: 7px;
-    padding: 0.25rem clamp(1rem, 3vw, 2.6rem);
+    padding: 0.25rem 0.5rem;
+  }
+
+  &--selected {
+    border-color: $color-primary;
   }
 }
 

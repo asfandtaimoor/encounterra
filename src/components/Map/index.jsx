@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -24,7 +24,12 @@ const MapList = [
     imageSrc: "/images/hallway.png",
   },
 ];
-function index() {
+function Index() {
+  const [selectedMap, setSelectedMap] = useState(null);
+  const handleMapCardClick = (index) => {
+    setSelectedMap(index);
+  };
+
   return (
     <div>
       <section>
@@ -34,7 +39,12 @@ function index() {
             {MapList.map((map, index) => {
               return (
                 <div className="mb-4" key={index}>
-                  <MapCard Title={map.title} ImageSrc={map.imageSrc} />
+                  <MapCard
+                    Title={map.title}
+                    ImageSrc={map.imageSrc}
+                    onClick={() => handleMapCardClick(index)}
+                    isSelected={selectedMap === index}
+                  />
                 </div>
               );
             })}
@@ -54,7 +64,7 @@ function index() {
   );
 }
 
-export default index;
+export default Index;
 
 function Header() {
   return (
@@ -123,16 +133,25 @@ function Header() {
     </header>
   );
 }
-function MapCard({ Title, ImageSrc }) {
+function MapCard({ Title, ImageSrc, onClick, isSelected }) {
   return (
-    <div className="ts-map-card h-100 d-flex flex-column">
+    <div
+      className={`ts-map-card h-100 d-flex flex-column ${
+        isSelected ? "ts-map-card--selected" : ""
+      }`}
+      onClick={onClick}
+    >
       <div className="text-center">
-        <span className="ts-map-card__tag  fw-bold ts-fs-22 ts-text-gray-2">
-          <span className="d-inline-flex align-items-center gap-2 text-uppercase">
-            {Title}
-            <ExclamationCircle Width="20" Height="20" Stroke="#008170" />
-          </span>
-        </span>
+        <div className="ts-map-card__tag  fw-bold ts-fs-22 ts-text-gray-2 d-flex align-items-center justify-content-center gap-2 text-uppercase">
+          <span className="text-wrap">{Title}</span>
+          <OverlayTrigger
+            overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
+          >
+            <span className="d-inline-block ">
+              <ExclamationCircle Width="20" Height="20" Stroke="#6B7280" />
+            </span>
+          </OverlayTrigger>
+        </div>
       </div>
       <Image
         src={ImageSrc}
