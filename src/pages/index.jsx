@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from "react";
+
 import Head from "next/head";
 import { Container, Tab, Nav } from "react-bootstrap";
 
@@ -21,6 +23,26 @@ const projectTabs = [
 ];
 
 export default function Home() {
+  const [userData, setUserData] = useState({ email: null, credits: null });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch("https://encounterra.com/api/user_data");
+        if (!response.ok) {
+          console.error("Server response was not OK", response.status);
+          throw new Error("Server response was not OK");
+        }
+        const data = await response.json();
+        setUserData(data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   return (
     <>
       <Head>
@@ -31,6 +53,9 @@ export default function Home() {
       </Head>
       <main>
         <Navbar />
+
+        <h1>Email: {userData.email}</h1>
+
         <div className="d-none d-lg-block">
           <SocialMedia />
         </div>

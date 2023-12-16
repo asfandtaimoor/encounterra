@@ -1,3 +1,22 @@
+// function ModalSocialMedia() {
+//   return (
+//     <nav className="d-flex justify-content-center  gap-4 flex-wrap">
+//       <a className="ts-modal__sociallink" href="#">
+//         <Discord Width="31" Height="25" Fill="#808080" />
+//       </a>
+//       <a className="ts-modal__sociallink" href="#">
+//         <Facebook Width="31" Height="25" Fill="#808080" />
+//       </a>
+//       <a className="ts-modal__sociallink" href="#">
+//         <Instagram Width="31" Height="25" Fill="#808080" />
+//       </a>
+//       <a className="ts-modal__sociallink" href="#">
+//         <Twitter Width="31" Height="25" Fill="#808080" />
+//       </a>
+//     </nav>
+//   );
+// }
+
 import React, { useState } from "react";
 import Image from "next/image";
 
@@ -9,6 +28,8 @@ import { ExclamationCircle } from "@/Icons/index";
 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+
+import Login from "@/components/Login";
 
 // import { Instagram, Facebook, Twitter, Discord } from "@/Icons/index";
 function Navbar() {
@@ -78,79 +99,6 @@ function ResetPasswordModal({ show, handleClose }) {
             Continue
           </button>
         </div>
-      </Modal.Body>
-    </Modal>
-  );
-}
-
-function LoginModal({
-  show,
-  handleClose,
-  handleShowForgetPassword,
-  handleShowCreateAccount,
-}) {
-  return (
-    <Modal
-      show={show}
-      onHide={handleClose}
-      size="md"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header className="border-0" closeButton></Modal.Header>
-      <Modal.Body>
-        {/* ... (Login form structure) */}
-        <h1 className="ts-heading-font fw-bold text-uppercase ts-fs-35 ts-text-gray-6 text-center mb-08">
-          Login
-        </h1>{" "}
-        <Form className="mb-5">
-          <Form.Group className="mb-4">
-            <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium">
-              Email Address
-            </Form.Label>
-            <Form.Control size="lg" type="email" />
-          </Form.Group>
-
-          <Form.Group className="mb-4">
-            <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium d-flex justify-content-between ">
-              <span>Password</span>
-              <span
-                className="ts-link btn-link "
-                onClick={handleShowForgetPassword}
-                role="button"
-              >
-                Forgot Password?
-              </span>
-            </Form.Label>
-            <Form.Control size="lg" type="password" />
-          </Form.Group>
-        </Form>
-        <div className="text-center">
-          <button class="btn ts-btn ts-btn--lg ts-fs-20 fw-bold ts-btn-primary text-uppercase mb-05">
-            Continue
-          </button>
-        </div>
-        {/* Login In With Social Media */}
-        {/* <div class="ts-separator mb-5">
-            <div class="line "></div>
-            <h2 className="text-uppercase ts-fs-20 fw-bold ts-text-gray-6 mb-0 mx-3">
-              or log in with
-            </h2>
-            <div class="line"></div>
-          </div>
-          <div className="mb-07">
-            <ModalSocialMedia />
-          </div> */}
-        <p className="text-center">
-          Don’t have an Account?
-          <span
-            className="p-0 ms-2 btn-link"
-            onClick={handleShowCreateAccount}
-            role="button"
-          >
-            Sign up here
-          </span>
-        </p>
       </Modal.Body>
     </Modal>
   );
@@ -267,7 +215,7 @@ function Modals() {
         handleClose={handleCloseResetPassword}
       />
 
-      <LoginModal
+      <Login
         show={showLogin}
         handleClose={handleCloseLogin}
         handleShowForgetPassword={handleShowForgetPassword}
@@ -283,25 +231,6 @@ function Modals() {
     </>
   );
 }
-
-// function ModalSocialMedia() {
-//   return (
-//     <nav className="d-flex justify-content-center  gap-4 flex-wrap">
-//       <a className="ts-modal__sociallink" href="#">
-//         <Discord Width="31" Height="25" Fill="#808080" />
-//       </a>
-//       <a className="ts-modal__sociallink" href="#">
-//         <Facebook Width="31" Height="25" Fill="#808080" />
-//       </a>
-//       <a className="ts-modal__sociallink" href="#">
-//         <Instagram Width="31" Height="25" Fill="#808080" />
-//       </a>
-//       <a className="ts-modal__sociallink" href="#">
-//         <Twitter Width="31" Height="25" Fill="#808080" />
-//       </a>
-//     </nav>
-//   );
-// }
 
 // Login
 
