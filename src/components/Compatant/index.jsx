@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { updateCombatantDefinition } from "@/redux/reducers/combatantsReducer";
+import { useSelector } from "react-redux";
 
 import {
   ExclamationCircle,
@@ -22,6 +26,9 @@ function index() {
 export default index;
 
 function Combatants() {
+  const [ActiveCombatants, setActiveCombatants] = useState(null);
+  const dispatch = useDispatch();
+
   const configurations = [
     { title: "HP :", value: 15 },
     { title: "AC :", value: 8 },
@@ -41,12 +48,72 @@ function Combatants() {
     { title: "Stealth :", value: 256 },
   ];
 
+  const combatantsDefinition = useSelector(
+    (state) => state.combatantsDefinition
+  );
+
+  // const ActiveMonsters = combatantsDefinition[0];
+
+  const fetchCombatants = async (accessToken) => {
+    try {
+      // Dispatch a loading action to set loading state to true
+      dispatch({ type: "FETCH_COMBATANTS_START" });
+
+      // Use axios or your preferred HTTP client to make the API call
+      const response = await axios.get(
+        "https://encounterra.com/api/combatant-definition",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      console.log("Response:", response.data);
+
+      const data = response.data;
+
+      // Dispatch the combatantDefinition action to update state with the fetched data
+      dispatch(updateCombatantDefinition(data));
+
+      // Dispatch a success action or set loading state to false if needed
+      dispatch({ type: "FETCH_COMBATANTS_SUCCESS" });
+    } catch (error) {
+      console.error("Fetch combatants error:", error);
+
+      // Dispatch an error action to update state with the error message
+      dispatch({
+        type: "FETCH_COMBATANTS_FAILURE",
+        payload: error.message || "An error occurred while fetching combatants",
+      });
+
+      // Propagate the error for the component to handle
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("AccessToken");
+
+    if (accessToken) {
+      fetchCombatants(accessToken);
+      if (combatantsDefinition) {
+        setActiveCombatants(combatantsDefinition[0]);
+      }
+    } else {
+      console.error("Access token not available");
+    }
+  }, [dispatch]);
+
   return (
     <section className="ts-card-2 mb-10">
       <h1 className="ts-fs-40 ts-heading-font fw-bold ts-text-gray-2 text-center mb-07">
         COMBATANTS
       </h1>
 
+      {combatantsDefinition && (
+        <p>Combatant Definition: {JSON.stringify(ActiveCombatants)}</p>
+      )}
       <div className="mx-auto ts-text-gray-2 ts-card-1  mb-10">
         <div className="row gap-4 gap-lg-0 ">
           <div className="col-lg-5 ts-list-data-left pb-3 pb-lg-0">
@@ -55,13 +122,10 @@ function Combatants() {
           <div className="col-lg-7">
             <div className="mb-4">
               <div className="d-flex gap-3 flex-wrap">
-                {configurations.map((val, index) => (
-                  <CartIncrementDecrement
-                    key={index}
-                    Title={val.title}
-                    Value={val.value}
-                  />
-                ))}
+                {ActiveCombatants &&
+                  ActiveCombatants.abilities.map((val, index) => (
+                    <CartIncrementDecrement key={index} Title={val} />
+                  ))}
               </div>
             </div>
             <div className="mb-08">
@@ -69,13 +133,13 @@ function Combatants() {
                 saving throws
               </h2>
               <div className="d-flex gap-3 flex-wrap">
-                {SavingThrought.map((val, index) => (
+                {/* {SavingThrought.map((val, index) => (
                   <CartIncrementDecrement
                     key={index}
                     Title={val.title}
                     Value={val.value}
                   />
-                ))}
+                ))} */}
               </div>
             </div>
             <div>

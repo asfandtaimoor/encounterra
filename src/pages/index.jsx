@@ -9,6 +9,20 @@ import MapMain from "@/components/Map";
 import SocialMedia from "@/components/Common/SocialMedia";
 import Simulation from "@/components/Simulation";
 import Compatant from "@/components/Compatant";
+import { useSelector } from "react-redux";
+
+// import { fetchCombatants } from "@/redux/actions";
+
+// import {
+//   fetchCombatants,
+//   fetchCombatantsStart,
+//   fetchCombatantsSuccess,
+//   fetchCombatantsFailure,
+// } from "./combatantsActions";
+
+import { useDispatch } from "react-redux";
+import { updateCombatantDefinition } from "@/redux/reducers/combatantsReducer";
+import axios from "axios";
 
 const projectTabs = [
   {
@@ -24,24 +38,60 @@ const projectTabs = [
 
 export default function Home() {
   const [userData, setUserData] = useState({ email: null, credits: null });
+  const dispatch = useDispatch();
+  // const { combatantsReducer } = useSelector((state) => state.combatantsReducer);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch("https://encounterra.com/api/user_data");
-        if (!response.ok) {
-          console.error("Server response was not OK", response.status);
-          throw new Error("Server response was not OK");
-        }
-        const data = await response.json();
-        setUserData(data);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
+  // const fetchCombatants = async (accessToken) => {
+  //   try {
+  //     // Dispatch a loading action to set loading state to true
+  //     dispatch({ type: "FETCH_COMBATANTS_START" });
 
-    fetchUserData();
-  }, []);
+  //     // Use axios or your preferred HTTP client to make the API call
+  //     const response = await axios.get(
+  //       "https://encounterra.com/api/combatant-definition",
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //       }
+  //     );
+
+  //     console.log("Response:", response.data);
+
+  //     const data = response.data;
+
+  //     // Dispatch the combatantDefinition action to update state with the fetched data
+  //     dispatch(updateCombatantDefinition(data));
+
+  //     // Dispatch a success action or set loading state to false if needed
+  //     dispatch({ type: "FETCH_COMBATANTS_SUCCESS" });
+  //   } catch (error) {
+  //     console.error("Fetch combatants error:", error);
+
+  //     // Dispatch an error action to update state with the error message
+  //     dispatch({
+  //       type: "FETCH_COMBATANTS_FAILURE",
+  //       payload: error.message || "An error occurred while fetching combatants",
+  //     });
+
+  //     // Propagate the error for the component to handle
+  //     throw error;
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const accessToken = localStorage.getItem("AccessToken");
+
+  //   if (accessToken) {
+  //     fetchCombatants(accessToken);
+  //   } else {
+  //     console.error("Access token not available");
+  //   }
+  // }, [dispatch]);
+
+  const combatantsDefinition = useSelector(
+    (state) => state.combatantsDefinition
+  );
 
   return (
     <>
@@ -54,7 +104,9 @@ export default function Home() {
       <main>
         <Navbar />
 
-        <h1>Email: {userData.email}</h1>
+        {/* Other components and logic */}
+
+        {/* <h1>Combatant Definition: {JSON.stringify(combatantsDefinition)}</h1> */}
 
         <div className="d-none d-lg-block">
           <SocialMedia />

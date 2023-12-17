@@ -37,12 +37,14 @@ export const loginFailure = (error) => ({
   payload: error,
 });
 
-export const combatantDefinition = (combatantDefinition) => ({
+export const combatantsDefinition = (combatantsDefinition) => ({
   type: "COMBATANT_DEFINITION",
-  payload: combatantDefinition,
+  payload: combatantsDefinition,
 });
 
 export const fetchCombatants = (accessToken) => async (dispatch) => {
+  console.log("Fetch combatants");
+
   try {
     // Dispatch a loading action to set loading state to true
     dispatch({ type: "FETCH_COMBATANTS_START" });
@@ -62,8 +64,8 @@ export const fetchCombatants = (accessToken) => async (dispatch) => {
 
     const { data } = response.data;
 
-    // Dispatch the combatantDefinition action to update state with the fetched data
-    dispatch(combatantDefinition(data));
+    // Dispatch the combatantsDefinition action to update state with the fetched data
+    dispatch(combatantsDefinition(data));
 
     // Dispatch a success action or set loading state to false if needed
     dispatch({ type: "FETCH_COMBATANTS_SUCCESS" });
