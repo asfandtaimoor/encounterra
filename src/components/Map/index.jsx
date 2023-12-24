@@ -73,20 +73,20 @@ function Header() {
         <h1 className="ts-fs-22 mb-0 text-uppercase text-center text-sm-start">
           Startting Point
         </h1>{" "}
-        <div class="vr d-none d-sm-block my-1"></div>
+        <div className="vr d-none d-sm-block my-1"></div>
         <div className="flex-grow-1 px-4">
           <div className="row   align-items-center">
-            <div class="col-6 col-lg-5 form-check d-flex align-items-center gap-3">
+            <div className="col-6 col-lg-5 form-check d-flex align-items-center gap-3">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
                 name="startingpoint"
                 id="RANDOM"
                 defaultChecked
               />
               <label
-                class="form-check-label ts-fs-22 fw-medium text-uppercase d-flex align-items-center gap-2"
-                for="RANDOM"
+                className="form-check-label ts-fs-22 fw-medium text-uppercase d-flex align-items-center gap-2"
+                htmlFor="RANDOM"
               >
                 <span>RANDOM</span>
                 <OverlayTrigger
@@ -102,16 +102,16 @@ function Header() {
                 </OverlayTrigger>
               </label>
             </div>
-            <div class="col-6 col-lg-5 form-check d-flex align-items-center gap-3">
+            <div className="col-6 col-lg-5 form-check d-flex align-items-center gap-3">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
                 name="startingpoint"
                 id="TWOSIDES1"
               />
               <label
-                class="form-check-label ts-fs-22 fw-medium text-uppercase d-flex align-items-center gap-2"
-                for="TWOSIDES1"
+                className="form-check-label ts-fs-22 fw-medium text-uppercase d-flex align-items-center gap-2"
+                htmlFor="TWOSIDES1"
               >
                 <span>TWO SIDES</span>
                 <OverlayTrigger

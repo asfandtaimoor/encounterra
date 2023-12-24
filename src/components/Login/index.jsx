@@ -81,7 +81,7 @@ export default function LoginModal({
         </Form>
         <div className="text-center">
           <button
-            class="btn ts-btn ts-btn--lg ts-fs-20 fw-bold ts-btn-primary text-uppercase mb-05"
+            className="btn ts-btn ts-btn--lg ts-fs-20 fw-bold ts-btn-primary text-uppercase mb-05"
             onClick={handleLogin}
           >
             Continue
@@ -106,12 +106,12 @@ export default function LoginModal({
   /* Login In With Social Media */
 }
 {
-  /* <div class="ts-separator mb-5">
-    <div class="line "></div>
+  /* <div className="ts-separator mb-5">
+    <div className="line "></div>
     <h2 className="text-uppercase ts-fs-20 fw-bold ts-text-gray-6 mb-0 mx-3">
       or log in with
     </h2>
-    <div class="line"></div>
+    <div className="line"></div>
   </div>
   <div className="mb-07">
     <ModalSocialMedia />

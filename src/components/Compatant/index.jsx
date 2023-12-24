@@ -97,13 +97,16 @@ function Combatants() {
 
     if (accessToken) {
       fetchCombatants(accessToken);
-      if (combatantsDefinition) {
-        setActiveCombatants(combatantsDefinition[0]);
-      }
     } else {
       console.error("Access token not available");
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    if (combatantsDefinition) {
+      setActiveCombatants(combatantsDefinition[0]);
+    }
+  }, [combatantsDefinition]);
 
   return (
     <section className="ts-card-2 mb-10">
@@ -111,71 +114,115 @@ function Combatants() {
         COMBATANTS
       </h1>
 
-      {combatantsDefinition && (
-        <p>Combatant Definition: {JSON.stringify(ActiveCombatants)}</p>
+      {ActiveCombatants && (
+        <>
+          <p>Combatant Definition: {JSON.stringify(ActiveCombatants)}</p>
+          <p>
+            Combatant Definition:{" "}
+            {JSON.stringify(ActiveCombatants.saving_throws.CHA)}
+          </p>
+        </>
       )}
-      <div className="mx-auto ts-text-gray-2 ts-card-1  mb-10">
-        <div className="row gap-4 gap-lg-0 ">
-          <div className="col-lg-5 ts-list-data-left pb-3 pb-lg-0">
-            <ListData />
-          </div>
-          <div className="col-lg-7">
-            <div className="mb-4">
-              <div className="d-flex gap-3 flex-wrap">
-                {ActiveCombatants &&
-                  ActiveCombatants.abilities.map((val, index) => (
-                    <CartIncrementDecrement key={index} Title={val} />
-                  ))}
-              </div>
-            </div>
-            <div className="mb-08">
-              <h2 className="ts-fs-22 text-uppercase fw-bold mb-06">
-                saving throws
-              </h2>
-              <div className="d-flex gap-3 flex-wrap">
-                {/* {SavingThrought.map((val, index) => (
-                  <CartIncrementDecrement
-                    key={index}
-                    Title={val.title}
-                    Value={val.value}
-                  />
-                ))} */}
-              </div>
-            </div>
-            <div>
-              <h2 className="ts-fs-22 text-uppercase fw-bold mb-06">Skills</h2>
-              <div className="d-flex gap-3 flex-wrap">
-                {SkillsData.map((skill, index) => (
-                  <CartIncrementDecrement
-                    key={index}
-                    Title={skill.title}
-                    Value={skill.value}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <Skills />
+      {ActiveCombatants && (
+        <>
+          <div className="mx-auto ts-text-gray-2 ts-card-1  mb-10">
+            <div className="row gap-4 gap-lg-0 ">
+              <div className="col-lg-5 ts-list-data-left pb-3 pb-lg-0">
+                <ListData />
+              </div>
+              <div className="col-lg-7">
+                <div className="mb-4">
+                  <div className="d-flex gap-3 flex-wrap">
+                    {ActiveCombatants &&
+                      ActiveCombatants.abilities.map((val, index) => (
+                        <CartIncrementDecrement key={index} Title={val} />
+                      ))}
+                  </div>
+                </div>
+                <div className="mb-08">
+                  <h2 className="ts-fs-22 text-uppercase fw-bold mb-06">
+                    saving throws
+                  </h2>
+                  <div className="d-flex gap-3 flex-wrap">
+                    <CartIncrementDecrement
+                      key={index}
+                      Title={"CHA"}
+                      Value={ActiveCombatants.saving_throws.CHA}
+                    />
+                    <CartIncrementDecrement
+                      key={index}
+                      Title={"CON"}
+                      Value={ActiveCombatants.saving_throws.CON}
+                    />
+                    <CartIncrementDecrement
+                      key={index}
+                      Title={"DEX"}
+                      Value={ActiveCombatants.saving_throws.DEX}
+                    />
+                    <CartIncrementDecrement
+                      key={index}
+                      Title={"INT"}
+                      Value={ActiveCombatants.saving_throws.INT}
+                    />
+                    <CartIncrementDecrement
+                      key={index}
+                      Title={"STR"}
+                      Value={ActiveCombatants.saving_throws.STR}
+                    />
+                    <CartIncrementDecrement
+                      key={index}
+                      Title={"WIS"}
+                      Value={ActiveCombatants.saving_throws.WIS}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <h2 className="ts-fs-22 text-uppercase fw-bold mb-06">
+                    Skills
+                  </h2>
+                  <div className="d-flex gap-3 flex-wrap">
+                    <CartIncrementDecrement
+                      key={index}
+                      Title={"acrobatics"}
+                      Value={ActiveCombatants.skills.acrobatics}
+                    />
+                    <CartIncrementDecrement
+                      key={index}
+                      Title={"athletics"}
+                      Value={ActiveCombatants.skills.athletics}
+                    />
+                    <CartIncrementDecrement
+                      key={index}
+                      Title={"stealth"}
+                      Value={ActiveCombatants.skills.stealth}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <div className="d-flex flex-column flex-sm-row justify-content-center gap-4">
-        <button
-          className="btn ts-btn ts-fs-20 fw-bold ts-btn-primary text-uppercase  py-2"
-          style={{ lineHeight: "140%" }}
-        >
-          +add to
-          <br /> <span className="ts-text-skyblue">blue team</span>
-        </button>
-        <button
-          className="btn ts-btn ts-fs-20 fw-bold ts-btn-primary text-uppercase py-2 "
-          style={{ lineHeight: "140%" }}
-        >
-          +add to <br />
-          <span className="ts-text-red">red team</span>
-        </button>
-      </div>
+          <Skills />
+
+          <div className="d-flex flex-column flex-sm-row justify-content-center gap-4">
+            <button
+              className="btn ts-btn ts-fs-20 fw-bold ts-btn-primary text-uppercase  py-2"
+              style={{ lineHeight: "140%" }}
+            >
+              +add to
+              <br /> <span className="ts-text-skyblue">blue team</span>
+            </button>
+            <button
+              className="btn ts-btn ts-fs-20 fw-bold ts-btn-primary text-uppercase py-2 "
+              style={{ lineHeight: "140%" }}
+            >
+              +add to <br />
+              <span className="ts-text-red">red team</span>
+            </button>
+          </div>
+        </>
+      )}
     </section>
   );
 }
@@ -212,8 +259,8 @@ function ListData() {
 
   return (
     <div>
-      <div class="ts-searchbar mb-3">
-        <input type="text" class="form-control" placeholder="Search" />
+      <div className="ts-searchbar mb-3">
+        <input type="text" className="form-control" placeholder="Search" />
         <button className="btn p-0 border-0 ts-search-btn">
           <Search Width="20" Height="20" />
         </button>
@@ -406,11 +453,11 @@ function Results() {
                 <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
                   <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
                   <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    <span class="vr my-1"></span>
+                    <span className="vr my-1"></span>
                     <span className="ts-tag-level rounded-pill">
                       Level 3{" "}
                     </span>{" "}
-                    <span class="vr my-1"></span>{" "}
+                    <span className="vr my-1"></span>{" "}
                     <button className="btn p-0 border-0">
                       <Close Width="18" Height="18" Fill="#353535" />
                     </button>
@@ -419,11 +466,11 @@ function Results() {
                 <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
                   <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
                   <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    <span class="vr my-1"></span>
+                    <span className="vr my-1"></span>
                     <span className="ts-tag-level rounded-pill">
                       Level 3{" "}
                     </span>{" "}
-                    <span class="vr my-1"></span>{" "}
+                    <span className="vr my-1"></span>{" "}
                     <button className="btn p-0 border-0">
                       <Close Width="18" Height="18" Fill="#353535" />
                     </button>
@@ -432,11 +479,11 @@ function Results() {
                 <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
                   <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
                   <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    <span class="vr my-1"></span>
+                    <span className="vr my-1"></span>
                     <span className="ts-tag-level rounded-pill">
                       Level 3{" "}
                     </span>{" "}
-                    <span class="vr my-1"></span>{" "}
+                    <span className="vr my-1"></span>{" "}
                     <button className="btn p-0 border-0">
                       <Close Width="18" Height="18" Fill="#353535" />
                     </button>
@@ -457,11 +504,11 @@ function Results() {
                 <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
                   <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
                   <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    <span class="vr my-1"></span>
+                    <span className="vr my-1"></span>
                     <span className="ts-tag-level rounded-pill">
                       Level 3{" "}
                     </span>{" "}
-                    <span class="vr my-1"></span>{" "}
+                    <span className="vr my-1"></span>{" "}
                     <button className="btn p-0 border-0">
                       <Close Width="18" Height="18" Fill="#353535" />
                     </button>
@@ -470,11 +517,11 @@ function Results() {
                 <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
                   <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
                   <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    <span class="vr my-1"></span>
+                    <span className="vr my-1"></span>
                     <span className="ts-tag-level rounded-pill">
                       Level 3{" "}
                     </span>{" "}
-                    <span class="vr my-1"></span>{" "}
+                    <span className="vr my-1"></span>{" "}
                     <button className="btn p-0 border-0">
                       <Close Width="18" Height="18" Fill="#353535" />
                     </button>
@@ -483,11 +530,11 @@ function Results() {
                 <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
                   <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
                   <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    <span class="vr my-1"></span>
+                    <span className="vr my-1"></span>
                     <span className="ts-tag-level rounded-pill">
                       Level 3{" "}
                     </span>{" "}
-                    <span class="vr my-1"></span>{" "}
+                    <span className="vr my-1"></span>{" "}
                     <button className="btn p-0 border-0">
                       <Close Width="18" Height="18" Fill="#353535" />
                     </button>

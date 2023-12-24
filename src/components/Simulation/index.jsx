@@ -33,49 +33,49 @@ function RecourceLevel() {
 
               <ul className="list-unstyled p-0">
                 <li className="mb-05">
-                  <div class="form-check ts-check-card d-flex align-items-center gap-3 ">
+                  <div className="form-check ts-check-card d-flex align-items-center gap-3 ">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       type="radio"
                       name="teamblue"
                       id="teamblueAllIn"
                       defaultChecked
                     />
                     <label
-                      class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
-                      for="teamblueAllIn"
+                      className="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
+                      htmlFor="teamblueAllIn"
                     >
                       All In
                     </label>
                   </div>
                 </li>
                 <li className="mb-05">
-                  <div class="form-check ts-check-card d-flex align-items-center gap-3 ">
+                  <div className="form-check ts-check-card d-flex align-items-center gap-3 ">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       type="radio"
                       name="teamblue"
                       id="teamblueModerate"
                     />
                     <label
-                      class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
-                      for="teamblueModerate"
+                      className="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
+                      htmlFor="teamblueModerate"
                     >
                       Moderate
                     </label>
                   </div>
                 </li>
                 <li className="mb-05">
-                  <div class="form-check ts-check-card d-flex align-items-center gap-3 ">
+                  <div className="form-check ts-check-card d-flex align-items-center gap-3 ">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       type="radio"
                       name="teamblue"
                       id="teamblueConservative"
                     />
                     <label
-                      class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
-                      for="teamblueConservative"
+                      className="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
+                      htmlFor="teamblueConservative"
                     >
                       Conservative
                     </label>
@@ -92,49 +92,49 @@ function RecourceLevel() {
 
               <ul className="list-unstyled p-0">
                 <li className="mb-05">
-                  <div class="form-check ts-check-card d-flex align-items-center gap-3 ">
+                  <div className="form-check ts-check-card d-flex align-items-center gap-3 ">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       type="radio"
                       name="teamred"
                       id="teamredAllIn"
                       defaultChecked
                     />
                     <label
-                      class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
-                      for="teamredAllIn"
+                      className="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
+                      htmlFor="teamredAllIn"
                     >
                       All In
                     </label>
                   </div>
                 </li>
                 <li className="mb-05">
-                  <div class="form-check ts-check-card d-flex align-items-center gap-3 ">
+                  <div className="form-check ts-check-card d-flex align-items-center gap-3 ">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       type="radio"
                       name="teamred"
                       id="teamredModerate"
                     />
                     <label
-                      class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
-                      for="teamredModerate"
+                      className="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
+                      htmlFor="teamredModerate"
                     >
                       Moderate
                     </label>
                   </div>
                 </li>
                 <li className="mb-05">
-                  <div class="form-check ts-check-card d-flex align-items-center gap-3 ">
+                  <div className="form-check ts-check-card d-flex align-items-center gap-3 ">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       type="radio"
                       name="teamred"
                       id="teamredConservative"
                     />
                     <label
-                      class="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
-                      for="teamredConservative"
+                      className="form-check-label ts-text-gray-5 ts-fs-22 fw-medium text-uppercase w-100"
+                      htmlFor="teamredConservative"
                     >
                       Conservative
                     </label>

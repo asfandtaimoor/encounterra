@@ -76,13 +76,7 @@ export function ExclamationCircle({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle
-        cx="9.72363"
-        cy="9"
-        r="8.64"
-        stroke={Stroke}
-        stroke-width="0.72"
-      />
+      <circle cx="9.72363" cy="9" r="8.64" stroke={Stroke} strokeWidth="0.72" />
       <mask
         id="path-2-outside-1_291_19673"
         maskUnits="userSpaceOnUse"
@@ -114,7 +108,7 @@ export function Person({ Width, Height, Fill = "000", Stroke = "#008170" }) {
       width={Width}
       height={Height}
       fill={Fill}
-      class="bi bi-person-circle"
+      className="bi bi-person-circle"
       viewBox="0 0 16 16"
     >
       <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
@@ -200,15 +194,15 @@ export function PlusCircle({
       <path
         d="M8.10547 4.92969V11.07"
         stroke="white"
-        stroke-width="1.31579"
-        stroke-linecap="round"
+        strokeWidth="1.31579"
+        strokeLinecap="round"
         stroke-linejoin="round"
       />
       <path
         d="M5.03613 8H11.1765"
         stroke="white"
-        stroke-width="1.31579"
-        stroke-linecap="round"
+        strokeWidth="1.31579"
+        strokeLinecap="round"
         stroke-linejoin="round"
       />
       <defs>
@@ -220,8 +214,8 @@ export function PlusCircle({
           y2="15.8949"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#94A3B8" />
-          <stop offset="1" stop-color="#717D8C" />
+          <stop stopColor="#94A3B8" />
+          <stop offset="1" stopColor="#717D8C" />
         </linearGradient>
       </defs>
     </svg>
@@ -251,8 +245,8 @@ export function MinusCircle({
       <path
         d="M4.8252 8H10.9655"
         stroke="white"
-        stroke-width="1.31579"
-        stroke-linecap="round"
+        strokeWidth="1.31579"
+        strokeLinecap="round"
         stroke-linejoin="round"
       />
       <defs>
@@ -264,8 +258,8 @@ export function MinusCircle({
           y2="15.8949"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#94A3B8" />
-          <stop offset="1" stop-color="#717D8C" />
+          <stop stopColor="#94A3B8" />
+          <stop offset="1" stopColor="#717D8C" />
         </linearGradient>
       </defs>
     </svg>
@@ -325,7 +319,7 @@ export function Search({
       width={Width}
       height={Height}
       fill={Fill}
-      class="bi bi-search"
+      className="bi bi-search"
       viewBox="0 0 16 16"
     >
       <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
@@ -344,7 +338,7 @@ export function ArrowLeft({
       width={Width}
       height={Height}
       fill={Fill}
-      class="bi bi-chevron-left"
+      className="bi bi-chevron-left"
       viewBox="0 0 16 16"
     >
       <path

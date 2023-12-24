@@ -59,7 +59,7 @@ function Navbar() {
                 </span>
               </OverlayTrigger>
             </div>
-            <div class="d-none d-sm-block vr"></div>
+            <div className="d-none d-sm-block vr"></div>
             {/* <p className="text-uppercase mb-0">user name</p>
             <Person Width="36" Height="36" Fill="#fff" /> */}
             <Modals />
@@ -95,7 +95,7 @@ function ResetPasswordModal({ show, handleClose }) {
           </Form.Group>
         </Form>
         <div className="text-center">
-          <button class="btn ts-btn ts-btn--lg ts-fs-20 fw-bold ts-btn-primary text-uppercase mb-06">
+          <button className="btn ts-btn ts-btn--lg ts-fs-20 fw-bold ts-btn-primary text-uppercase mb-06">
             Continue
           </button>
         </div>
@@ -153,17 +153,17 @@ function CreateAccountModal({
           </Form.Group>
         </Form>
         <div className="text-center">
-          <button class="btn ts-btn ts-btn--lg ts-fs-20 fw-bold ts-btn-primary text-uppercase mb-05">
+          <button className="btn ts-btn ts-btn--lg ts-fs-20 fw-bold ts-btn-primary text-uppercase mb-05">
             Continue
           </button>
         </div>
         {/* Login In With Social Media */}
-        {/* <div class="ts-separator mb-5">
-            <div class="line "></div>
+        {/* <div className="ts-separator mb-5">
+            <div className="line "></div>
             <h2 className="text-uppercase ts-fs-20 fw-bold ts-text-gray-6 mb-0 mx-3">
               or log in with
             </h2>
-            <div class="line"></div>
+            <div className="line"></div>
           </div>
           <div className="mb-07">
             <ModalSocialMedia />
