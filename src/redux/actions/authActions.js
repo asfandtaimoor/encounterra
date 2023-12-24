@@ -37,52 +37,85 @@ export const loginFailure = (error) => ({
   payload: error,
 });
 
-export const combatantDefinition = (combatantDefinition) => ({
-  type: "COMBATANT_DEFINITION",
-  payload: combatantDefinition,
-});
+// export const combatantDefinition = (combatantDefinition) => ({
+//   type: "COMBATANT_DEFINITION",
+//   payload: combatantDefinition,
+// });
 
-export const fetchCombatants = (accessToken) => async (dispatch) => {
-  try {
-    // Dispatch a loading action to set loading state to true
-    dispatch({ type: "FETCH_COMBATANTS_START" });
+// export const fetchCombatants = (accessToken) => async (dispatch) => {
+//   try {
+//     // Dispatch a loading action to set loading state to true
+//     dispatch({ type: "FETCH_COMBATANTS_START" });
 
-    const response = await axiosInstance.get("combatant-definition", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+//     const response = await axiosInstance.get("combatant-definition", {
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//     });
 
-    console.log("Response:", response);
+//     console.log("Response:", response);
 
-    if (!response.data || response.data.status !== "success") {
-      console.log("Error in response data:", response.data);
-      throw new Error("Failed to fetch combatants");
-    }
+//     if (!response.data || response.data.status !== "success") {
+//       console.log("Error in response data:", response.data);
+//       throw new Error("Failed to fetch combatants");
+//     }
 
-    const { data } = response.data;
+//     const { data } = response.data;
 
-    // Dispatch the combatantDefinition action to update state with the fetched data
-    dispatch(combatantDefinition(data));
+//     // Dispatch the combatantDefinition action to update state with the fetched data
+//     dispatch(combatantDefinition(data));
 
-    // Dispatch a success action or set loading state to false if needed
-    dispatch({ type: "FETCH_COMBATANTS_SUCCESS" });
-  } catch (error) {
-    console.error("Fetch combatants error:", error);
+//     // Dispatch a success action or set loading state to false if needed
+//     dispatch({ type: "FETCH_COMBATANTS_SUCCESS" });
+//   } catch (error) {
+//     console.error("Fetch combatants error:", error);
 
-    // Dispatch an error action to update state with the error message
-    dispatch({
-      type: "FETCH_COMBATANTS_FAILURE",
-      payload: error.message || "An error occurred while fetching combatants",
-    });
+//     // Dispatch an error action to update state with the error message
+//     dispatch({
+//       type: "FETCH_COMBATANTS_FAILURE",
+//       payload: error.message || "An error occurred while fetching combatants",
+//     });
 
-    // Propagate the error for the component to handle
-    throw error;
-  }
-};
+//     // Propagate the error for the component to handle
+//     throw error;
+//   }
+// };
+
+// export const loginUser = (email, password) => async (dispatch) => {
+//   console.log("Email: " + email + " Password: " + password);
+//   try {
+//     const response = await axiosInstance.post("login", {
+//       email,
+//       password,
+//     });
+
+//     if (!response.data || response.data.status !== "success") {
+//       throw new Error("Login failed");
+//     }
+
+//     const { data } = response.data;
+//     dispatch(loginSuccess(data));
+
+//     localStorage.setItem("AccessToken", data.AccessToken);
+//     localStorage.setItem("RefreshToken", data.RefreshToken);
+
+//     // Fetch user details after successful login
+//     // await dispatch(fetchUserDetails(data.AccessToken));
+//     await dispatch(fetchCombatants(data.AccessToken));
+//   } catch (error) {
+//     dispatch(loginFailure(error.message || "An error occurred"));
+//     throw error; // Propagate the error for the component to handle
+//   }
+// };
 
 export const loginUser = (email, password) => async (dispatch) => {
+  console.log("Email: " + email + " Password: " + password);
+  // Get the access token from local storage
+
   try {
+    // Dispatch a loading action to set loading state to true
+    dispatch({ type: "FETCH_USER_START" });
+
     const response = await axiosInstance.post("login", {
       email,
       password,
@@ -91,76 +124,81 @@ export const loginUser = (email, password) => async (dispatch) => {
     if (!response.data || response.data.status !== "success") {
       throw new Error("Login failed");
     }
+    console.log("Response:", response.data);
 
     const { data } = response.data;
-    dispatch(loginSuccess(data));
 
     localStorage.setItem("AccessToken", data.AccessToken);
     localStorage.setItem("RefreshToken", data.RefreshToken);
 
-    // Fetch user details after successful login
-    // await dispatch(fetchUserDetails(data.AccessToken));
-    await dispatch(fetchCombatants(data.AccessToken));
+    // Dispatch the combatantDefinition action to update state with the fetched data
+    // dispatch(combatantDefinition(data));
+
+    // Dispatch a success action or set loading state to false if needed
+    dispatch({ type: "FETCH_USER_SUCCESS" });
+    fetchUserData();
   } catch (error) {
-    dispatch(loginFailure(error.message || "An error occurred"));
-    throw error; // Propagate the error for the component to handle
+    console.error("Fetch combatants error:", error);
+
+    // Dispatch an error action to update state with the error message
+    dispatch({
+      type: "FETCH_USER_FAILURE",
+      payload: error.message || "An error occurred while fetching combatants",
+    });
+
+    // Propagate the error for the component to handle
+    throw error;
   }
 };
 
-// export const fetchUserDetails = (accessToken) => async (dispatch) => {
-//   fetch("https://encounterra.com/api/user_data", {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${accessToken}`,
-//     },
-//     credentials: "include",
-//   })
-//     .then((response) => {
-//       // Check if the response status is ok (status code 200-299)
-//       if (response.ok) {
-//         // Parse the JSON response
-//         return response.json();
-//       } else {
-//         // Handle non-successful response (e.g., status code 400, 404, etc.)
-//         throw new Error(`Request failed with status ${response.status}`);
-//       }
-//     })
-//     .then((data) => {
-//       // Handle the parsed JSON data
-//       console.log(data);
-//     })
-//     .catch((error) => {
-//       // Handle any errors during the fetch
-//       console.error("Fetch error:", error);
+// const fetchUserData = async () => {
+//   try {
+//     const response = await fetch("https://encounterra.com/api/user_data", {
+//       method: "GET",
+//       headers: {
+//         Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+//       },
 //     });
 
-//   // try {
-//   //   // const response = await axiosInstance.get("user_data", {
-//   //   const response = await axiosInstance.get("combatant-definition", {
-//   //     headers: {
-//   //       Authorization: `Bearer ${accessToken}`,
-//   //     },
-//   //   });
-
-//   //   console.log("AccessToken:", accessToken);
-//   //   console.log("Response:", response);
-
-//   //   if (!response.data || response.data.status !== "success") {
-//   //     console.log("Error in response data:", response.data);
-//   //     throw new Error("Failed to fetch user details");
-//   //   }
-
-//   //   const { data } = response.data;
-
-//   //   dispatch(loginSuccess(data));
-//   // } catch (error) {
-//   //   console.error("Fetch user details error:", error);
-//   //   dispatch(
-//   //     loginFailure(
-//   //       error.message || "An error occurred while fetching user details"
-//   //     )
-//   //   );
-//   //   throw error; // Propagate the error for the component to handle
-//   // }
+//     if (!response.ok) {
+//       console.error("Server response was not OK", response.status);
+//       throw new Error("Server response was not OK");
+//     }
+//     const data = await response.json();
+//     console.log(response);
+//     console.log(data);
+//     // setUserData(data);
+//   } catch (error) {
+//     console.error("Error fetching user data:", error);
+//   }
 // };
+
+const fetchUserData = async () => {
+  try {
+    // Get the access token from local storage
+    const accessToken = localStorage.getItem("AccessToken");
+
+    const response = await fetch("https://encounterra.com/api/user_data", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    console.log("Response:", response);
+
+    if (!response.ok) {
+      console.error(
+        `Server response was not OK (${response.status}):`,
+        response.statusText
+      );
+      throw new Error(`Server response was not OK (${response.status})`);
+    }
+
+    const data = await response.json();
+    console.log("Response Data:", data);
+  } catch (error) {
+    console.error("Error fetching user data:", error.message);
+  }
+};

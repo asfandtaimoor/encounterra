@@ -37,48 +37,89 @@ axiosInstance.interceptors.request.use(
 //   payload: error,
 // });
 
-export const combatantDefinition = (combatantDefinition) => ({
-  type: "COMBATANT_DEFINITION",
-  payload: combatantDefinition,
-});
+// export const loginUser = (combatantDefinition) => ({
+//   type: "COMBATANT_DEFINITION",
+//   payload: combatantDefinition,
+// });
+// export const combatantDefinition = (combatantDefinition) => ({
+//   type: "COMBATANT_DEFINITION",
+//   payload: combatantDefinition,
+// });
 
-export const fetchCombatants = () => async (dispatch) => {
-  console.log("Fetch combatants");
-  // Get the access token from local storage
-  const accessToken = localStorage.getItem("AccessToken");
+// export const fetchCombatants = () => async (dispatch) => {
+//   console.log("Fetch combatants");
+//   // Get the access token from local storage
+//   const accessToken = localStorage.getItem("AccessToken");
 
-  try {
-    // Dispatch a loading action to set loading state to true
-    dispatch({ type: "FETCH_COMBATANTS_START" });
+//   try {
+//     // Dispatch a loading action to set loading state to true
+//     dispatch({ type: "FETCH_COMBATANTS_START" });
 
-    const response = await axiosInstance.get("combatant-definition", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+//     const response = await axiosInstance.get("combatant-definition", {
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//     });
 
-    console.log("Response:", response.data);
+//     console.log("Response:", response.data);
 
-    const { data } = response.data;
+//     const { data } = response.data;
 
-    // Dispatch the combatantDefinition action to update state with the fetched data
-    dispatch(combatantDefinition(data));
+//     // Dispatch the combatantDefinition action to update state with the fetched data
+//     dispatch(combatantDefinition(data));
 
-    // Dispatch a success action or set loading state to false if needed
-    dispatch({ type: "FETCH_COMBATANTS_SUCCESS" });
-  } catch (error) {
-    console.error("Fetch combatants error:", error);
+//     // Dispatch a success action or set loading state to false if needed
+//     dispatch({ type: "FETCH_COMBATANTS_SUCCESS" });
+//   } catch (error) {
+//     console.error("Fetch combatants error:", error);
 
-    // Dispatch an error action to update state with the error message
-    dispatch({
-      type: "FETCH_COMBATANTS_FAILURE",
-      payload: error.message || "An error occurred while fetching combatants",
-    });
+//     // Dispatch an error action to update state with the error message
+//     dispatch({
+//       type: "FETCH_COMBATANTS_FAILURE",
+//       payload: error.message || "An error occurred while fetching combatants",
+//     });
 
-    // Propagate the error for the component to handle
-    throw error;
-  }
-};
+//     // Propagate the error for the component to handle
+//     throw error;
+//   }
+// };
+// export const loginUser = (email, password) => async (dispatch) => {
+//   console.log("Email: " + email + " Password: " + password);
+//   // Get the access token from local storage
+//   const accessToken = localStorage.getItem("AccessToken");
+
+//   try {
+//     // Dispatch a loading action to set loading state to true
+//     dispatch({ type: "FETCH_COMBATANTS_START" });
+
+//     const response = await axiosInstance.get("combatant-definition", {
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//     });
+
+//     console.log("Response:", response.data);
+
+//     const { data } = response.data;
+
+//     // Dispatch the combatantDefinition action to update state with the fetched data
+//     dispatch(combatantDefinition(data));
+
+//     // Dispatch a success action or set loading state to false if needed
+//     dispatch({ type: "FETCH_COMBATANTS_SUCCESS" });
+//   } catch (error) {
+//     console.error("Fetch combatants error:", error);
+
+//     // Dispatch an error action to update state with the error message
+//     dispatch({
+//       type: "FETCH_COMBATANTS_FAILURE",
+//       payload: error.message || "An error occurred while fetching combatants",
+//     });
+
+//     // Propagate the error for the component to handle
+//     throw error;
+//   }
+// };
 
 // export const loginUser = (email, password) => async (dispatch) => {
 //   try {

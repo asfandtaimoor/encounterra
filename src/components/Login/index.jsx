@@ -25,7 +25,7 @@ export default function LoginModal({
     console.log("Login Attampt");
 
     try {
-      await dispatch(loginUser(email, password));
+      dispatch(loginUser(email, password));
       // Redirect or perform other actions after successful login
     } catch (err) {
       // Handle login error

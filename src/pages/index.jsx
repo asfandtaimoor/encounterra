@@ -108,7 +108,7 @@ export default function Home() {
 
         {/* <h1>Combatant Definition: {JSON.stringify(combatantsDefinition)}</h1> */}
 
-        <div className="d-none d-lg-block">
+        {/* <div className="d-none d-lg-block">
           <SocialMedia />
         </div>
         <div className="ts-main-content">
@@ -145,7 +145,7 @@ export default function Home() {
               </Tab.Content>
             </Tab.Container>
           </Container>
-        </div>
+        </div> */}
         <Footer />
       </main>
     </>
