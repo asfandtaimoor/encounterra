@@ -81,37 +81,9 @@ export const loginFailure = (error) => ({
 //   }
 // };
 
-// export const loginUser = (email, password) => async (dispatch) => {
-//   console.log("Email: " + email + " Password: " + password);
-//   try {
-//     const response = await axiosInstance.post("login", {
-//       email,
-//       password,
-//     });
-
-//     if (!response.data || response.data.status !== "success") {
-//       throw new Error("Login failed");
-//     }
-
-//     const { data } = response.data;
-//     dispatch(loginSuccess(data));
-
-//     localStorage.setItem("AccessToken", data.AccessToken);
-//     localStorage.setItem("RefreshToken", data.RefreshToken);
-
-//     // Fetch user details after successful login
-//     // await dispatch(fetchUserDetails(data.AccessToken));
-//     await dispatch(fetchCombatants(data.AccessToken));
-//   } catch (error) {
-//     dispatch(loginFailure(error.message || "An error occurred"));
-//     throw error; // Propagate the error for the component to handle
-//   }
-// };
-
 export const loginUser = (email, password) => async (dispatch) => {
   console.log("Email: " + email + " Password: " + password);
   // Get the access token from local storage
-
   try {
     // Dispatch a loading action to set loading state to true
     dispatch({ type: "FETCH_USER_START" });
@@ -131,9 +103,6 @@ export const loginUser = (email, password) => async (dispatch) => {
     localStorage.setItem("AccessToken", data.AccessToken);
     localStorage.setItem("RefreshToken", data.RefreshToken);
 
-    // Dispatch the combatantDefinition action to update state with the fetched data
-    // dispatch(combatantDefinition(data));
-
     // Dispatch a success action or set loading state to false if needed
     dispatch({ type: "FETCH_USER_SUCCESS" });
     fetchUserData();
@@ -150,28 +119,6 @@ export const loginUser = (email, password) => async (dispatch) => {
     throw error;
   }
 };
-
-// const fetchUserData = async () => {
-//   try {
-//     const response = await fetch("https://encounterra.com/api/user_data", {
-//       method: "GET",
-//       headers: {
-//         Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
-//       },
-//     });
-
-//     if (!response.ok) {
-//       console.error("Server response was not OK", response.status);
-//       throw new Error("Server response was not OK");
-//     }
-//     const data = await response.json();
-//     console.log(response);
-//     console.log(data);
-//     // setUserData(data);
-//   } catch (error) {
-//     console.error("Error fetching user data:", error);
-//   }
-// };
 
 const fetchUserData = async () => {
   try {
