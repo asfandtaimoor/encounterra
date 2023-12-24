@@ -177,18 +177,21 @@ const fetchUserData = async () => {
   try {
     // Get the access token from local storage
     const accessToken = localStorage.getItem("AccessToken");
+    console.log("AccessToken:", accessToken);
 
-    const response = await fetch("https://encounterra.com/api/user_data", {
-      method: "GET",
+    // Make an Axios GET request
+    const response = await axios.get("https://encounterra.com/api/user_data", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
     });
 
-    console.log("Response:", response);
+    // Log the entire response object
+    console.log("Full Response:", response);
 
-    if (!response.ok) {
+    // Check for success status
+    if (!response || response.status !== 200) {
       console.error(
         `Server response was not OK (${response.status}):`,
         response.statusText
@@ -196,7 +199,8 @@ const fetchUserData = async () => {
       throw new Error(`Server response was not OK (${response.status})`);
     }
 
-    const data = await response.json();
+    // Access the response data
+    const data = response.data;
     console.log("Response Data:", data);
   } catch (error) {
     console.error("Error fetching user data:", error.message);
