@@ -113,7 +113,7 @@ export function Person({ Width, Height, Fill = "000", Stroke = "#008170" }) {
     >
       <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
       <path
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
       />
     </svg>
@@ -196,14 +196,14 @@ export function PlusCircle({
         stroke="white"
         strokeWidth="1.31579"
         strokeLinecap="round"
-        stroke-linejoin="round"
+        strokeLinejoin="round"
       />
       <path
         d="M5.03613 8H11.1765"
         stroke="white"
         strokeWidth="1.31579"
         strokeLinecap="round"
-        stroke-linejoin="round"
+        strokeLinejoin="round"
       />
       <defs>
         <linearGradient
@@ -247,7 +247,7 @@ export function MinusCircle({
         stroke="white"
         strokeWidth="1.31579"
         strokeLinecap="round"
-        stroke-linejoin="round"
+        strokeLinejoin="round"
       />
       <defs>
         <linearGradient
@@ -342,7 +342,7 @@ export function ArrowLeft({
       viewBox="0 0 16 16"
     >
       <path
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
       />
     </svg>

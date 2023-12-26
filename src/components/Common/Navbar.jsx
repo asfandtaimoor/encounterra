@@ -1,38 +1,41 @@
-// function ModalSocialMedia() {
-//   return (
-//     <nav className="d-flex justify-content-center  gap-4 flex-wrap">
-//       <a className="ts-modal__sociallink" href="#">
-//         <Discord Width="31" Height="25" Fill="#808080" />
-//       </a>
-//       <a className="ts-modal__sociallink" href="#">
-//         <Facebook Width="31" Height="25" Fill="#808080" />
-//       </a>
-//       <a className="ts-modal__sociallink" href="#">
-//         <Instagram Width="31" Height="25" Fill="#808080" />
-//       </a>
-//       <a className="ts-modal__sociallink" href="#">
-//         <Twitter Width="31" Height="25" Fill="#808080" />
-//       </a>
-//     </nav>
-//   );
-// }
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
-import { Container, Form } from "react-bootstrap";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
-
-import { ExclamationCircle } from "@/Icons/index";
-
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import {
+  Container,
+  Dropdown,
+  Form,
+  OverlayTrigger,
+  Tooltip,
+  Button,
+  Modal,
+} from "react-bootstrap";
 
 import Login from "@/components/Login";
 
-// import { Instagram, Facebook, Twitter, Discord } from "@/Icons/index";
+import { Person, ExclamationCircle } from "@/Icons/index";
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUserDataAsync } from "@/redux/reducers/UserData";
+import { logoutUser, getLoginDetails } from "@/redux/reducers/Auth";
+
 function Navbar() {
+  const dispatch = useDispatch();
+
+  const userData = useSelector((state) => state.userData);
+  const login = useSelector((state) => state.login);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("AccessToken");
+
+    if (accessToken) {
+      dispatch(fetchUserDataAsync()); // Assuming this action updates the user data
+      dispatch(getLoginDetails(true)); // Assuming you have a setLogin action to update the login state
+    } else {
+      console.error("Access token not available");
+      dispatch(getLoginDetails(false)); // Assuming you have a setLogin action to update the login state
+    }
+  }, [dispatch]);
   return (
     <div className="ts-header">
       <Container fluid className="ts-container">
@@ -48,22 +51,65 @@ function Navbar() {
             />
           </div>
 
-          <div className="d-flex gap-2  gap-sm-3 align-items-center">
-            <div className="d-flex gap-2  gap-sm-3 align-items-center">
-              <p className="text-uppercase text-white mb-0">200 credits</p>
-              <OverlayTrigger
-                overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
-              >
-                <span className="d-inline-block ">
-                  <ExclamationCircle Width="18" Height="16" Stroke="#008170" />
-                </span>
-              </OverlayTrigger>
+          {userData ? (
+            // If user is logged in
+            <div className="d-flex gap-2 gap-sm-3 align-items-center">
+              <div className="d-flex gap-2 gap-sm-3 align-items-center">
+                <p className="text-uppercase text-white mb-0">
+                  {userData.credits} credits
+                </p>
+                <OverlayTrigger
+                  overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
+                >
+                  <span className="d-inline-block">
+                    <ExclamationCircle
+                      Width="18"
+                      Height="16"
+                      Stroke="#008170"
+                    />
+                  </span>
+                </OverlayTrigger>
+              </div>
+              <div className="d-none d-sm-block vr"></div>
+              <p className="text-uppercase mb-0">{userData.email}</p>
+
+              <Dropdown>
+                <Dropdown.Toggle
+                  className="bg-transparent border-0 p-0"
+                  id="dropdown-basic"
+                >
+                  <Person Width="36" Height="36" Fill="#fff" />
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu
+                  className="rounded-0 shadow-sm text-end py-0"
+                  style={{ top: "26px" }}
+                  align="end"
+                  title="Left-aligned but right aligned when large screen"
+                >
+                  <Dropdown.Item className="py-2" href="#/action-1">
+                    Change Password
+                  </Dropdown.Item>
+                  <Dropdown.Item className="py-2" href="#/action-2">
+                    Manage Subscription
+                  </Dropdown.Item>
+                  <Dropdown.Item className="py-2" href="#/action-3">
+                    My simulation
+                  </Dropdown.Item>
+                  <hr className="my-0" />
+                  <button
+                    className="dropdown-item py-2"
+                    onClick={() => logoutUser}
+                  >
+                    Logout
+                  </button>
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
-            <div className="d-none d-sm-block vr"></div>
-            {/* <p className="text-uppercase mb-0">user name</p>
-            <Person Width="36" Height="36" Fill="#fff" /> */}
+          ) : (
+            // If user is not logged in
             <Modals />
-          </div>
+          )}
         </div>
       </Container>
     </div>

@@ -20,7 +20,6 @@ import { useSelector } from "react-redux";
 //   fetchCombatantsFailure,
 // } from "./combatantsActions";
 
-import { useDispatch } from "react-redux";
 import { updateCombatantDefinition } from "@/redux/reducers/combatantsReducer";
 import axios from "axios";
 
@@ -38,56 +37,6 @@ const projectTabs = [
 
 export default function Home() {
   const [userData, setUserData] = useState({ email: null, credits: null });
-  const dispatch = useDispatch();
-  // const { combatantsReducer } = useSelector((state) => state.combatantsReducer);
-
-  // const fetchCombatants = async (accessToken) => {
-  //   try {
-  //     // Dispatch a loading action to set loading state to true
-  //     dispatch({ type: "FETCH_COMBATANTS_START" });
-
-  //     // Use axios or your preferred HTTP client to make the API call
-  //     const response = await axios.get(
-  //       "https://encounterra.com/api/combatant-definition",
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${accessToken}`,
-  //         },
-  //       }
-  //     );
-
-  //     console.log("Response:", response.data);
-
-  //     const data = response.data;
-
-  //     // Dispatch the combatantDefinition action to update state with the fetched data
-  //     dispatch(updateCombatantDefinition(data));
-
-  //     // Dispatch a success action or set loading state to false if needed
-  //     dispatch({ type: "FETCH_COMBATANTS_SUCCESS" });
-  //   } catch (error) {
-  //     console.error("Fetch combatants error:", error);
-
-  //     // Dispatch an error action to update state with the error message
-  //     dispatch({
-  //       type: "FETCH_COMBATANTS_FAILURE",
-  //       payload: error.message || "An error occurred while fetching combatants",
-  //     });
-
-  //     // Propagate the error for the component to handle
-  //     throw error;
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const accessToken = localStorage.getItem("AccessToken");
-
-  //   if (accessToken) {
-  //     fetchCombatants(accessToken);
-  //   } else {
-  //     console.error("Access token not available");
-  //   }
-  // }, [dispatch]);
 
   const combatantsDefinition = useSelector(
     (state) => state.combatantsDefinition
@@ -103,12 +52,7 @@ export default function Home() {
       </Head>
       <main>
         <Navbar />
-
-        {/* Other components and logic */}
-
-        {/* <h1>Combatant Definition: {JSON.stringify(combatantsDefinition)}</h1> */}
-
-        {/* <div className="d-none d-lg-block">
+        <div className="d-none d-lg-block">
           <SocialMedia />
         </div>
         <div className="ts-main-content">
@@ -145,7 +89,7 @@ export default function Home() {
               </Tab.Content>
             </Tab.Container>
           </Container>
-        </div> */}
+        </div>
         <Footer />
       </main>
     </>
