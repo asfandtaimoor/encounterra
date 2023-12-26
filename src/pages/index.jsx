@@ -8,7 +8,7 @@ import Footer from "@/components/Common/Footer";
 import MapMain from "@/components/Map";
 import SocialMedia from "@/components/Common/SocialMedia";
 import Simulation from "@/components/Simulation";
-import Compatant from "@/components/Compatant";
+import Combatants from "@/components/Combatants";
 import { useSelector } from "react-redux";
 
 // import { fetchCombatants } from "@/redux/actions";
@@ -78,7 +78,7 @@ export default function Home() {
 
               <Tab.Content>
                 <Tab.Pane eventKey={projectTabs[0].title}>
-                  <Compatant />
+                  <Combatants />
                 </Tab.Pane>
                 <Tab.Pane eventKey={projectTabs[1].title}>
                   <MapMain />
