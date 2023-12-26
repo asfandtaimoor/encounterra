@@ -61,7 +61,7 @@ function Combatants() {
         COMBATANTS
       </h1>
 
-      {ActiveCombatants && (
+      {/* {ActiveCombatants && (
         <>
           <p>Combatant Definition: {JSON.stringify(ActiveCombatants)}</p>
           <p>
@@ -69,7 +69,7 @@ function Combatants() {
             {JSON.stringify(ActiveCombatants.saving_throws.CHA)}
           </p>
         </>
-      )}
+      )} */}
 
       {ActiveCombatants && (
         <>
