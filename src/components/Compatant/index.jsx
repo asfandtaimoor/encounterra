@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import { useDispatch } from "react-redux";
-import axios from "axios";
-import { updateCombatantDefinition } from "@/redux/reducers/combatantsReducer";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchCombatants } from "@/redux/reducers/combatants";
 
 import {
   ExclamationCircle,
@@ -29,74 +28,22 @@ function Combatants() {
   const [ActiveCombatants, setActiveCombatants] = useState(null);
   const dispatch = useDispatch();
 
-  const configurations = [
-    { title: "HP :", value: 15 },
-    { title: "AC :", value: 8 },
-    { title: "DC :", value: 256 },
-  ];
-  const SavingThrought = [
-    { title: "str :", value: 15 },
-    { title: "oex :", value: 8 },
-    { title: "con :", value: 256 },
-    { title: "cha :", value: 256 },
-    { title: "wis :", value: 256 },
-    { title: "int :", value: 256 },
-  ];
-  const SkillsData = [
-    { title: "aTHLETICS :", value: 15 },
-    { title: "Acrobatics : :", value: 8 },
-    { title: "Stealth :", value: 256 },
-  ];
-
   const combatantsDefinition = useSelector(
     (state) => state.combatantsDefinition
   );
 
-  // const ActiveMonsters = combatantsDefinition[0];
+  // Check if combatantsDefinition is not null and has length greater than 0
+  const ActiveMonsters =
+    combatantsDefinition && combatantsDefinition.length > 0
+      ? combatantsDefinition[0]
+      : null;
 
-  const fetchCombatants = async (accessToken) => {
-    try {
-      // Dispatch a loading action to set loading state to true
-      dispatch({ type: "FETCH_COMBATANTS_START" });
-
-      // Use axios or your preferred HTTP client to make the API call
-      const response = await axios.get(
-        "https://encounterra.com/api/combatant-definition",
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      console.log("Response:", response.data);
-
-      const data = response.data;
-
-      // Dispatch the combatantDefinition action to update state with the fetched data
-      dispatch(updateCombatantDefinition(data));
-
-      // Dispatch a success action or set loading state to false if needed
-      dispatch({ type: "FETCH_COMBATANTS_SUCCESS" });
-    } catch (error) {
-      console.error("Fetch combatants error:", error);
-
-      // Dispatch an error action to update state with the error message
-      dispatch({
-        type: "FETCH_COMBATANTS_FAILURE",
-        payload: error.message || "An error occurred while fetching combatants",
-      });
-
-      // Propagate the error for the component to handle
-      throw error;
-    }
-  };
+  // // Now you can use ActiveMonsters in your component
 
   useEffect(() => {
     const accessToken = localStorage.getItem("AccessToken");
-
     if (accessToken) {
-      fetchCombatants(accessToken);
+      dispatch(fetchCombatants());
     } else {
       console.error("Access token not available");
     }
@@ -158,7 +105,10 @@ function Combatants() {
                   <div className="d-flex gap-3 flex-wrap">
                     {ActiveCombatants &&
                       ActiveCombatants.abilities.map((val, index) => (
-                        <CartIncrementDecrement key={index} Title={val} />
+                        // <CartIncrementDecrement key={index} Title={val} />
+                        <div key={index}>
+                          <h5 className="ts-fs-3">{val}</h5>
+                        </div>
                       ))}
                   </div>
                 </div>

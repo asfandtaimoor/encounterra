@@ -19,7 +19,7 @@ export const { getLoginDetails } = userDataSlice.actions;
 export const loginUser = (email, password) => async (dispatch) => {
   try {
     // Dispatch a loading action to set loading state to true
-    dispatch({ type: "FETCH_USER_START" });
+    dispatch({ type: "LOGIN_START" });
 
     const response = await axiosInstance.post("login", {
       email,
@@ -32,7 +32,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 
       // Show error toast
       toast.error("Login failed", {
-        position: "top-right",
+        position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -53,7 +53,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 
     // Show success toast
     toast.success("Login successful", {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -63,7 +63,7 @@ export const loginUser = (email, password) => async (dispatch) => {
     });
 
     // Dispatch a success action or set loading state to false if needed
-    dispatch({ type: "FETCH_USER_SUCCESS" });
+    dispatch({ type: "lOGIN_SUCCESS" });
     // fetchUserData();
   } catch (error) {
     console.error("Fetch combatants error:", error);
@@ -76,7 +76,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 
     // Show error toast
     toast.error("An error occurred", {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -101,10 +101,13 @@ export const logoutUser = () => async (dispatch) => {
 
     localStorage.removeItem("AccessToken");
     localStorage.removeItem("RefreshToken");
-
+    dispatch({
+      type: "LOGOUT_SUCCESS",
+      payload: false,
+    });
     // Show success toast
     toast.success("Logout successful", {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -125,7 +128,7 @@ export const logoutUser = () => async (dispatch) => {
 
     // Show error toast
     toast.error("An error occurred during logout", {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,

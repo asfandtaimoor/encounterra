@@ -12,9 +12,10 @@ import {
 } from "react-bootstrap";
 
 import Login from "@/components/Login";
-import { toast } from "react-toastify";
-
 import { Person, ExclamationCircle } from "@/Icons/index";
+
+import Register from "@/components/Common/Register";
+import ForgetPassword from "@/components/Common/ForgetPassword";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserDataAsync } from "@/redux/reducers/UserData";
@@ -128,113 +129,6 @@ function Navbar() {
 
 export default Navbar;
 
-function ResetPasswordModal({ show, handleClose }) {
-  return (
-    <Modal
-      show={show}
-      onHide={handleClose}
-      size="md"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header className="border-0" closeButton></Modal.Header>
-      <Modal.Body>
-        <h1 className="ts-heading-font fw-bold text-uppercase ts-fs-35 ts-text-gray-6 text-center mb-08">
-          Forget password
-        </h1>{" "}
-        <Form className="mb-5">
-          <Form.Group className="mb-4">
-            <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium">
-              Email
-            </Form.Label>
-            <Form.Control size="lg" type="email" />
-          </Form.Group>
-        </Form>
-        <div className="text-center">
-          <button className="btn ts-btn ts-btn--lg ts-fs-20 fw-bold ts-btn-primary text-uppercase mb-06">
-            Continue
-          </button>
-        </div>
-      </Modal.Body>
-    </Modal>
-  );
-}
-
-function CreateAccountModal({
-  show,
-  handleClose,
-  handleShowForgetPassword,
-  handleShowLogin,
-}) {
-  return (
-    <Modal
-      show={show}
-      onHide={handleClose}
-      size="md"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header className="border-0" closeButton></Modal.Header>
-      <Modal.Body>
-        {/* ... (Login form structure) */}
-        <h1 className="ts-heading-font fw-bold text-uppercase ts-fs-35 ts-text-gray-6 text-center mb-08">
-          creat new account
-        </h1>{" "}
-        <Form className="mb-5">
-          <Form.Group className="mb-4">
-            <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium">
-              Email Address
-            </Form.Label>
-            <Form.Control size="lg" type="email" />
-          </Form.Group>
-
-          <Form.Group className="mb-4">
-            <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium d-flex justify-content-between ">
-              <span>Password</span>
-              <span
-                className="ts-link btn-link "
-                onClick={handleShowForgetPassword}
-                role="button"
-              >
-                Forgot Password?
-              </span>
-            </Form.Label>
-            <Form.Control size="lg" type="password" />
-          </Form.Group>
-          <Form.Group className="mb-4">
-            <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium ">
-              <span>Repeat Password</span>
-            </Form.Label>
-            <Form.Control size="lg" type="password" />
-          </Form.Group>
-        </Form>
-        <div className="text-center">
-          <button className="btn ts-btn ts-btn--lg ts-fs-20 fw-bold ts-btn-primary text-uppercase mb-05">
-            Continue
-          </button>
-        </div>
-        {/* Login In With Social Media */}
-        {/* <div className="ts-separator mb-5">
-            <div className="line "></div>
-            <h2 className="text-uppercase ts-fs-20 fw-bold ts-text-gray-6 mb-0 mx-3">
-              or log in with
-            </h2>
-            <div className="line"></div>
-          </div>
-          <div className="mb-07">
-            <ModalSocialMedia />
-          </div> */}
-        <p className="text-center">
-          Already have an account?
-          <Button className="p-0 ms-2" variant="link" onClick={handleShowLogin}>
-            Sign in here
-          </Button>
-        </p>
-      </Modal.Body>
-    </Modal>
-  );
-}
-
 function Modals() {
   const [showResetPassword, setShowResetPassword] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -266,7 +160,7 @@ function Modals() {
         Login
       </Button>
 
-      <ResetPasswordModal
+      <ForgetPassword
         show={showResetPassword}
         handleClose={handleCloseResetPassword}
       />
@@ -278,7 +172,7 @@ function Modals() {
         handleShowCreateAccount={handleShowCreateAccount}
       />
 
-      <CreateAccountModal
+      <Register
         show={showCreateAccount}
         handleClose={handleCloseCreateAccount}
         handleShowForgetPassword={handleShowForgetPassword}
@@ -287,83 +181,3 @@ function Modals() {
     </>
   );
 }
-
-// Login
-
-// import React, { useState } from 'react';
-// import { useNavigate, Link } from 'react-router-dom';
-
-// const LoginPage = () => {
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [error, setError] = useState(null);
-//   const navigate = useNavigate();
-
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
-//     try {
-//       const response = await fetch('https://encounterra.com/api/login', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({ email, password }),
-//       });
-
-//       if (!response.ok) {
-//         throw new Error('Login failed');
-//       }
-
-//       const { status, data } = await response.json();
-
-//       if (status === 'success') {
-//         localStorage.setItem('accessToken', data.AccessToken);
-//         localStorage.setItem('refreshToken', data.RefreshToken);
-//         navigate('/');
-//       } else {
-//         setError(data.message || 'An error occurred');
-//       }
-//     } catch (err) {
-//       setError(err.message);
-//     }
-//   };
-
-//   return (
-//     <div className="container">
-//       <h2>Login</h2>
-//       <form className="login-form" onSubmit={handleSubmit}>
-//         {error && <div className="alert alert-danger">{error}</div>}
-//         <div className="form-group">
-//           <label htmlFor="email">Email:</label>
-//           <input
-//             type="email"
-//             className="form-control"
-//             id="email"
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//             required
-//           />
-//         </div>
-//         <div className="form-group">
-//           <label htmlFor="password">Password:</label>
-//           <input
-//             type="password"
-//             className="form-control"
-//             id="password"
-//             onChange={(e) => setPassword(e.target.value)}
-//             required
-//           />
-//         </div>
-//         <button type="submit" className="btn btn-primary">Log In</button>
-//       </form>
-//       <div className="register-link">
-//         Don't have an account? <Link to="/register">Sign up</Link>
-//       </div>
-//       <div className="forgot-password-link">
-//         Forgot your password? <Link to="/forgot_password">Reset it</Link>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default LoginPage;

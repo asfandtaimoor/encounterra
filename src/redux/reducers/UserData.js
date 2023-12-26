@@ -7,7 +7,6 @@ const userDataReducer = createSlice({
   initialState: null,
   reducers: {
     updateUserData(state, action) {
-      // If payload is null, set the state to null
       return action.payload !== null ? { ...state, ...action.payload } : null;
     },
   },

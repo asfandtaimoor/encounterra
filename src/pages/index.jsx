@@ -20,7 +20,7 @@ import { useSelector } from "react-redux";
 //   fetchCombatantsFailure,
 // } from "./combatantsActions";
 
-import { updateCombatantDefinition } from "@/redux/reducers/combatantsReducer";
+import { updateCombatantDefinition } from "@/redux/reducers/combatants";
 import axios from "axios";
 
 const projectTabs = [
