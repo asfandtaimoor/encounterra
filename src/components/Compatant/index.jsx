@@ -42,6 +42,7 @@ function Combatants() {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("AccessToken");
+    dispatch(fetchCombatants());
     if (accessToken) {
       dispatch(fetchCombatants());
     } else {

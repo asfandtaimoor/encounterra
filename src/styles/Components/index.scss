@@ -324,7 +324,7 @@ input::-webkit-inner-spin-button {
 }
 
 .ts-data-list-container {
-  height: 300px;
+  height: calc(510px - 37px);
   overflow: auto;
   &::-webkit-scrollbar {
     width: 10px;
