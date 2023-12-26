@@ -132,7 +132,29 @@ function Combatants() {
                 <ListData />
               </div>
               <div className="col-lg-7">
-                <div className="mb-4">
+                <div className="mb-08">
+                  <div className="d-flex gap-3 flex-wrap">
+                    <CartIncrementDecrement
+                      key={index}
+                      Title={"HP"}
+                      Value={ActiveCombatants.hp}
+                    />
+                    <CartIncrementDecrement
+                      key={index}
+                      Title={"AC"}
+                      Value={ActiveCombatants.ac}
+                    />
+                    <CartIncrementDecrement
+                      key={index}
+                      Title={"DC"}
+                      Value={ActiveCombatants.dc}
+                    />
+                  </div>
+                </div>
+                <div className="mb-08">
+                  <h2 className="ts-fs-22 text-uppercase fw-bold mb-06">
+                    ability sources
+                  </h2>
                   <div className="d-flex gap-3 flex-wrap">
                     {ActiveCombatants &&
                       ActiveCombatants.abilities.map((val, index) => (

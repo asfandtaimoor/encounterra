@@ -1,4 +1,5 @@
 // userSlice.js
+import { toast } from "react-toastify";
 import { createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "@/axios"; // Assuming you have your axiosInstance configured in a separate file
 
@@ -28,6 +29,17 @@ export const loginUser = (email, password) => async (dispatch) => {
     if (!response.data || response.data.status !== "success") {
       throw new Error("Login failed");
       dispatch(getLoginDetails(false));
+
+      // Show error toast
+      toast.error("Login failed", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
 
     dispatch(getLoginDetails(true));
@@ -38,6 +50,17 @@ export const loginUser = (email, password) => async (dispatch) => {
 
     localStorage.setItem("AccessToken", data.AccessToken);
     localStorage.setItem("RefreshToken", data.RefreshToken);
+
+    // Show success toast
+    toast.success("Login successful", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
 
     // Dispatch a success action or set loading state to false if needed
     dispatch({ type: "FETCH_USER_SUCCESS" });
@@ -51,33 +74,69 @@ export const loginUser = (email, password) => async (dispatch) => {
       payload: error.message || "An error occurred while fetching combatants",
     });
 
+    // Show error toast
+    toast.error("An error occurred", {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
     // Propagate the error for the component to handle
     throw error;
   }
 };
 
-// export const logoutUser = () => async (dispatch) => {
-//   try {
-//     const response = await axiosInstance.get("logout");
+export const logoutUser = () => async (dispatch) => {
+  try {
+    const response = await axiosInstance.get("logout");
+    console.log("Logout " + response);
 
-//     if (!response.data || response.data.status !== "success") {
-//       throw new Error("Logout failed");
-//     }
+    if (!response.data || response.data.status !== "success") {
+      throw new Error("Logout failed");
+    }
 
-//     console.log("Logout " + response);
-//     // dispatch(getLoginDetails(false)); // Set login status to false on successful logout
-//   } catch (error) {
-//     console.error("Logout error:", error);
+    localStorage.removeItem("AccessToken");
+    localStorage.removeItem("RefreshToken");
 
-//     // Dispatch an error action to update state with the error message
-//     dispatch({
-//       type: "FETCH_USER_FAILURE",
-//       payload: error.message || "An error occurred during logout",
-//     });
+    // Show success toast
+    toast.success("Logout successful", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
 
-//     // Propagate the error for the component to handle
-//     throw error;
-//   }
-// };
+    // dispatch(getLoginDetails(false)); // Set login status to false on successful logout
+  } catch (error) {
+    console.error("Logout error:", error);
+
+    // Dispatch an error action to update state with the error message
+    dispatch({
+      type: "FETCH_USER_FAILURE",
+      payload: error.message || "An error occurred during logout",
+    });
+
+    // Show error toast
+    toast.error("An error occurred during logout", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
+    // Propagate the error for the component to handle
+    throw error;
+  }
+};
 
 export default userDataSlice.reducer;

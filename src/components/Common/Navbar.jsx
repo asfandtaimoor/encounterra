@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 
 import Login from "@/components/Login";
+import { toast } from "react-toastify";
 
 import { Person, ExclamationCircle } from "@/Icons/index";
 // Redux
@@ -27,15 +28,27 @@ function Navbar() {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("AccessToken");
-
     if (accessToken) {
-      dispatch(fetchUserDataAsync()); // Assuming this action updates the user data
       dispatch(getLoginDetails(true)); // Assuming you have a setLogin action to update the login state
     } else {
-      console.error("Access token not available");
       dispatch(getLoginDetails(false)); // Assuming you have a setLogin action to update the login state
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("AccessToken");
+    if (accessToken && login) {
+      dispatch(fetchUserDataAsync()); // Assuming this action updates the user data
+    } else {
+      console.error("Access token not available");
+    }
+  }, [dispatch, login]);
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    dispatch(getLoginDetails(false));
+    console.log("user logged out");
+  };
   return (
     <div className="ts-header">
       <Container fluid className="ts-container">
@@ -97,10 +110,7 @@ function Navbar() {
                     My simulation
                   </Dropdown.Item>
                   <hr className="my-0" />
-                  <button
-                    className="dropdown-item py-2"
-                    onClick={() => logoutUser}
-                  >
+                  <button className="dropdown-item py-2" onClick={handleLogout}>
                     Logout
                   </button>
                 </Dropdown.Menu>
