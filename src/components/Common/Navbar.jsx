@@ -20,8 +20,11 @@ import ForgetPassword from "@/components/Common/ForgetPassword";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserDataAsync } from "@/redux/reducers/UserData";
 import { logoutUser, getLoginDetails } from "@/redux/reducers/Auth";
+import ResetPassword from "./ResetPassword";
 
 function Navbar() {
+  const [showResetPassword, setShowResetPassword] = useState(false);
+  const handleCloseResetPassword = () => setShowResetPassword(false);
   const dispatch = useDispatch();
 
   const userData = useSelector((state) => state.userData);
@@ -67,59 +70,74 @@ function Navbar() {
 
           {userData ? (
             // If user is logged in
-            <div className="d-flex gap-2 gap-sm-3 align-items-center">
+            <>
               <div className="d-flex gap-2 gap-sm-3 align-items-center">
-                <p className="text-uppercase text-white mb-0">
-                  {userData.credits} credits
-                </p>
-                <OverlayTrigger
-                  overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
-                >
-                  <span className="d-inline-block">
-                    <ExclamationCircle
-                      Width="18"
-                      Height="16"
-                      Stroke="#008170"
-                    />
-                  </span>
-                </OverlayTrigger>
+                <div className="d-flex gap-2 gap-sm-3 align-items-center">
+                  <p className="text-uppercase text-white mb-0">
+                    {userData.credits} credits
+                  </p>
+                  <OverlayTrigger
+                    overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
+                  >
+                    <span className="d-inline-block">
+                      <ExclamationCircle
+                        Width="18"
+                        Height="16"
+                        Stroke="#008170"
+                      />
+                    </span>
+                  </OverlayTrigger>
+                </div>
+                <div className="d-none d-sm-block vr"></div>
+                <p className="text-uppercase mb-0">{userData.email}</p>
+
+                <Dropdown>
+                  <Dropdown.Toggle
+                    className="bg-transparent border-0 p-0"
+                    id="dropdown-basic"
+                  >
+                    <Person Width="36" Height="36" Fill="#fff" />
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu
+                    className="rounded-0 shadow-sm text-end py-0"
+                    style={{ top: "26px" }}
+                    align="end"
+                    title="Left-aligned but right aligned when large screen"
+                  >
+                    <button
+                      className="dropdown-item py-2"
+                      onClick={() => setShowResetPassword(true)}
+                    >
+                      Reset Password
+                    </button>
+                    <Dropdown.Item className="py-2" href="#/action-2">
+                      Manage Subscription
+                    </Dropdown.Item>
+                    <Dropdown.Item className="py-2" href="#/action-3">
+                      My simulation
+                    </Dropdown.Item>
+                    <hr className="my-0" />
+                    <button
+                      className="dropdown-item py-2"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </Dropdown.Menu>
+                </Dropdown>
               </div>
-              <div className="d-none d-sm-block vr"></div>
-              <p className="text-uppercase mb-0">{userData.email}</p>
-
-              <Dropdown>
-                <Dropdown.Toggle
-                  className="bg-transparent border-0 p-0"
-                  id="dropdown-basic"
-                >
-                  <Person Width="36" Height="36" Fill="#fff" />
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu
-                  className="rounded-0 shadow-sm text-end py-0"
-                  style={{ top: "26px" }}
-                  align="end"
-                  title="Left-aligned but right aligned when large screen"
-                >
-                  <Dropdown.Item className="py-2" href="#/action-1">
-                    Change Password
-                  </Dropdown.Item>
-                  <Dropdown.Item className="py-2" href="#/action-2">
-                    Manage Subscription
-                  </Dropdown.Item>
-                  <Dropdown.Item className="py-2" href="#/action-3">
-                    My simulation
-                  </Dropdown.Item>
-                  <hr className="my-0" />
-                  <button className="dropdown-item py-2" onClick={handleLogout}>
-                    Logout
-                  </button>
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
+              <ResetPassword
+                show={showResetPassword}
+                handleClose={handleCloseResetPassword}
+              />
+            </>
           ) : (
             // If user is not logged in
-            <Modals />
+            <Modals
+              showResetPassword={showResetPassword}
+              handleCloseResetPassword={handleCloseResetPassword}
+            />
           )}
         </div>
       </Container>
@@ -130,13 +148,15 @@ function Navbar() {
 export default Navbar;
 
 function Modals() {
-  const [showResetPassword, setShowResetPassword] = useState(false);
+  const [showForgetPassword, setShowForgetPassword] = useState(false);
+
   const [showLogin, setShowLogin] = useState(false);
   const [showCreateAccount, setShowCreateAccount] = useState(false);
 
-  const handleCloseResetPassword = () => setShowResetPassword(false);
+  const handleCloseForgetPassword = () => setShowForgetPassword(false);
+
   const handleShowForgetPassword = () => {
-    setShowResetPassword(true);
+    setShowForgetPassword(true);
     handleCloseLogin();
     handleCloseCreateAccount();
   };
@@ -161,8 +181,8 @@ function Modals() {
       </Button>
 
       <ForgetPassword
-        show={showResetPassword}
-        handleClose={handleCloseResetPassword}
+        show={showForgetPassword}
+        handleClose={handleCloseForgetPassword}
       />
 
       <Login

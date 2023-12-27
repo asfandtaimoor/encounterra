@@ -67,7 +67,7 @@ function Combatants() {
           <p>Combatant Definition: {JSON.stringify(ActiveCombatants)}</p>
           {ActiveCombatants.saving_throws && (
             <p>
-              Combatant Definition:{" "}
+              Combatant Definition:
               {JSON.stringify(ActiveCombatants.saving_throws.CHA)}
             </p>
           )}
@@ -674,7 +674,7 @@ function SkillTagItem({ skill }) {
         </div>
         {/* Close Button */}
         {/* <button className="btn p-0 border-0">
-          <Close Width="14" Height="14" Fill="#353535" />{" "}
+          <Close Width="14" Height="14" Fill="#353535" />
         </button> */}
       </div>
     </div>
@@ -712,11 +712,11 @@ function Results() {
                 <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
                   <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
                   <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    <span className="vr my-1"></span>
+                    {/* <span className="vr my-1"></span>
                     <span className="ts-tag-level rounded-pill">
-                      Level 3{" "}
-                    </span>{" "}
-                    <span className="vr my-1"></span>{" "}
+                      Level 3
+                    </span>
+                    <span className="vr my-1"></span> */}
                     <button className="btn p-0 border-0">
                       <Close Width="18" Height="18" Fill="#353535" />
                     </button>
@@ -725,11 +725,11 @@ function Results() {
                 <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
                   <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
                   <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    <span className="vr my-1"></span>
+                    {/* <span className="vr my-1"></span>
                     <span className="ts-tag-level rounded-pill">
-                      Level 3{" "}
-                    </span>{" "}
-                    <span className="vr my-1"></span>{" "}
+                      Level 3
+                    </span>
+                    <span className="vr my-1"></span> */}
                     <button className="btn p-0 border-0">
                       <Close Width="18" Height="18" Fill="#353535" />
                     </button>
@@ -738,11 +738,11 @@ function Results() {
                 <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
                   <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
                   <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    <span className="vr my-1"></span>
+                    {/* <span className="vr my-1"></span>
                     <span className="ts-tag-level rounded-pill">
-                      Level 3{" "}
-                    </span>{" "}
-                    <span className="vr my-1"></span>{" "}
+                      Level 3
+                    </span>
+                    <span className="vr my-1"></span> */}
                     <button className="btn p-0 border-0">
                       <Close Width="18" Height="18" Fill="#353535" />
                     </button>
@@ -763,11 +763,11 @@ function Results() {
                 <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
                   <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
                   <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    <span className="vr my-1"></span>
+                    {/* <span className="vr my-1"></span>
                     <span className="ts-tag-level rounded-pill">
-                      Level 3{" "}
-                    </span>{" "}
-                    <span className="vr my-1"></span>{" "}
+                      Level 3
+                    </span>
+                    <span className="vr my-1"></span> */}
                     <button className="btn p-0 border-0">
                       <Close Width="18" Height="18" Fill="#353535" />
                     </button>
@@ -776,11 +776,11 @@ function Results() {
                 <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
                   <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
                   <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    <span className="vr my-1"></span>
+                    {/* <span className="vr my-1"></span>
                     <span className="ts-tag-level rounded-pill">
-                      Level 3{" "}
-                    </span>{" "}
-                    <span className="vr my-1"></span>{" "}
+                      Level 3
+                    </span>
+                    <span className="vr my-1"></span> */}
                     <button className="btn p-0 border-0">
                       <Close Width="18" Height="18" Fill="#353535" />
                     </button>
@@ -789,11 +789,11 @@ function Results() {
                 <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
                   <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
                   <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    <span className="vr my-1"></span>
+                    {/* <span className="vr my-1"></span>
                     <span className="ts-tag-level rounded-pill">
-                      Level 3{" "}
-                    </span>{" "}
-                    <span className="vr my-1"></span>{" "}
+                      Level 3
+                    </span>
+                    <span className="vr my-1"></span> */}
                     <button className="btn p-0 border-0">
                       <Close Width="18" Height="18" Fill="#353535" />
                     </button>

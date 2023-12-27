@@ -4,23 +4,28 @@ import { useDispatch } from "react-redux";
 import axiosInstance from "@/axios";
 import { toast } from "react-toastify";
 
-function ForgetPassword({ show, handleClose }) {
+function ResetPassword({ show, handleClose }) {
   const dispatch = useDispatch();
 
   // State variables for user input
-  const [email, setEmail] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  // Form change handler
-  const handleEmailChange = (e) => setEmail(e.target.value);
+  // Form change handlers
+  const handleOldPasswordChange = (e) => setOldPassword(e.target.value);
+  const handleNewPasswordChange = (e) => setNewPassword(e.target.value);
+  const handleConfirmPasswordChange = (e) => setConfirmPassword(e.target.value);
 
-  const updateForgetPassword = async () => {
+  const resetPassword = async () => {
     try {
       // Dispatch a loading action to set loading state to true
       dispatch({ type: "RESET_PASSWORD_START" });
+
       // Add form validation logic here if needed
-      if (!email) {
+      if (!oldPassword || !newPassword || newPassword !== confirmPassword) {
         // Show error toast for invalid input
-        toast.error("Please enter your email.", {
+        toast.error("Invalid input. Please check your passwords.", {
           position: "bottom-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -32,8 +37,9 @@ function ForgetPassword({ show, handleClose }) {
         return;
       }
 
-      const response = await axiosInstance.post("forgot-password", {
-        email,
+      const response = await axiosInstance.post("reset-password", {
+        oldPassword,
+        newPassword,
       });
 
       if (!response.data || response.data.status !== "success") {
@@ -41,7 +47,7 @@ function ForgetPassword({ show, handleClose }) {
       }
 
       // Show success toast
-      toast.success("Password reset email sent successfully", {
+      toast.success("Password reset successful", {
         position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -50,8 +56,10 @@ function ForgetPassword({ show, handleClose }) {
         draggable: true,
         progress: undefined,
       });
+
       // Dispatch a success action or set loading state to false if needed
       dispatch({ type: "RESET_PASSWORD_SUCCESS" });
+
       handleClose(); // Close the modal after successful password reset
     } catch (error) {
       console.error("Password reset error:", error);
@@ -83,25 +91,47 @@ function ForgetPassword({ show, handleClose }) {
       <Modal.Header className="border-0" closeButton></Modal.Header>
       <Modal.Body>
         <h1 className="ts-heading-font fw-bold text-uppercase ts-fs-35 ts-text-gray-6 text-center mb-08">
-          Forget password
-        </h1>{" "}
+          Reset Password
+        </h1>
         <Form className="mb-5">
           <Form.Group className="mb-4">
             <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium">
-              Email
+              Old Password
             </Form.Label>
             <Form.Control
               size="lg"
-              type="email"
-              value={email}
-              onChange={handleEmailChange}
+              type="password"
+              value={oldPassword}
+              onChange={handleOldPasswordChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-4">
+            <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium">
+              New Password
+            </Form.Label>
+            <Form.Control
+              size="lg"
+              type="password"
+              value={newPassword}
+              onChange={handleNewPasswordChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-4">
+            <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium">
+              Confirm Password
+            </Form.Label>
+            <Form.Control
+              size="lg"
+              type="password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
             />
           </Form.Group>
         </Form>
         <div className="text-center">
           <button
             className="btn ts-btn ts-btn--lg ts-fs-20 fw-bold ts-btn-primary text-uppercase mb-06"
-            onClick={updateForgetPassword}
+            onClick={resetPassword}
           >
             Continue
           </button>
@@ -111,4 +141,4 @@ function ForgetPassword({ show, handleClose }) {
   );
 }
 
-export default ForgetPassword;
+export default ResetPassword;
