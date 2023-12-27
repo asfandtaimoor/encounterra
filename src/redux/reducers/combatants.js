@@ -5,8 +5,12 @@ const combatantsReducer = createSlice({
   name: "COMBATANT_DEFINITION",
   initialState: null,
   reducers: {
+    // updateCombatants(state, action) {
+    //   console.log([...state, ...action.payload]);
+    //   return [...state, ...action.payload];
+    // },
     updateCombatants(state, action) {
-      return { ...state, ...action.payload };
+      return action.payload;
     },
   },
 });
