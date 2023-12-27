@@ -378,3 +378,19 @@ input::-webkit-inner-spin-button {
     }
   }
 }
+
+.ts-combatant-item {
+  transition: 300ms ease-in-out;
+  &:hover,
+  &.active {
+    color: $color-primary;
+  }
+}
+
+.ts-combatant-list {
+  transition: 300ms ease-in-out;
+  &__close {
+    height: 0;
+    overflow: hidden;
+  }
+}

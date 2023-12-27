@@ -30,7 +30,7 @@ export const fetchUserDataAsync = () => async (dispatch) => {
 
       if (response && response.status === 200) {
         const data = response.data;
-        console.log("User Data Fetched:", data);
+        // console.log("User Data Fetched:", data);
         dispatch(updateUserData(data));
       } else {
         console.error(
