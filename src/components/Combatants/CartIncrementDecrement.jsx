@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { PlusCircle, MinusCircle } from "@/Icons/index";
+import React, { useState, useEffect } from "react";
+// import { PlusCircle, MinusCircle } from "@/Icons/index";
 
 function CartIncrementDecrement({ Title, Value }) {
   // State to keep track of the quantity value
@@ -17,6 +17,10 @@ function CartIncrementDecrement({ Title, Value }) {
   //   }
   // };
 
+  // Update quantity when the Value prop changes
+  useEffect(() => {
+    setQuantity(Value);
+  }, [Value]);
   return (
     <div className="d-flex gap-2 align-items-center">
       <p className="ts-fs-18 text-uppercase fw-medium mb-0">{Title}</p>

@@ -4,6 +4,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchCombatants } from "@/redux/reducers/combatants";
+import { updateActiveCombatants } from "@/redux/reducers/ActiveCombatants";
 
 import {
   ExclamationCircle,
@@ -25,18 +26,12 @@ function index() {
 export default index;
 
 function Combatants() {
-  const [ActiveCombatants, setActiveCombatants] = useState(null);
   const dispatch = useDispatch();
 
   const combatantsDefinition = useSelector(
     (state) => state.combatantsDefinition
   );
-
-  // Check if combatantsDefinition is not null and has length greater than 0
-  const ActiveMonsters =
-    combatantsDefinition && combatantsDefinition.length > 0
-      ? combatantsDefinition[0]
-      : null;
+  const activeCombatant = useSelector((state) => state.activeCombatant);
 
   // // Now you can use ActiveMonsters in your component
 
@@ -52,9 +47,9 @@ function Combatants() {
 
   useEffect(() => {
     if (combatantsDefinition) {
-      setActiveCombatants(combatantsDefinition[0]);
+      dispatch(updateActiveCombatants(combatantsDefinition[0]));
     }
-  }, [combatantsDefinition]);
+  }, [combatantsDefinition, dispatch]);
 
   return (
     <section className="ts-card-2 mb-10">
@@ -62,49 +57,54 @@ function Combatants() {
         COMBATANTS
       </h1>
 
-      {ActiveCombatants && (
+      {activeCombatant && (
         <>
-          <p>Combatant Definition: {JSON.stringify(ActiveCombatants)}</p>
-          {ActiveCombatants.saving_throws && (
+          <p>Combatant Definition: {JSON.stringify(activeCombatant)}</p>
+          {activeCombatant.saving_throws && (
             <p>
               Combatant Definition:
-              {JSON.stringify(ActiveCombatants.saving_throws.CHA)}
+              {JSON.stringify(activeCombatant.saving_throws.CHA)}
             </p>
           )}
         </>
       )}
 
-      {ActiveCombatants && (
+      {activeCombatant && (
         <>
           <div className="mx-auto ts-text-gray-2 ts-card-1  mb-10">
             <div className="row gap-4 gap-lg-0 ">
               <div className="col-lg-5 ts-list-data-left pb-3 pb-lg-0">
-                <ListData combatantsDefinition={combatantsDefinition} />
+                {combatantsDefinition && (
+                  <ListData combatantsDefinition={combatantsDefinition} />
+                )}
               </div>
               <div className="col-lg-7">
-                <div className="mb-08">
-                  <div className="d-flex gap-3 flex-wrap">
-                    <CartIncrementDecrement
-                      Title={"HP"}
-                      Value={ActiveCombatants.hp}
-                    />
-                    <CartIncrementDecrement
-                      Title={"AC"}
-                      Value={ActiveCombatants.ac}
-                    />
-                    <CartIncrementDecrement
-                      Title={"DC"}
-                      Value={ActiveCombatants.dc}
-                    />
+                {activeCombatant && (
+                  <div className="mb-08">
+                    <div className="d-flex gap-3 flex-wrap">
+                      <CartIncrementDecrement
+                        Title={"HP"}
+                        Value={activeCombatant.hp}
+                      />
+                      <CartIncrementDecrement
+                        Title={"AC"}
+                        Value={activeCombatant.ac}
+                      />
+                      <CartIncrementDecrement
+                        Title={"DC"}
+                        Value={activeCombatant.dc}
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
+
                 {/* <div className="mb-08">
                   <h2 className="ts-fs-22 text-uppercase fw-bold mb-06">
                     ability sources
                   </h2>
                   <div className="d-flex gap-3 flex-wrap">
-                    {ActiveCombatants &&
-                      ActiveCombatants.abilities.map((val, index) => (
+                    {activeCombatant &&
+                      activeCombatant.abilities.map((val, index) => (
                         // <CartIncrementDecrement key={index} Title={val} />
                         <div key={index}>
                           <h5 className="ts-fs-3">{val}</h5>
@@ -112,61 +112,64 @@ function Combatants() {
                       ))}
                   </div>
                 </div> */}
-                <div className="mb-08">
-                  <h2 className="ts-fs-22 text-uppercase fw-bold mb-06">
-                    saving throws
-                  </h2>
-                  <div className="d-flex gap-3 flex-wrap">
-                    <CartIncrementDecrement
-                      Title={"CHA"}
-                      Value={ActiveCombatants.saving_throws.CHA}
-                    />
-                    <CartIncrementDecrement
-                      Title={"CON"}
-                      Value={ActiveCombatants.saving_throws.CON}
-                    />
-                    <CartIncrementDecrement
-                      Title={"DEX"}
-                      Value={ActiveCombatants.saving_throws.DEX}
-                    />
-                    <CartIncrementDecrement
-                      Title={"INT"}
-                      Value={ActiveCombatants.saving_throws.INT}
-                    />
-                    <CartIncrementDecrement
-                      Title={"STR"}
-                      Value={ActiveCombatants.saving_throws.STR}
-                    />
-                    <CartIncrementDecrement
-                      Title={"WIS"}
-                      Value={ActiveCombatants.saving_throws.WIS}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <h2 className="ts-fs-22 text-uppercase fw-bold mb-06">
-                    Skills
-                  </h2>
-                  <div className="d-flex gap-3 flex-wrap">
-                    <CartIncrementDecrement
-                      Title={"acrobatics"}
-                      Value={ActiveCombatants.skills.acrobatics}
-                    />
-                    <CartIncrementDecrement
-                      Title={"athletics"}
-                      Value={ActiveCombatants.skills.athletics}
-                    />
-                    <CartIncrementDecrement
-                      Title={"stealth"}
-                      Value={ActiveCombatants.skills.stealth}
-                    />
-                  </div>
-                </div>
+                {activeCombatant && (
+                  <>
+                    <div className="mb-08">
+                      <h2 className="ts-fs-22 text-uppercase fw-bold mb-06">
+                        saving throws
+                      </h2>
+                      <div className="d-flex gap-3 flex-wrap">
+                        <CartIncrementDecrement
+                          Title={"CHA"}
+                          Value={activeCombatant.saving_throws.CHA}
+                        />
+                        <CartIncrementDecrement
+                          Title={"CON"}
+                          Value={activeCombatant.saving_throws.CON}
+                        />
+                        <CartIncrementDecrement
+                          Title={"DEX"}
+                          Value={activeCombatant.saving_throws.DEX}
+                        />
+                        <CartIncrementDecrement
+                          Title={"INT"}
+                          Value={activeCombatant.saving_throws.INT}
+                        />
+                        <CartIncrementDecrement
+                          Title={"STR"}
+                          Value={activeCombatant.saving_throws.STR}
+                        />
+                        <CartIncrementDecrement
+                          Title={"WIS"}
+                          Value={activeCombatant.saving_throws.WIS}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <h2 className="ts-fs-22 text-uppercase fw-bold mb-06">
+                        Skills
+                      </h2>
+                      <div className="d-flex gap-3 flex-wrap">
+                        <CartIncrementDecrement
+                          Title={"acrobatics"}
+                          Value={activeCombatant.skills.acrobatics}
+                        />
+                        <CartIncrementDecrement
+                          Title={"athletics"}
+                          Value={activeCombatant.skills.athletics}
+                        />
+                        <CartIncrementDecrement
+                          Title={"stealth"}
+                          Value={activeCombatant.skills.stealth}
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
-
-          <Skills ActiveCombatants={ActiveCombatants} />
+          {activeCombatant && <Skills activeCombatant={activeCombatant} />}
 
           <div className="d-flex flex-column flex-sm-row justify-content-center gap-4">
             <button
@@ -189,239 +192,6 @@ function Combatants() {
     </section>
   );
 }
-
-// function ListData({ combatantsDefinitionReal }) {
-// function ListData() {
-//   const combatantsDefinition = [
-//     {
-//       abilities: ["Bite", "Claws", "PounceClaws", "Pounce"],
-//       ac: 12,
-//       class: "Monster",
-//       dc: 0,
-//       hp: 52,
-//       level: 1,
-//       name: "Saber-Toothed Tiger",
-//       saving_throws: {
-//         CHA: -1,
-//         CON: 2,
-//         DEX: 2,
-//         INT: -4,
-//         STR: 4,
-//         WIS: 1,
-//       },
-//       skills: {
-//         acrobatics: 2,
-//         athletics: 4,
-//         stealth: 0,
-//       },
-//       subclass: "Beast",
-//     },
-//     {
-//       abilities: [
-//         "Rapier",
-//         "Shortbow",
-//         "Ranged Attack",
-//         "Cunning Action",
-//         "Sneak Attack",
-//       ],
-//       ac: 16,
-//       class: "Rogue",
-//       dc: 15,
-//       hp: 33,
-//       level: 5,
-//       name: "Assassin Rogue 5Lvl",
-//       saving_throws: {
-//         CHA: 1,
-//         CON: 1,
-//         DEX: 7,
-//         INT: 4,
-//         STR: -1,
-//         WIS: 2,
-//       },
-//       skills: {
-//         acrobatics: 7,
-//         athletics: -1,
-//         stealth: 10,
-//       },
-//       subclass: "Assassin",
-//     },
-//     {
-//       abilities: ["Scimitar", "Shortbow"],
-//       ac: 15,
-//       class: "Monster",
-//       dc: 0,
-//       hp: 7,
-//       level: 1,
-//       name: "Goblin",
-//       saving_throws: {
-//         CHA: -1,
-//         CON: 0,
-//         DEX: 2,
-//         INT: 0,
-//         STR: -1,
-//         WIS: -1,
-//       },
-//       skills: {
-//         acrobatics: 2,
-//         athletics: -1,
-//         stealth: 0,
-//       },
-//       subclass: "Humanoid",
-//     },
-//     {
-//       abilities: ["Scimitar", "Light Crossbow"],
-//       ac: 12,
-//       class: "Monster",
-//       dc: 0,
-//       hp: 11,
-//       level: 1,
-//       name: "Bandit",
-//       saving_throws: {
-//         CHA: 0,
-//         CON: 1,
-//         DEX: 1,
-//         INT: 0,
-//         STR: 0,
-//         WIS: 0,
-//       },
-//       skills: {
-//         acrobatics: 1,
-//         athletics: 0,
-//         stealth: 0,
-//       },
-//       subclass: "Humanoid",
-//     },
-//     {
-//       abilities: ["Greataxe", "Greataxe recklessly"],
-//       ac: 13,
-//       class: "Monster",
-//       dc: 0,
-//       hp: 67,
-//       level: 4,
-//       name: "Berserker",
-//       saving_throws: {
-//         CHA: -1,
-//         CON: 3,
-//         DEX: 1,
-//         INT: -1,
-//         STR: 3,
-//         WIS: 0,
-//       },
-//       skills: {
-//         acrobatics: 1,
-//         athletics: 3,
-//         stealth: 0,
-//       },
-//       subclass: "Humanoid",
-//     },
-//     {
-//       abilities: ["Bite", "Pack Tactics"],
-//       ac: 14,
-//       class: "Monster",
-//       dc: 0,
-//       hp: 37,
-//       level: 1,
-//       name: "Dire Wolf",
-//       saving_throws: {
-//         CHA: -2,
-//         CON: 2,
-//         DEX: 2,
-//         INT: -4,
-//         STR: 3,
-//         WIS: 1,
-//       },
-//       skills: {
-//         acrobatics: 2,
-//         athletics: 3,
-//         stealth: 0,
-//       },
-//       subclass: "Beast",
-//     },
-//     {
-//       abilities: ["Scimitar", "Dagger", "Thrown Dagger", "Ranged Attack : 2"],
-//       ac: 15,
-//       class: "Monster",
-//       dc: 0,
-//       hp: 65,
-//       level: 4,
-//       name: "Bandit Captain",
-//       saving_throws: {
-//         CHA: 2,
-//         CON: 2,
-//         DEX: 5,
-//         INT: 2,
-//         STR: 4,
-//         WIS: 2,
-//       },
-//       skills: {
-//         acrobatics: 3,
-//         athletics: 4,
-//         stealth: 0,
-//       },
-//       subclass: "Humanoid",
-//     },
-//   ];
-//   return (
-//     <div>
-//       <div className="ts-searchbar mb-3">
-//         <input type="text" className="form-control" placeholder="Search" />
-//         <button className="btn p-0 border-0 ts-search-btn">
-//           <Search Width="20" Height="20" />
-//         </button>
-//       </div>
-
-//       <div className="ts-data-list-container">
-//         {combatantsDefinition.map((item, index) => {
-//           return <ListDetailsItem key={index} data={item} />;
-//         })}
-//       </div>
-//     </div>
-//   );
-// }
-
-// function ListDetailsItem({ data }) {
-//   const [isListOpen, setListOpen] = useState(true);
-
-//   const toggleList = () => {
-//     setListOpen(!isListOpen);
-//   };
-//   return (
-//     <div>
-//       <div className="ts-list">
-//         <button
-//           className="btn d-flex gap-2 align-items-center border-0 p-0 ts-fs-20 text-uppercase fw-medium mb-2"
-//           onClick={toggleList}
-//         >
-//           {isListOpen ? (
-//             <MinusSquare Width="20" Height="20" />
-//           ) : (
-//             <PlusSquare Width="20" Height="20" />
-//           )}
-//           {data.class}
-//         </button>
-
-//         {isListOpen && data.subclass && (
-//           <ul className="ts-list-data ps-5 list-unstyled">
-//           {data.subclass.map((subItem, index) => (
-//               <ListDetailsItem key={index} data={subItem} />
-//             ))}
-//           </ul>
-//         )}
-
-//         {isListOpen && data.data && (
-//           <ul className="ts-list-data ps-5 list-unstyled">
-//             {/* Render data elements */}
-//             {Object.entries(data.data).map(([key, value], index) => (
-//               <li key={index}>
-//                 <h4 className="ts-fs-18 text-uppercase">{value}</h4>
-//               </li>
-//             ))}
-//           </ul>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
 
 function ListData({ combatantsDefinition }) {
   const [isListMonsterOpen, setListMonsterOpen] = useState(true);
@@ -449,9 +219,7 @@ function ListData({ combatantsDefinition }) {
       }
     }
   });
-
   console.log(groupedMonsters);
-
   return (
     <div>
       <div className="ts-searchbar mb-3">
@@ -524,13 +292,21 @@ function ListGroup({ monsterGroup }) {
   );
 }
 function ListItem({ monster }) {
+  const dispatch = useDispatch();
+  const activeCombatant = useSelector((state) => state.activeCombatant);
+
+  const updateActiveCombatantFnc = (monster) => {
+    dispatch(updateActiveCombatants(monster));
+  };
+
   return (
-    // ${ActiveCombatants.id === monster.id ? "active" : "" }
     <li
-      className={`ts-combatant-item 
-      `}
+      className={`ts-combatant-item ${
+        activeCombatant.id === monster.id ? "active" : ""
+      }`}
       role="button"
       id={monster.id}
+      onClick={() => updateActiveCombatantFnc(monster)}
     >
       <h4 className="ts-fs-18 text-uppercase">{monster.name}</h4>
     </li>
@@ -606,12 +382,12 @@ function SkillTagItem({ skill }) {
     </div>
   );
 }
-function Skills({ ActiveCombatants }) {
+function Skills({ activeCombatant }) {
   return (
     <div>
       <div className="ts-card-3 mb-5">
         <div className="d-flex gap-3 flex-wrap ">
-          {ActiveCombatants.abilities.map((skill, index) => {
+          {activeCombatant.abilities.map((skill, index) => {
             return <SkillTagItem key={index} skill={skill} />;
           })}
         </div>
