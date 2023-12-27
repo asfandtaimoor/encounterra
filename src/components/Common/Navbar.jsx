@@ -20,11 +20,8 @@ import ForgetPassword from "@/components/Common/ForgetPassword";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserDataAsync } from "@/redux/reducers/UserData";
 import { logoutUser, getLoginDetails } from "@/redux/reducers/Auth";
-import ResetPassword from "./ResetPassword";
 
 function Navbar() {
-  const [showResetPassword, setShowResetPassword] = useState(false);
-  const handleCloseResetPassword = () => setShowResetPassword(false);
   const dispatch = useDispatch();
 
   const userData = useSelector((state) => state.userData);
@@ -105,12 +102,6 @@ function Navbar() {
                     align="end"
                     title="Left-aligned but right aligned when large screen"
                   >
-                    <button
-                      className="dropdown-item py-2"
-                      onClick={() => setShowResetPassword(true)}
-                    >
-                      Reset Password
-                    </button>
                     <Dropdown.Item className="py-2" href="#/action-2">
                       Manage Subscription
                     </Dropdown.Item>
@@ -127,17 +118,10 @@ function Navbar() {
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
-              <ResetPassword
-                show={showResetPassword}
-                handleClose={handleCloseResetPassword}
-              />
             </>
           ) : (
             // If user is not logged in
-            <Modals
-              showResetPassword={showResetPassword}
-              handleCloseResetPassword={handleCloseResetPassword}
-            />
+            <Modals />
           )}
         </div>
       </Container>
@@ -154,6 +138,7 @@ function Modals() {
   const [showCreateAccount, setShowCreateAccount] = useState(false);
 
   const handleCloseForgetPassword = () => setShowForgetPassword(false);
+  const handleOpenForgetPassword = () => setShowForgetPassword(true);
 
   const handleShowForgetPassword = () => {
     setShowForgetPassword(true);
@@ -183,6 +168,7 @@ function Modals() {
       <ForgetPassword
         show={showForgetPassword}
         handleClose={handleCloseForgetPassword}
+        handleOpen={handleOpenForgetPassword}
       />
 
       <Login
