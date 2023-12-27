@@ -6,17 +6,21 @@ import { toast } from "react-toastify";
 
 function ForgetPassword({ show, handleClose }) {
   const dispatch = useDispatch();
-
+  const [isverificationCodeSent, setIsverificationCodeSent] = useState(false);
   // State variables for user input
   const [email, setEmail] = useState("");
-
+  const [newPassword, setNewPassword] = useState("");
+  const [varificationCode, setVarificationCode] = useState("");
   // Form change handler
   const handleEmailChange = (e) => setEmail(e.target.value);
+  const handleNewPasswordChange = (e) => setNewPassword(e.target.value);
+  const handlevarificationCodeChange = (e) =>
+    setVarificationCode(e.target.value);
 
-  const updateForgetPassword = async () => {
+  const getVarificationCode = async () => {
     try {
       // Dispatch a loading action to set loading state to true
-      dispatch({ type: "RESET_PASSWORD_START" });
+      dispatch({ type: "Forget_PASSWORD_START" });
       // Add form validation logic here if needed
       if (!email) {
         // Show error toast for invalid input
@@ -41,7 +45,7 @@ function ForgetPassword({ show, handleClose }) {
       }
 
       // Show success toast
-      toast.success("Password reset email sent successfully", {
+      toast.success("Varification Code Sent!", {
         position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -51,8 +55,9 @@ function ForgetPassword({ show, handleClose }) {
         progress: undefined,
       });
       // Dispatch a success action or set loading state to false if needed
-      dispatch({ type: "RESET_PASSWORD_SUCCESS" });
-      handleClose(); // Close the modal after successful password reset
+      dispatch({ type: "Forget_PASSWORD_SUCCESS" });
+      setIsverificationCodeSent(true);
+      // handleClose(); // Close the modal after successful password reset
     } catch (error) {
       console.error("Password reset error:", error);
 
@@ -97,14 +102,56 @@ function ForgetPassword({ show, handleClose }) {
               onChange={handleEmailChange}
             />
           </Form.Group>
+
+          {isverificationCodeSent && (
+            <>
+              <Form.Group className="mb-4">
+                <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium">
+                  New Password
+                </Form.Label>
+                <Form.Control
+                  size="lg"
+                  type="password"
+                  value={newPassword}
+                  onChange={handleNewPasswordChange}
+                />
+              </Form.Group>
+              <Form.Group className="mb-4">
+                <Form.Label className="ts-text-gray-5 ts-fs-20 fw-medium">
+                  Varification Code
+                </Form.Label>
+                <Form.Control
+                  size="lg"
+                  type="text"
+                  value={varificationCode}
+                  onChange={handlevarificationCodeChange}
+                />
+              </Form.Group>
+            </>
+          )}
         </Form>
         <div className="text-center">
-          <button
+          {isverificationCodeSent ? (
+            <button
+              className="btn ts-btn ts-btn--lg ts-fs-20 fw-bold ts-btn-primary text-uppercase mb-06"
+              onClick={getVarificationCode}
+            >
+              Continue
+            </button>
+          ) : (
+            <button
+              className="btn ts-btn ts-btn--lg ts-fs-20 fw-bold ts-btn-primary text-uppercase mb-06"
+              onClick={getVarificationCode}
+            >
+              Get Varification Code
+            </button>
+          )}
+          {/* <button
             className="btn ts-btn ts-btn--lg ts-fs-20 fw-bold ts-btn-primary text-uppercase mb-06"
-            onClick={updateForgetPassword}
+            onClick={getVarificationCode}
           >
             Continue
-          </button>
+          </button> */}
         </div>
       </Modal.Body>
     </Modal>
