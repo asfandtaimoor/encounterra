@@ -660,7 +660,7 @@ function ListDetailsItem({ data }) {
 
 function SkillTagItem({ skill }) {
   return (
-    <div className="ts-skill-tag text-uppercase ">
+    <div className="ts-skill-tag text-uppercase " role="button">
       <div className="d-flex align-items-center justify-content-between gap-4">
         <div className="d-flex align-items-center gap-2">
           <OverlayTrigger
