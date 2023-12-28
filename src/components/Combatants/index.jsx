@@ -272,10 +272,11 @@ function ListData({ combatantsDefinition }) {
           </button>
           {isListHerosOpen && (
             <ul className="ts-list-data ps-4 list-unstyled">
-              {groupedEntities.Hero.map((herosGroup, index) => {
+              {groupedEntities.Hero.map((herosGroupLevel, index) => {
                 return (
                   <li key={index}>
-                    <ListGroupHeros herosGroup={herosGroup} />
+                    <ListGroupHerosLevels herosGroupLevel={herosGroupLevel} />
+                    {/* <ListGroupHeros herosGroup={herosGroup} /> */}
                   </li>
                 );
               })}
@@ -313,58 +314,91 @@ function ListData({ combatantsDefinition }) {
 }
 
 // Heroes
-function ListGroupHeros({ herosGroup }) {
+function ListGroupHerosLevels({ herosGroupLevel }) {
+  const [isListHerosOpen, setListHerosOpen] = useState(true);
+
+  const toggleHerosList = () => {
+    setListHerosOpen(!isListHerosOpen);
+  };
+
+  return (
+    <div>
+      <button
+        className="btn d-flex gap-2 align-items-center border-0 p-0 ts-fs-20 text-uppercase fw-medium mb-2"
+        onClick={toggleHerosList}
+      >
+        {isListHerosOpen ? (
+          <MinusSquare Width="20" Height="20" />
+        ) : (
+          <PlusSquare Width="20" Height="20" />
+        )}
+        Level {herosGroupLevel.level}
+      </button>
+
+      {isListHerosOpen &&
+        // <ListGroupHeros herosGroup={herosGroupLevel.heroes} />
+        herosGroupLevel.heroes.map((hero, index) => {
+          return (
+            <ul className="list-unstyled ps-4" key={index}>
+              <ListGroupHerosSubClass herosGroupSubclass={hero} />
+            </ul>
+          );
+        })}
+    </div>
+  );
+}
+function ListGroupHerosSubClass({ herosGroupSubclass }) {
   const [isListHerosOpen, setListHerosOpen] = useState(false);
 
   const toggleHerosList = () => {
     setListHerosOpen(!isListHerosOpen);
   };
 
-  console.log(herosGroup);
   return (
-    <div>
-      {/* <button
+    <li>
+      <button
         className="btn d-flex gap-2 align-items-center border-0 p-0 ts-fs-20 text-uppercase fw-medium mb-2"
-        onClick={toggleMonsterList}
+        onClick={toggleHerosList}
       >
-        {isListMonsterOpen ? (
+        {isListHerosOpen ? (
           <MinusSquare Width="20" Height="20" />
         ) : (
           <PlusSquare Width="20" Height="20" />
         )}
-        {monsterGroup.subclass}
+        {herosGroupSubclass.subclass}
       </button>
-      <ul
-        className={`list-unstyled ts-combatant-list ps-4 ${
-          isListMonsterOpen ? "" : "ts-combatant-list__close "
-        }
-          `}
-      >
-        {monsterGroup.monsters.map((monster) => {
-          return <ListItemMonster monster={monster} key={monster.id} />;
-        })}
-      </ul> */}
-    </div>
+
+      {isListHerosOpen && (
+        <ListGroupHeros herosGroup={herosGroupSubclass.heroes} />
+      )}
+    </li>
   );
 }
-function ListItemHeros({ monster }) {
+function ListGroupHeros({ herosGroup }) {
+  return (
+    <ul className={`list-unstyled ts-combatant-list ps-4`}>
+      {herosGroup.map((hero) => {
+        return <ListItemHeros hero={hero} key={hero.id} />;
+      })}
+    </ul>
+  );
+}
+function ListItemHeros({ hero }) {
   const dispatch = useDispatch();
   const activeCombatant = useSelector((state) => state.activeCombatant);
-
-  const updateActiveCombatantFnc = (monster) => {
-    dispatch(updateActiveCombatants(monster));
+  const updateActiveCombatantFnc = (hero) => {
+    dispatch(updateActiveCombatants(hero));
   };
-
   return (
     <li
       className={`ts-combatant-item ${
-        activeCombatant.id === monster.id ? "active" : ""
+        activeCombatant.id === hero.id ? "active" : ""
       }`}
       role="button"
-      id={monster.id}
-      onClick={() => updateActiveCombatantFnc(monster)}
+      id={hero.id}
+      onClick={() => updateActiveCombatantFnc(hero)}
     >
-      <h4 className="ts-fs-18 text-uppercase">{monster.name}</h4>
+      <h4 className="ts-fs-18 text-uppercase">{hero.name}</h4>
     </li>
   );
 }
@@ -392,16 +426,12 @@ function ListGroupMonster({ monsterGroup }) {
       <ul
         className={`list-unstyled ts-combatant-list ps-4 ${
           isListMonsterOpen ? "" : "ts-combatant-list__close "
-        }
-        
-        
-          `}
+        }`}
       >
         {monsterGroup.monsters.map((monster) => {
           return <ListItemMonster monster={monster} key={monster.id} />;
         })}
       </ul>
-      {/* <h4 className="ts-fs-18 text-uppercase">{monsterGroup.subclass}</h4> */}
     </div>
   );
 }
