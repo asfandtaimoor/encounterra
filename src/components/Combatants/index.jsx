@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchCombatants } from "@/redux/reducers/combatants";
 import { updateActiveCombatants } from "@/redux/reducers/ActiveCombatants";
-import { updateCombatantTeams } from "@/redux/reducers/CombatantTeam";
+import {
+  updateCombatantTeams,
+  removeCombatantFromTeam,
+} from "@/redux/reducers/CombatantTeam";
 
 import {
   ExclamationCircle,
@@ -548,7 +551,13 @@ function Skills({ activeCombatant }) {
 }
 
 function Results() {
+  const dispatch = useDispatch();
   const CombatantTeam = useSelector((state) => state.CombatantTeam);
+  //
+
+  function addToTeam(team, id) {
+    dispatch(removeCombatantFromTeam({ team: team, id: id }));
+  }
   return (
     <>
       {CombatantTeam && (
@@ -561,7 +570,7 @@ function Results() {
                     <h1 className="ts-fs-30 ts-text-skyblue text-center text-uppercase fw-bold mb-0">
                       Blue Team
                     </h1>
-                    <h1 className="ts-fs-20 ">3/6</h1>
+                    <h1 className="ts-fs-20 ">{CombatantTeam.blue.length}/6</h1>
                   </div>
 
                   <ul className="d-flex flex-column gap-3 list-unstyled ts-fs-22 fw-medium p-0 mb-0">
@@ -570,6 +579,7 @@ function Results() {
                         <li
                           className="ts-team-level-card d-flex align-items-center justify-content-between mt-1"
                           key={combatant.id}
+                          onClick={() => addToTeam("blue", combatant.id)}
                         >
                           <h2 className="ts-fs-20 fw-bold mb-0">
                             {combatant.name}
@@ -596,7 +606,7 @@ function Results() {
                     <h1 className="ts-fs-30 ts-text-red text-center text-uppercase fw-bold mb-0">
                       RED Team
                     </h1>
-                    <h1 className="ts-fs-20 ">3/6</h1>
+                    <h1 className="ts-fs-20 ">{CombatantTeam.red.length}/6</h1>
                   </div>
                   <ul className="d-flex flex-column gap-3 list-unstyled ts-fs-22 fw-medium p-0 mb-0">
                     {CombatantTeam.red.map((combatant) => {
@@ -604,6 +614,7 @@ function Results() {
                         <li
                           className="ts-team-level-card d-flex align-items-center justify-content-between mt-1"
                           key={combatant.id}
+                          onClick={() => addToTeam("red", combatant.id)}
                         >
                           <h2 className="ts-fs-20 fw-bold mb-0">
                             {combatant.name}
