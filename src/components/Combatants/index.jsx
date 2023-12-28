@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchCombatants } from "@/redux/reducers/combatants";
 import { updateActiveCombatants } from "@/redux/reducers/ActiveCombatants";
+import { updateCombatantTeams } from "@/redux/reducers/CombatantTeam";
 
 import {
   ExclamationCircle,
@@ -50,6 +51,10 @@ function Combatants() {
       dispatch(updateActiveCombatants(combatantsDefinition[0]));
     }
   }, [combatantsDefinition, dispatch]);
+
+  function addToTeam(team, data) {
+    dispatch(updateCombatantTeams({ team: team, data: data }));
+  }
 
   return (
     <section className="ts-card-2 mb-10">
@@ -163,6 +168,7 @@ function Combatants() {
             <button
               className="btn ts-btn ts-fs-20 fw-bold ts-btn-primary text-uppercase  py-2"
               style={{ lineHeight: "140%" }}
+              onClick={() => addToTeam("blue", activeCombatant)}
             >
               +add to
               <br /> <span className="ts-text-skyblue">blue team</span>
@@ -170,6 +176,7 @@ function Combatants() {
             <button
               className="btn ts-btn ts-fs-20 fw-bold ts-btn-primary text-uppercase py-2 "
               style={{ lineHeight: "140%" }}
+              onClick={() => addToTeam("red", activeCombatant)}
             >
               +add to <br />
               <span className="ts-text-red">red team</span>
@@ -541,121 +548,92 @@ function Skills({ activeCombatant }) {
 }
 
 function Results() {
+  const CombatantTeam = useSelector((state) => state.CombatantTeam);
   return (
-    <section className="ts-card-2">
-      <div className="mx-auto ts-text-gray-2">
-        <div className="row row-cols-md-2 gap-4 gap-md-0 mb-10">
-          <div>
-            <div className="ts-card-1">
-              <div className="d-flex justify-content-between gap-2 mb-06">
-                <h1 className="ts-fs-30 ts-text-skyblue text-center text-uppercase fw-bold mb-0">
-                  Blue Team
-                </h1>
-                <h1 className="ts-fs-20 ">3/6</h1>
-              </div>
+    <>
+      {CombatantTeam && (
+        <section className="ts-card-2">
+          <div className="mx-auto ts-text-gray-2">
+            <div className="row row-cols-md-2 gap-4 gap-md-0 mb-10">
+              <div>
+                <div className="ts-card-1">
+                  <div className="d-flex justify-content-between gap-2 mb-06">
+                    <h1 className="ts-fs-30 ts-text-skyblue text-center text-uppercase fw-bold mb-0">
+                      Blue Team
+                    </h1>
+                    <h1 className="ts-fs-20 ">3/6</h1>
+                  </div>
 
-              <ul className="d-flex flex-column gap-3 list-unstyled ts-fs-22 fw-medium p-0 mb-0">
-                <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
-                  <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
-                  <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    {/* <span className="vr my-1"></span>
+                  <ul className="d-flex flex-column gap-3 list-unstyled ts-fs-22 fw-medium p-0 mb-0">
+                    {CombatantTeam.blue.map((combatant) => {
+                      return (
+                        <li
+                          className="ts-team-level-card d-flex align-items-center justify-content-between mt-1"
+                          key={combatant.id}
+                        >
+                          <h2 className="ts-fs-20 fw-bold mb-0">
+                            {combatant.name}
+                          </h2>
+                          <div className="ts-fs-18 d-flex align-items-center gap-2">
+                            {/* <span className="vr my-1"></span>
                     <span className="ts-tag-level rounded-pill">
                       Level 3
                     </span>
                     <span className="vr my-1"></span> */}
-                    <button className="btn p-0 border-0">
-                      <Close Width="18" Height="18" Fill="#353535" />
-                    </button>
+                            <button className="btn p-0 border-0">
+                              <Close Width="18" Height="18" Fill="#353535" />
+                            </button>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
+              <div>
+                <div className="ts-card-1">
+                  <div className="d-flex justify-content-between gap-2 mb-06">
+                    <h1 className="ts-fs-30 ts-text-red text-center text-uppercase fw-bold mb-0">
+                      RED Team
+                    </h1>
+                    <h1 className="ts-fs-20 ">3/6</h1>
                   </div>
-                </li>
-                <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
-                  <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
-                  <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    {/* <span className="vr my-1"></span>
+                  <ul className="d-flex flex-column gap-3 list-unstyled ts-fs-22 fw-medium p-0 mb-0">
+                    {CombatantTeam.red.map((combatant) => {
+                      return (
+                        <li
+                          className="ts-team-level-card d-flex align-items-center justify-content-between mt-1"
+                          key={combatant.id}
+                        >
+                          <h2 className="ts-fs-20 fw-bold mb-0">
+                            {combatant.name}
+                          </h2>
+                          <div className="ts-fs-18 d-flex align-items-center gap-2">
+                            {/* <span className="vr my-1"></span>
                     <span className="ts-tag-level rounded-pill">
                       Level 3
                     </span>
                     <span className="vr my-1"></span> */}
-                    <button className="btn p-0 border-0">
-                      <Close Width="18" Height="18" Fill="#353535" />
-                    </button>
-                  </div>
-                </li>
-                <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
-                  <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
-                  <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    {/* <span className="vr my-1"></span>
-                    <span className="ts-tag-level rounded-pill">
-                      Level 3
-                    </span>
-                    <span className="vr my-1"></span> */}
-                    <button className="btn p-0 border-0">
-                      <Close Width="18" Height="18" Fill="#353535" />
-                    </button>
-                  </div>
-                </li>
-              </ul>
+                            <button className="btn p-0 border-0">
+                              <Close Width="18" Height="18" Fill="#353535" />
+                            </button>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
-          <div>
-            <div className="ts-card-1">
-              <div className="d-flex justify-content-between gap-2 mb-06">
-                <h1 className="ts-fs-30 ts-text-red text-center text-uppercase fw-bold mb-0">
-                  RED Team
-                </h1>
-                <h1 className="ts-fs-20 ">3/6</h1>
-              </div>
-              <ul className="d-flex flex-column gap-3 list-unstyled ts-fs-22 fw-medium p-0 mb-0">
-                <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
-                  <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
-                  <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    {/* <span className="vr my-1"></span>
-                    <span className="ts-tag-level rounded-pill">
-                      Level 3
-                    </span>
-                    <span className="vr my-1"></span> */}
-                    <button className="btn p-0 border-0">
-                      <Close Width="18" Height="18" Fill="#353535" />
-                    </button>
-                  </div>
-                </li>
-                <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
-                  <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
-                  <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    {/* <span className="vr my-1"></span>
-                    <span className="ts-tag-level rounded-pill">
-                      Level 3
-                    </span>
-                    <span className="vr my-1"></span> */}
-                    <button className="btn p-0 border-0">
-                      <Close Width="18" Height="18" Fill="#353535" />
-                    </button>
-                  </div>
-                </li>
-                <li className="ts-team-level-card d-flex align-items-center justify-content-between mt-1">
-                  <h2 className="ts-fs-20 fw-bold mb-0">Bard</h2>
-                  <div className="ts-fs-18 d-flex align-items-center gap-2">
-                    {/* <span className="vr my-1"></span>
-                    <span className="ts-tag-level rounded-pill">
-                      Level 3
-                    </span>
-                    <span className="vr my-1"></span> */}
-                    <button className="btn p-0 border-0">
-                      <Close Width="18" Height="18" Fill="#353535" />
-                    </button>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div className="d-flex justify-content-center gap-4">
-        <button className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary">
-          NEXT
-        </button>
-      </div>
-    </section>
+          <div className="d-flex justify-content-center gap-4">
+            <button className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary">
+              NEXT
+            </button>
+          </div>
+        </section>
+      )}
+    </>
   );
 }
