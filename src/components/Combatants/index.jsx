@@ -36,7 +36,7 @@ export default index;
 function Combatants() {
   const dispatch = useDispatch();
   const combatantsDefinition = useSelector(
-    (state) => state.combatantsDefinition.combatants
+    (state) => state.combatantsDefinition.filteredCombatants
   );
 
   const activeCombatant = useSelector((state) => state.activeCombatant);
@@ -209,8 +209,8 @@ function SearchBar() {
 
   // Handler function for search button click (you can implement the search logic here)
   const handleSearch = () => {
-    console.log("Search for:", searchText);
     // Add your search logic here
+    dispatch(searchCombatantsByName(searchText));
   };
 
   return (
