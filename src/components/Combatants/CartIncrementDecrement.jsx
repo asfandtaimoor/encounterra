@@ -23,7 +23,7 @@ function CartIncrementDecrement({ Title, Value }) {
   }, [Value]);
   return (
     <div className="d-flex gap-2 align-items-center">
-      <p className="ts-fs-18 text-uppercase fw-medium mb-0">{Title}</p>
+      <p className="ts-fs-18 text-uppercase fw-medium mb-0">{Title} :</p>
       <div className="d-flex gap-1 ts-increment-decrement px-2">
         {/* <button className="btn border-0 p-0" onClick={handleDecrement}>
           <MinusCircle Width="18" Height="18" />
