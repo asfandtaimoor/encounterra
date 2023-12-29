@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import Head from "next/head";
 import { Container, Tab, Nav } from "react-bootstrap";
@@ -24,14 +24,24 @@ const projectTabs = [
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState(projectTabs[0].title);
+  const [backButtonVisible, setBackButtonVisible] = useState(true);
+  const [nextButtonVisible, setNextButtonVisible] = useState(true);
+  const isInitialLoad = useRef(true);
 
   const handleTabChange = (selectedTab) => {
     setActiveTab(selectedTab);
+
+    // Update button visibility based on the selected tab
+    setBackButtonVisible(
+      projectTabs.findIndex((tab) => tab.title === selectedTab) !== 0
+    );
+    setNextButtonVisible(
+      projectTabs.findIndex((tab) => tab.title === selectedTab) !==
+        projectTabs.length - 1
+    );
   };
 
   const handleNext = () => {
-    // Logic to determine the next tab based on the current active tab
-    // Example: Find the index of the current active tab and move to the next one
     const currentIndex = projectTabs.findIndex(
       (tab) => tab.title === activeTab
     );
@@ -39,11 +49,17 @@ export default function Home() {
     const nextTab = projectTabs[nextIndex].title;
 
     setActiveTab(nextTab);
+
+    // Hide the "Next" button if on the last tab
+    if (nextIndex === projectTabs.length - 1) {
+      setNextButtonVisible(false);
+    }
+
+    // Always show the "Back" button after clicking "Next"
+    setBackButtonVisible(true);
   };
 
   const handleBack = () => {
-    // Logic to determine the previous tab based on the current active tab
-    // Example: Find the index of the current active tab and move to the previous one
     const currentIndex = projectTabs.findIndex(
       (tab) => tab.title === activeTab
     );
@@ -52,7 +68,23 @@ export default function Home() {
     const previousTab = projectTabs[previousIndex].title;
 
     setActiveTab(previousTab);
+
+    // Hide the "Back" button if on the first tab
+    if (previousIndex === 0) {
+      setBackButtonVisible(false);
+    }
+
+    // Always show the "Next" button after clicking "Back"
+    setNextButtonVisible(true);
   };
+
+  useEffect(() => {
+    // On the initial load, hide the "Back" button
+    if (isInitialLoad.current) {
+      setBackButtonVisible(false);
+      isInitialLoad.current = false;
+    }
+  }, []);
 
   return (
     <>
@@ -79,9 +111,8 @@ export default function Home() {
                 <Nav variant="pills" className="ts-tabs ts-tabs-primary">
                   {projectTabs.map((tabItem, index) => {
                     return (
-                      <Nav.Item className="text-center " key={index}>
-                        <Nav.Link eventKey={tabItem.title}>
-                          {" "}
+                      <Nav.Item className="text-center" key={index}>
+                        <Nav.Link eventKey={tabItem.title} role="button">
                           <span> {tabItem.title} </span>
                         </Nav.Link>
                       </Nav.Item>
@@ -102,20 +133,23 @@ export default function Home() {
                 </Tab.Pane>
               </Tab.Content>
             </Tab.Container>
-
             <div className="d-flex justify-content-center gap-4 mt-5">
-              <button
-                className="btn ts-btn ts-btn--lg fw-bold ts-btn-outline-secondary"
-                onClick={handleBack}
-              >
-                BACK
-              </button>
-              <button
-                className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary"
-                onClick={handleNext}
-              >
-                Next
-              </button>
+              {backButtonVisible && (
+                <button
+                  className="btn ts-btn ts-btn--lg fw-bold ts-btn-outline-secondary"
+                  onClick={handleBack}
+                >
+                  BACK
+                </button>
+              )}
+              {nextButtonVisible && (
+                <button
+                  className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary"
+                  onClick={handleNext}
+                >
+                  Next
+                </button>
+              )}
             </div>
           </Container>
         </div>

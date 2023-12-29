@@ -1,65 +1,110 @@
-import React, { useState } from "react";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
+import React, { useState, useEffect } from "react";
+
+import { Tooltip, Spinner, OverlayTrigger } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { ExclamationCircle, PlusFill, MinusFill } from "@/Icons/index";
+import axiosInstance from "@/axios";
+import { toast } from "react-toastify";
 
 export default function Simulation() {
   const [iterationValue, setIterationValue] = useState(50);
+  const [lastJob, setLastJob] = useState([]);
+  const [fetchingJob, setFetchingJob] = useState(false);
+  const [jobState, setJobState] = useState(null);
+  const combatantTeam = useSelector((state) => state.CombatantTeam);
 
-  const pollForResult = () => {
-    const { lastJobId } = this.state;
+  const pollForResult = async (lastJobId) => {
+    // const { lastJobId } = lastJob;
+    // console.log("lastJob" + lastJob);
+    console.log("lastJob" + lastJobId);
+
     if (!lastJobId) return;
 
-    fetch(`https://encounterra.com/api/get-simulation-result/${lastJobId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-      credentials: "include",
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          // Simulation finished successfully
-          return response.json().then((data) => {
-            console.log("Data:", data);
-            // setState({
-            //   lastJobId: data.null,
-            //   lastSimulationStatus: "success",
-            //   lastBlueVictories: data.BLUE.VICTORIES,
-            //   lastRedVictories: data.RED.VICTORIES,
-            //   lastBlueAtLeastOneDied: data.BLUE.AT_LEAST_ONE_DIED,
-            //   lastRedAtLeastOneDied: data.RED.AT_LEAST_ONE_DIED,
-            //   lastBlueAtLeastTwoDied: data.BLUE.AT_LEAST_TWO_DIED,
-            //   lastRedAtLeastTwoDied: data.RED.AT_LEAST_TWO_DIED,
-            //   lastBlueAtLeastThreeDied: data.BLUE.AT_LEAST_THREE_DIED,
-            //   lastRedAtLeastThreeDied: data.RED.AT_LEAST_THREE_DIED,
-            //   logLink: data.log_link,
-            // });
-          });
-        } else if (response.status === 202) {
-          // Simulation still in progress
-          setTimeout(this.pollForResult, 4000); // Poll every 4 seconds.
-        } else if (response.status === 500 || response.status === 400) {
-          // Simulation failed
-          return response.json().then((data) => {
-            this.setState({ lastSimulationStatus: "failed" });
-          });
-        } else {
-          return Promise.reject(
-            new Error(`Unexpected status code: ${response.status}`)
-          );
+    try {
+      const response = await axiosInstance.get(
+        `get-simulation-result/${lastJobId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+          credentials: "include",
         }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        this.setState({ lastSimulationStatus: "failed" });
+      );
+
+      if (response.status === 200) {
+        // Simulation finished successfully
+        const data = await response.json();
+        console.log("Data:", data);
+        toast.success("Simulation Compeleted", {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        // Set state based on response data
+        setFetchingJob(false);
+        setJobState({
+          lastJobId: data.null,
+          lastSimulationStatus: "success",
+          lastBlueVictories: data.BLUE.VICTORIES,
+          lastRedVictories: data.RED.VICTORIES,
+          lastBlueAtLeastOneDied: data.BLUE.AT_LEAST_ONE_DIED,
+          lastRedAtLeastOneDied: data.RED.AT_LEAST_ONE_DIED,
+          lastBlueAtLeastTwoDied: data.BLUE.AT_LEAST_TWO_DIED,
+          lastRedAtLeastTwoDied: data.RED.AT_LEAST_TWO_DIED,
+          lastBlueAtLeastThreeDied: data.BLUE.AT_LEAST_THREE_DIED,
+          lastRedAtLeastThreeDied: data.RED.AT_LEAST_THREE_DIED,
+          logLink: data.log_link,
+        });
+      } else if (response.status === 202) {
+        // Show error toast
+        toast.info("Simulation In Progress", {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setFetchingJob(true);
+        setTimeout(() => pollForResult(lastJobId), 4000); // Poll every 4 seconds.
+      } else if (response.status === 500 || response.status === 400) {
+        // Simulation failed
+        const data = await response.json();
+        toast.error(`Unexpected status code: ${response.status}`, {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setJobState({ lastSimulationStatus: "failed" });
+      } else {
+        throw new Error(`Unexpected status code: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(`LastSimulation Failed Fetch`, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
+      setJobState({ lastSimulationStatus: "failed" });
+    }
   };
 
-  const combatantTeam = useSelector((state) => state.CombatantTeam);
-  function HandleSubmit() {
+  const handleSubmit = async () => {
     // Extract IDs from the team objects
     console.log(combatantTeam);
     const blueTeamIds = combatantTeam.blue.map((combatant) => combatant.id);
@@ -69,55 +114,75 @@ export default function Simulation() {
       blue: blueTeamIds,
       red: redTeamIds,
     };
+
     console.log("Data:", data);
-    // fetch("https://encounterra.com/api/simulate", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((response) => {
-    //     if (response.status === 403 || response.status === 401) {
-    //       return response.json().then((errorData) => {
-    //         console.log("Error Data:", errorData);
-    //         throw new Error(errorData.message);
-    //       });
-    //     }
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     this.setState(
-    //       {
-    //         lastJobId: data.job_id,
-    //         lastSimulationStatus: "in-progress",
-    //         errorMessage: null,
-    //       },
-    //       () => {
-    //         pollForResult();
-    //       }
-    //     );
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //     this.setState({
-    //       lastSimulationStatus: "failed",
-    //       logLink: null,
-    //       errorMessage: error.message,
-    //     });
-    //   });
-  }
+
+    try {
+      const response = await axiosInstance.post("simulate", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 403 || response.status === 401) {
+        const errorData = response.data || {};
+        console.log("Error Data:", errorData);
+        throw new Error(errorData.message);
+      }
+
+      const responseData = response.data || {};
+
+      console.log("Response Data:", responseData);
+
+      let lastJobId = responseData.job_id;
+      // Set initial state for job status
+      setLastJob({
+        lastJobId: lastJobId,
+        lastSimulationStatus: "in-progress",
+        errorMessage: null,
+      });
+
+      // Start polling for result
+      pollForResult(lastJobId);
+    } catch (error) {
+      console.error("Simulation error:", error);
+
+      // Set state for failed simulation
+      setLastJob({
+        lastSimulationStatus: "failed",
+        logLink: null,
+        errorMessage: error.message,
+      });
+    }
+  };
+
+  // useEffect(() => {
+  //   return () => clearTimeout(pollForResult);
+  // }, []);
 
   return (
     <div>
       <div className="mb-08">
+        {/* Assuming RecourceLevel is a component */}
+        {/* Pass handleSubmit as a prop */}
+        {/* Make sure RecourceLevel component uses handleSubmit prop */}
+
+        {/* <p>{lastJob}</p> */}
         <RecourceLevel
-          handleSubmit={HandleSubmit}
+          handleSubmit={handleSubmit}
           iterationValue={iterationValue}
           setIterationValue={setIterationValue}
         />
       </div>
-      <Results />
+      {/* Assuming Results is a component */}
+      {fetchingJob && (
+        <div className="d-flex justify-content-center">
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      )}
+      {jobState && <Results jobState={jobState} />}
     </div>
   );
 }
@@ -317,7 +382,7 @@ function Iteration({ iterationValue, setIterationValue }) {
     </div>
   );
 }
-function Results() {
+function Results({ jobState }) {
   return (
     <section className="ts-card-2">
       <h1 className="ts-fs-40 ts-heading-font fw-bold ts-text-gray-2 text-center mb-07">
@@ -338,19 +403,19 @@ function Results() {
               <ul className="list-unstyled ts-fs-22 fw-medium p-0 mb-0">
                 <li className="d-flex justify-content-between mt-1">
                   <span>At Least 1 Died</span>
-                  <span>: 12</span>
+                  <span>: {jobState.lastBlueAtLeastOneDied}</span>
                 </li>
                 <li className="d-flex justify-content-between mt-1">
                   <span>At Least 2 Died</span>
-                  <span>: 12</span>
+                  <span>: {jobState.lastBlueAtLeastTwoDied}</span>
                 </li>
                 <li className="d-flex justify-content-between mt-1">
                   <span>At Least 3 Died</span>
-                  <span>: 1</span>
+                  <span>: {jobState.lastBlueAtLeastThreeDied}</span>
                 </li>
                 <li className="d-flex justify-content-between mt-1">
                   <span>VIctories </span>
-                  <span>: 104</span>
+                  <span>: {jobState.lastBlueVictories}</span>
                 </li>
                 <li className="d-flex justify-content-between mt-1">
                   <span>Classification </span>
@@ -364,22 +429,23 @@ function Results() {
               <h1 className="ts-fs-30 ts-text-red text-center text-uppercase fw-bold mb-07">
                 Blue Team
               </h1>
+
               <ul className="list-unstyled ts-fs-22 fw-medium p-0 mb-0">
                 <li className="d-flex justify-content-between mt-1">
                   <span>At Least 1 Died</span>
-                  <span>: 12</span>
+                  <span>: {jobState.lastRedAtLeastOneDied}</span>
                 </li>
                 <li className="d-flex justify-content-between mt-1">
                   <span>At Least 2 Died</span>
-                  <span>: 12</span>
+                  <span>: {jobState.lastRedAtLeastTwoDied}</span>
                 </li>
                 <li className="d-flex justify-content-between mt-1">
                   <span>At Least 3 Died</span>
-                  <span>: 1</span>
+                  <span>: {jobState.lastRedAtLeastThreeDied}</span>
                 </li>
                 <li className="d-flex justify-content-between mt-1">
                   <span>VIctories </span>
-                  <span>: 104</span>
+                  <span>: {jobState.lastRedVictories}</span>
                 </li>
                 <li className="d-flex justify-content-between mt-1">
                   <span>Classification </span>
