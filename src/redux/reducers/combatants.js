@@ -9,7 +9,6 @@ const combatantsReducer = createSlice({
   },
   reducers: {
     updateCombatants(state, action) {
-      console.log(action.payload);
       return {
         ...state,
         allCombatants: action.payload,
