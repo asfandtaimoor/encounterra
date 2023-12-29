@@ -579,7 +579,6 @@ function Results() {
                         <li
                           className="ts-team-level-card d-flex align-items-center justify-content-between mt-1"
                           key={combatant.id}
-                          onClick={() => addToTeam("blue", combatant.id)}
                         >
                           <h2 className="ts-fs-20 fw-bold mb-0">
                             {combatant.name}
@@ -590,7 +589,10 @@ function Results() {
                       Level 3
                     </span>
                     <span className="vr my-1"></span> */}
-                            <button className="btn p-0 border-0">
+                            <button
+                              className="btn p-0 border-0"
+                              onClick={() => addToTeam("blue", combatant.id)}
+                            >
                               <Close Width="18" Height="18" Fill="#353535" />
                             </button>
                           </div>
@@ -614,7 +616,6 @@ function Results() {
                         <li
                           className="ts-team-level-card d-flex align-items-center justify-content-between mt-1"
                           key={combatant.id}
-                          onClick={() => addToTeam("red", combatant.id)}
                         >
                           <h2 className="ts-fs-20 fw-bold mb-0">
                             {combatant.name}
@@ -625,7 +626,10 @@ function Results() {
                       Level 3
                     </span>
                     <span className="vr my-1"></span> */}
-                            <button className="btn p-0 border-0">
+                            <button
+                              className="btn p-0 border-0"
+                              onClick={() => addToTeam("red", combatant.id)}
+                            >
                               <Close Width="18" Height="18" Fill="#353535" />
                             </button>
                           </div>
