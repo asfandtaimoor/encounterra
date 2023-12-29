@@ -9,19 +9,6 @@ import MapMain from "@/components/Map";
 import SocialMedia from "@/components/Common/SocialMedia";
 import Simulation from "@/components/Simulation";
 import Combatants from "@/components/Combatants";
-import { useSelector } from "react-redux";
-
-// import { fetchCombatants } from "@/redux/actions";
-
-// import {
-//   fetchCombatants,
-//   fetchCombatantsStart,
-//   fetchCombatantsSuccess,
-//   fetchCombatantsFailure,
-// } from "./combatantsActions";
-
-import { updateCombatantDefinition } from "@/redux/reducers/combatants";
-import axios from "axios";
 
 const projectTabs = [
   {
@@ -36,11 +23,36 @@ const projectTabs = [
 ];
 
 export default function Home() {
-  const [userData, setUserData] = useState({ email: null, credits: null });
+  const [activeTab, setActiveTab] = useState(projectTabs[0].title);
 
-  const combatantsDefinition = useSelector(
-    (state) => state.combatantsDefinition
-  );
+  const handleTabChange = (selectedTab) => {
+    setActiveTab(selectedTab);
+  };
+
+  const handleNext = () => {
+    // Logic to determine the next tab based on the current active tab
+    // Example: Find the index of the current active tab and move to the next one
+    const currentIndex = projectTabs.findIndex(
+      (tab) => tab.title === activeTab
+    );
+    const nextIndex = (currentIndex + 1) % projectTabs.length;
+    const nextTab = projectTabs[nextIndex].title;
+
+    setActiveTab(nextTab);
+  };
+
+  const handleBack = () => {
+    // Logic to determine the previous tab based on the current active tab
+    // Example: Find the index of the current active tab and move to the previous one
+    const currentIndex = projectTabs.findIndex(
+      (tab) => tab.title === activeTab
+    );
+    const previousIndex =
+      (currentIndex - 1 + projectTabs.length) % projectTabs.length;
+    const previousTab = projectTabs[previousIndex].title;
+
+    setActiveTab(previousTab);
+  };
 
   return (
     <>
@@ -60,6 +72,8 @@ export default function Home() {
             <Tab.Container
               id="GiveAwayTabs"
               defaultActiveKey={projectTabs[0].title}
+              activeKey={activeTab}
+              onSelect={handleTabChange}
             >
               <div className="d-flex justify-content-center mb-08">
                 <Nav variant="pills" className="ts-tabs ts-tabs-primary">
@@ -88,6 +102,21 @@ export default function Home() {
                 </Tab.Pane>
               </Tab.Content>
             </Tab.Container>
+
+            <div className="d-flex justify-content-center gap-4 mt-5">
+              <button
+                className="btn ts-btn ts-btn--lg fw-bold ts-btn-outline-secondary"
+                onClick={handleBack}
+              >
+                BACK
+              </button>
+              <button
+                className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary"
+                onClick={handleNext}
+              >
+                Next
+              </button>
+            </div>
           </Container>
         </div>
         <Footer />

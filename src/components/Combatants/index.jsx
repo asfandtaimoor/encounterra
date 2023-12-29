@@ -563,7 +563,7 @@ function Results() {
       {CombatantTeam && (
         <section className="ts-card-2">
           <div className="mx-auto ts-text-gray-2">
-            <div className="row row-cols-md-2 gap-4 gap-md-0 mb-10">
+            <div className="row row-cols-md-2 gap-4 gap-md-0">
               <div>
                 <div className="ts-card-1">
                   <div className="d-flex justify-content-between gap-2 mb-06">
@@ -636,12 +636,6 @@ function Results() {
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="d-flex justify-content-center gap-4">
-            <button className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary">
-              NEXT
-            </button>
           </div>
         </section>
       )}

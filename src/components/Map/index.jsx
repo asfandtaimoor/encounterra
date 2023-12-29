@@ -50,15 +50,6 @@ function Index() {
             })}
           </div>
         </div>
-
-        <div className="d-flex justify-content-center gap-4">
-          <button className="btn ts-btn ts-btn--lg fw-bold ts-btn-outline-secondary">
-            BACK
-          </button>
-          <button className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary">
-            Next
-          </button>
-        </div>
       </section>
     </div>
   );
