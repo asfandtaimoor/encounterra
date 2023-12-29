@@ -30,7 +30,7 @@ function CartIncrementDecrement({ Title, Value }) {
         </button> */}
         <input
           style={{ maxWidth: "60px" }}
-          className="form-control text-center px-0 py-1 ts-fs-18 fw-medium "
+          className="form-control text-italic text-center px-0 py-1 ts-fs-18 fw-medium "
           type="number"
           value={quantity}
           readOnly

@@ -1,23 +1,128 @@
 import React, { useState } from "react";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-
+import { useDispatch, useSelector } from "react-redux";
 import { ExclamationCircle, PlusFill, MinusFill } from "@/Icons/index";
 
-function Simulation() {
+export default function Simulation() {
+  const [iterationValue, setIterationValue] = useState(50);
+
+  const pollForResult = () => {
+    const { lastJobId } = this.state;
+    if (!lastJobId) return;
+
+    fetch(`https://encounterra.com/api/get-simulation-result/${lastJobId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+      credentials: "include",
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          // Simulation finished successfully
+          return response.json().then((data) => {
+            console.log("Data:", data);
+            // setState({
+            //   lastJobId: data.null,
+            //   lastSimulationStatus: "success",
+            //   lastBlueVictories: data.BLUE.VICTORIES,
+            //   lastRedVictories: data.RED.VICTORIES,
+            //   lastBlueAtLeastOneDied: data.BLUE.AT_LEAST_ONE_DIED,
+            //   lastRedAtLeastOneDied: data.RED.AT_LEAST_ONE_DIED,
+            //   lastBlueAtLeastTwoDied: data.BLUE.AT_LEAST_TWO_DIED,
+            //   lastRedAtLeastTwoDied: data.RED.AT_LEAST_TWO_DIED,
+            //   lastBlueAtLeastThreeDied: data.BLUE.AT_LEAST_THREE_DIED,
+            //   lastRedAtLeastThreeDied: data.RED.AT_LEAST_THREE_DIED,
+            //   logLink: data.log_link,
+            // });
+          });
+        } else if (response.status === 202) {
+          // Simulation still in progress
+          setTimeout(this.pollForResult, 4000); // Poll every 4 seconds.
+        } else if (response.status === 500 || response.status === 400) {
+          // Simulation failed
+          return response.json().then((data) => {
+            this.setState({ lastSimulationStatus: "failed" });
+          });
+        } else {
+          return Promise.reject(
+            new Error(`Unexpected status code: ${response.status}`)
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        this.setState({ lastSimulationStatus: "failed" });
+      });
+  };
+
+  const combatantTeam = useSelector((state) => state.CombatantTeam);
+  function HandleSubmit() {
+    // Extract IDs from the team objects
+    console.log(combatantTeam);
+    const blueTeamIds = combatantTeam.blue.map((combatant) => combatant.id);
+    const redTeamIds = combatantTeam.red.map((combatant) => combatant.id);
+    const data = {
+      iterations: parseInt(iterationValue),
+      blue: blueTeamIds,
+      red: redTeamIds,
+    };
+    console.log("Data:", data);
+    // fetch("https://encounterra.com/api/simulate", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // })
+    //   .then((response) => {
+    //     if (response.status === 403 || response.status === 401) {
+    //       return response.json().then((errorData) => {
+    //         console.log("Error Data:", errorData);
+    //         throw new Error(errorData.message);
+    //       });
+    //     }
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     this.setState(
+    //       {
+    //         lastJobId: data.job_id,
+    //         lastSimulationStatus: "in-progress",
+    //         errorMessage: null,
+    //       },
+    //       () => {
+    //         pollForResult();
+    //       }
+    //     );
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //     this.setState({
+    //       lastSimulationStatus: "failed",
+    //       logLink: null,
+    //       errorMessage: error.message,
+    //     });
+    //   });
+  }
+
   return (
     <div>
       <div className="mb-08">
-        <RecourceLevel />
+        <RecourceLevel
+          handleSubmit={HandleSubmit}
+          iterationValue={iterationValue}
+          setIterationValue={setIterationValue}
+        />
       </div>
       <Results />
     </div>
   );
 }
 
-export default Simulation;
-
-function RecourceLevel() {
+function RecourceLevel({ iterationValue, setIterationValue, handleSubmit }) {
   return (
     <section className="ts-card-2">
       <h1 className="ts-fs-40 ts-heading-font fw-bold ts-text-gray-2 text-center text-uppercase mb-07">
@@ -144,14 +249,20 @@ function RecourceLevel() {
             </div>
           </div>
         </div>
-        <Iteration />
+        <Iteration
+          iterationValue={iterationValue}
+          setIterationValue={setIterationValue}
+        />
       </div>
 
       <div className="d-flex justify-content-center gap-4">
         <button className="btn ts-btn ts-btn--lg fw-bold ts-btn-outline-secondary">
           Back
         </button>
-        <button className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary">
+        <button
+          className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary"
+          onClick={handleSubmit}
+        >
           Simulate
         </button>
       </div>
@@ -159,9 +270,7 @@ function RecourceLevel() {
   );
 }
 
-function Iteration() {
-  const [iterationValue, setIterationValue] = useState(150);
-
+function Iteration({ iterationValue, setIterationValue }) {
   const handleIncrement = () => {
     setIterationValue(iterationValue + 50);
   };

@@ -31,10 +31,10 @@ export default index;
 
 function Combatants() {
   const dispatch = useDispatch();
-
   const combatantsDefinition = useSelector(
     (state) => state.combatantsDefinition
   );
+
   const activeCombatant = useSelector((state) => state.activeCombatant);
 
   // // Now you can use ActiveMonsters in your component
