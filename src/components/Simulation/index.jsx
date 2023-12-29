@@ -163,12 +163,12 @@ function Iteration() {
   const [iterationValue, setIterationValue] = useState(150);
 
   const handleIncrement = () => {
-    setIterationValue(iterationValue + 1);
+    setIterationValue(iterationValue + 50);
   };
 
   const handleDecrement = () => {
     if (iterationValue > 0) {
-      setIterationValue(iterationValue - 1);
+      setIterationValue(iterationValue - 50);
     }
   };
 
@@ -185,8 +185,8 @@ function Iteration() {
             </button>
             <input
               style={{ width: "140px" }}
-              type="number"
-              className="form-control text-center fw-bold"
+              type="text"
+              className="form-control ts-form-control-number text-center fw-bold"
               value={iterationValue}
               readOnly
             />

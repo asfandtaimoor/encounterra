@@ -394,3 +394,7 @@ input::-webkit-inner-spin-button {
     overflow: hidden;
   }
 }
+
+.ts-form-control-number {
+  caret-color: transparent !important;
+}
