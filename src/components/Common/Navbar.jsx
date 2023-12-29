@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-
+import Link from "next/link";
 import {
   Container,
   Dropdown,
@@ -54,7 +54,7 @@ function Navbar() {
     <div className="ts-header">
       <Container fluid className="ts-container">
         <div className="ts-header__main d-flex justify-content-between align-items-center">
-          <div className=" ts-gap-20">
+          <Link className=" ts-gap-20" href="./">
             <Image
               src="/images/logo-sm.png"
               alt="Vercel Logo"
@@ -63,7 +63,7 @@ function Navbar() {
               height={79}
               priority
             />
-          </div>
+          </Link>
 
           {userData ? (
             // If user is logged in

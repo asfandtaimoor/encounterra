@@ -402,3 +402,7 @@ input::-webkit-inner-spin-button {
 .text-italic {
   font-style: italic;
 }
+
+.ts-main-wrapper {
+  min-height: calc(100vh - 519px);
+}

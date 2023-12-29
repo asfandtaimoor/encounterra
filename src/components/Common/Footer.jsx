@@ -4,6 +4,7 @@ import Image from "next/image";
 import Container from "react-bootstrap/Container";
 
 import { Instagram, Facebook, Twitter, Discord } from "@/Icons/index";
+import Link from "next/link";
 
 function Footer() {
   return (
@@ -66,18 +67,21 @@ function FooterSocialMedia() {
 function FooterLinks() {
   return (
     <nav className="d-flex  gap-4 gap-md-5 flex-wrap">
-      <a className="ts-footer__link" href="#">
+      <Link className="ts-footer__link" href="/">
         Home
-      </a>
-      <a className="ts-footer__link" href="#">
+      </Link>
+      <Link className="ts-footer__link" href="/Simulation-History">
+        Simulation-History
+      </Link>
+      <Link className="ts-footer__link" href="/">
         About
-      </a>
-      <a className="ts-footer__link" href="#">
+      </Link>
+      <Link className="ts-footer__link" href="/">
         Service
-      </a>
-      <a className="ts-footer__link" href="#">
+      </Link>
+      <Link className="ts-footer__link" href="/">
         Contact Us
-      </a>
+      </Link>
     </nav>
   );
 }
