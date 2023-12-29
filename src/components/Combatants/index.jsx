@@ -3,8 +3,12 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchCombatants } from "@/redux/reducers/combatants";
+import {
+  fetchCombatants,
+  searchCombatantsByName,
+} from "@/redux/reducers/combatants";
 import { updateActiveCombatants } from "@/redux/reducers/ActiveCombatants";
+
 import {
   updateCombatantTeams,
   removeCombatantFromTeam,
@@ -32,7 +36,7 @@ export default index;
 function Combatants() {
   const dispatch = useDispatch();
   const combatantsDefinition = useSelector(
-    (state) => state.combatantsDefinition
+    (state) => state.combatantsDefinition.combatants
   );
 
   const activeCombatant = useSelector((state) => state.activeCombatant);
@@ -191,6 +195,40 @@ function Combatants() {
   );
 }
 
+function SearchBar() {
+  const dispatch = useDispatch();
+  // State to hold the input value
+  const [searchText, setSearchText] = useState("");
+
+  // Handler function to update the state on input change
+  const handleInputChange = (event) => {
+    let value = event.target.value;
+    setSearchText(value);
+    dispatch(searchCombatantsByName(value));
+  };
+
+  // Handler function for search button click (you can implement the search logic here)
+  const handleSearch = () => {
+    console.log("Search for:", searchText);
+    // Add your search logic here
+  };
+
+  return (
+    <div className="ts-searchbar mb-3">
+      <input
+        type="text"
+        className="form-control"
+        placeholder="Search"
+        value={searchText}
+        onChange={handleInputChange}
+      />
+      <button className="btn p-0 border-0 ts-search-btn" onClick={handleSearch}>
+        <Search Width="20" Height="20" />
+      </button>
+    </div>
+  );
+}
+
 function ListData({ combatantsDefinition }) {
   const [isListMonsterOpen, setListMonsterOpen] = useState(true);
   const [isListHerosOpen, setListHerosOpen] = useState(true);
@@ -203,7 +241,6 @@ function ListData({ combatantsDefinition }) {
   };
 
   // Group monsters by subclass
-  // Group monsters by subclass into an array
   // Group entities by type (Monster or Hero)
   const groupedEntities = {
     Monster: [],
@@ -260,12 +297,7 @@ function ListData({ combatantsDefinition }) {
 
   return (
     <div>
-      <div className="ts-searchbar mb-3">
-        <input type="text" className="form-control" placeholder="Search" />
-        <button className="btn p-0 border-0 ts-search-btn">
-          <Search Width="20" Height="20" />
-        </button>
-      </div>
+      <SearchBar />
       <div className="ts-data-list-container">
         {/* Heros */}
         <div>

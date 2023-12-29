@@ -3,27 +3,67 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const combatantsReducer = createSlice({
   name: "COMBATANT_DEFINITION",
-  initialState: null,
+  initialState: {
+    combatants: null,
+    loading: false,
+    error: null,
+  },
   reducers: {
-    // updateCombatants(state, action) {
-    //   console.log([...state, ...action.payload]);
-    //   return [...state, ...action.payload];
-    // },
-    updateCombatants(state, action) {
-      return action.payload;
+    startFetchingCombatants(state) {
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    },
+    fetchCombatantsSuccess(state, action) {
+      return {
+        ...state,
+        combatants: action.payload,
+        loading: false,
+        error: null,
+      };
+    },
+    fetchCombatantsError(state, action) {
+      return {
+        ...state,
+        combatants: null,
+        loading: false,
+        error: action.payload,
+      };
+    },
+    searchCombatantsByName(state, action) {
+      const searchTerm = action.payload.toLowerCase();
+      // If search term is empty, return all combatants
+      if (!searchTerm) {
+        return {
+          ...state,
+        };
+      }
+      // Filter combatants by name
+      const filteredCombatants = state.combatants.filter((combatant) =>
+        combatant.name.toLowerCase().includes(searchTerm)
+      );
+      return {
+        ...state,
+        combatants: filteredCombatants,
+      };
     },
   },
 });
 
 const { actions, reducer } = combatantsReducer;
 
-export const { updateCombatants } = actions;
+export const {
+  startFetchingCombatants,
+  fetchCombatantsSuccess,
+  fetchCombatantsError,
+  searchCombatantsByName,
+} = actions;
 
-// Modify fetchCombatants to accept dispatch as an argument
 export const fetchCombatants = () => async (dispatch) => {
   try {
-    // Dispatch a loading action to set loading state to true
-    dispatch({ type: "FETCH_COMBATANTS_START" });
+    dispatch(startFetchingCombatants());
 
     const accessToken = localStorage.getItem("AccessToken");
     const response = await axiosInstance.get("combatant-definition", {
@@ -32,18 +72,10 @@ export const fetchCombatants = () => async (dispatch) => {
       },
     });
     const data = response.data;
-    // Dispatch the combatantDefinition action to update state with the fetched data
-    dispatch(updateCombatants(data));
-
-    // Dispatch a success action or set loading state to false if needed
-    dispatch({ type: "FETCH_COMBATANTS_SUCCESS" });
+    dispatch(fetchCombatantsSuccess(data));
   } catch (error) {
     console.error("Fetch combatants error:", error);
-
-    // Dispatch an error action to update state with the error message
-    dispatch(updateCombatantDefinition(null));
-
-    // Propagate the error for the component to handle
+    dispatch(fetchCombatantsError(error.message));
     throw error;
   }
 };
