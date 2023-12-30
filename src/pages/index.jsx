@@ -23,6 +23,8 @@ const projectTabs = [
 ];
 
 export default function Home() {
+  const [refresh, doRefresh] = useState(0);
+
   const [activeTab, setActiveTab] = useState(projectTabs[0].title);
   const [backButtonVisible, setBackButtonVisible] = useState(true);
   const [nextButtonVisible, setNextButtonVisible] = useState(true);
@@ -129,7 +131,7 @@ export default function Home() {
                   <MapMain />
                 </Tab.Pane>
                 <Tab.Pane eventKey={projectTabs[2].title}>
-                  <Simulation />
+                  <Simulation refresh={refresh} />
                 </Tab.Pane>
               </Tab.Content>
             </Tab.Container>
@@ -148,6 +150,15 @@ export default function Home() {
                   onClick={handleNext}
                 >
                   Next
+                </button>
+              )}
+
+              {activeTab === projectTabs[2].title && (
+                <button
+                  className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary"
+                  onClick={() => doRefresh((prev) => prev + 1)}
+                >
+                  Simulate
                 </button>
               )}
             </div>

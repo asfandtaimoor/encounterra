@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 import { Tooltip, Spinner, OverlayTrigger } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { ExclamationCircle, PlusFill, MinusFill } from "@/Icons/index";
 import axiosInstance from "@/axios";
 import { toast } from "react-toastify";
 
-export default function Simulation() {
+export default function Simulation({ refresh }) {
+  const [isMounted, setIsMounted] = useState(false);
   const [iterationValue, setIterationValue] = useState(50);
   const [lastJob, setLastJob] = useState([]);
   const [fetchingJob, setFetchingJob] = useState(false);
@@ -134,9 +135,15 @@ export default function Simulation() {
     }
   };
 
-  // useEffect(() => {
-  //   return () => clearTimeout(pollForResult);
-  // }, []);
+  useEffect(() => {
+    if (isMounted) {
+      // Code to run when refresh value changes after initial mount
+      handleSubmit();
+    } else {
+      // Code to run on initial mount
+      setIsMounted(true);
+    }
+  }, [refresh]);
 
   return (
     <div>
@@ -296,18 +303,6 @@ function RecourceLevel({ iterationValue, setIterationValue, handleSubmit }) {
           iterationValue={iterationValue}
           setIterationValue={setIterationValue}
         />
-      </div>
-
-      <div className="d-flex justify-content-center gap-4">
-        <button className="btn ts-btn ts-btn--lg fw-bold ts-btn-outline-secondary">
-          Back
-        </button>
-        <button
-          className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary"
-          onClick={handleSubmit}
-        >
-          Simulate
-        </button>
       </div>
     </section>
   );

@@ -32,31 +32,31 @@ const CombatantTeam = createSlice({
       }
 
       // Check if data already exists in the team
-      const existingData = state[team].find((item) => item.id === data.id);
+      state[team].push(data);
+      // const existingData = state[team].find((item) => item.id === data.id);
 
-      if (!existingData) {
-        // If data doesn't exist and team size is below the limit, push it into the team
-        state[team].push(data);
-        // toast.success(`${data.name} is Added to Team ${team}.`, {
-        //   position: "bottom-right",
-        //   autoClose: 3000,
-        //   hideProgressBar: false,
-        //   closeOnClick: true,
-        //   pauseOnHover: true,
-        //   draggable: true,
-        //   progress: undefined,
-        // });
-      } else {
-        toast.error(`Combatant is already in ${team} Team.`, {
-          position: "bottom-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      }
+      // if (!existingData) {
+      //   // If data doesn't exist and team size is below the limit, push it into the team
+      //   // toast.success(`${data.name} is Added to Team ${team}.`, {
+      //   //   position: "bottom-right",
+      //   //   autoClose: 3000,
+      //   //   hideProgressBar: false,
+      //   //   closeOnClick: true,
+      //   //   pauseOnHover: true,
+      //   //   draggable: true,
+      //   //   progress: undefined,
+      //   // });
+      // } else {
+      //   toast.error(`Combatant is already in ${team} Team.`, {
+      //     position: "bottom-right",
+      //     autoClose: 3000,
+      //     hideProgressBar: false,
+      //     closeOnClick: true,
+      //     pauseOnHover: true,
+      //     draggable: true,
+      //     progress: undefined,
+      //   });
+      // }
 
       return state;
     },
