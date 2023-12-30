@@ -37,15 +37,15 @@ const CombatantTeam = createSlice({
       if (!existingData) {
         // If data doesn't exist and team size is below the limit, push it into the team
         state[team].push(data);
-        toast.success(`${data.name} is Added to Team ${team}.`, {
-          position: "bottom-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        // toast.success(`${data.name} is Added to Team ${team}.`, {
+        //   position: "bottom-right",
+        //   autoClose: 3000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        // });
       } else {
         toast.error(`Combatant is already in ${team} Team.`, {
           position: "bottom-right",

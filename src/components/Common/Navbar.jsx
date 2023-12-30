@@ -68,7 +68,21 @@ function Navbar() {
               <div className="d-flex gap-2 gap-sm-3 align-items-center">
                 <div className="d-flex gap-2 gap-sm-3 align-items-center">
                   <p className="text-uppercase text-white mb-0">
-                    {userData.credits} credits
+                    {parseInt(userData.credits) === -1 ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-infinity"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916z" />
+                      </svg>
+                    ) : (
+                      userData.credits
+                    )}{" "}
+                    credits
                   </p>
                   <OverlayTrigger
                     overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}
@@ -83,7 +97,9 @@ function Navbar() {
                   </OverlayTrigger>
                 </div>
                 <div className="d-none d-sm-block vr"></div>
-                <p className="text-uppercase mb-0">{userData.email}</p>
+                <p className="text-uppercase mb-0 d-none d-sm-block">
+                  {userData.email}
+                </p>
 
                 <Dropdown>
                   <Dropdown.Toggle
@@ -99,12 +115,18 @@ function Navbar() {
                     align="end"
                     title="Left-aligned but right aligned when large screen"
                   >
+                    <p className="d-sm-none dropdown-item py-2 mb-0">
+                      {userData.email}
+                    </p>
                     <Dropdown.Item className="py-2" href="#/action-2">
                       Manage Subscription
                     </Dropdown.Item>
-                    <Dropdown.Item className="py-2" href="#/action-3">
-                      My simulation
-                    </Dropdown.Item>
+                    <Link
+                      className="dropdown-item py-2"
+                      href="/Simulation-History"
+                    >
+                      Simulation-History
+                    </Link>
                     <hr className="my-0" />
                     <button
                       className="dropdown-item py-2"

@@ -20,16 +20,7 @@ function Footer() {
               height={100}
               priority
             />
-
             <FooterLinks />
-            <p className="text-center text-white mb-0">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industries standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remai
-            </p>
             <FooterSocialMedia />
           </div>
         </div>
@@ -70,18 +61,12 @@ function FooterLinks() {
       <Link className="ts-footer__link" href="/">
         Home
       </Link>
-      <Link className="ts-footer__link" href="/Simulation-History">
-        Simulation-History
-      </Link>
       <Link className="ts-footer__link" href="/">
         About
       </Link>
-      <Link className="ts-footer__link" href="/">
-        Service
-      </Link>
-      <Link className="ts-footer__link" href="/">
+      <a className="ts-footer__link" href="mailto:noreply@encounterra.com">
         Contact Us
-      </Link>
+      </a>
     </nav>
   );
 }
