@@ -15,10 +15,7 @@ export default function Home() {
   const [simulationHistory, setSimulationHistory] = useState(null);
   const dispatch = useDispatch();
   const getSimulationsHistory = async () => {
-    // Add logic to reset the password using the verification code and new password
-    // You may need to send another request to the server
     try {
-      // Dispatch a loading action to set loading state to true
       dispatch({ type: "SIMULATION_HISTORY_START" });
       const accessToken = localStorage.getItem("AccessToken");
       const response = await axiosInstance.get("get-simulation-history", {
@@ -26,7 +23,6 @@ export default function Home() {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      // Dispatch the combatantDefinition action to update state with the fetched data
       console.log(response.data);
       setSimulationHistory(response.data);
       // Show success toast
@@ -39,7 +35,6 @@ export default function Home() {
         draggable: true,
         progress: undefined,
       });
-      // Dispatch a success action or set loading state to false if needed
       dispatch({ type: "SIMULATION_HISTORY_SUCCESS" });
     } catch (error) {
       console.error("Password reset error:", error);
@@ -141,13 +136,21 @@ function AccordionItem({ simulation }) {
             <h3 className="ts-fs-22 ts-text-skyblue text-uppercase fw-bold">
               Blue Team
             </h3>
-            <p className="ts-fs-20 fw-medium mb-0">01-11-2023</p>
+            <ul className="list-unstyled p-0 ts-fs-20 fw-medium mb-0">
+              {simulation.blue.map((name, index) => {
+                return <li key={index}>{name}</li>;
+              })}
+            </ul>
           </div>
           <div className="text-center">
             <h3 className="ts-fs-22 ts-text-red text-uppercase fw-bold">
               Red Team
             </h3>
-            <p className="ts-fs-20 fw-medium mb-0">01-11-2023</p>
+            <ul className="list-unstyled p-0 ts-fs-20 fw-medium mb-0">
+              {simulation.red.map((name, index) => {
+                return <li key={index}>{name}</li>;
+              })}
+            </ul>
           </div>
         </div>
       </Accordion.Header>
