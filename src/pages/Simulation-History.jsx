@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import Accordion from "react-bootstrap/Accordion";
+
 import Head from "next/head";
 
 import Navbar from "@/components/Common/Navbar";
@@ -102,24 +105,37 @@ export default function Home() {
   );
 }
 
-import Accordion from "react-bootstrap/Accordion";
-import { useEffect, useState } from "react";
-
 function Results({ simulationHistory }) {
   return (
     <Accordion defaultActiveKey="0">
       {simulationHistory.map((simulation, index) => (
-        <AccordionItem key={index} simulation={simulation} />
+        <AccordionItem key={index} index={index} simulation={simulation} />
       ))}
     </Accordion>
   );
 }
 
-function AccordionItem({ simulation }) {
-  const simulationStats = JSON.stringify(simulation.stats, null, 2);
+function AccordionItem({ simulation, index }) {
+  // Replace actual newlines with <br> tag before displaying
+  // let encounteredDoubleBraces = false;
+
+  const formattedStats = simulation.stats.replace(
+    /(\{|\})|\n|(}})/g,
+    (match, brace, doubleBraces) => {
+      if (brace) {
+        return `<br>${brace}<br>`;
+      } else if (doubleBraces && !encounteredDoubleBraces) {
+        encounteredDoubleBraces = true;
+        return "";
+      } else {
+        return "<br>";
+      }
+    }
+  );
+  <div dangerouslySetInnerHTML={{ __html: formattedStats }} />;
 
   return (
-    <Accordion.Item eventKey={simulation.id}>
+    <Accordion.Item eventKey={index}>
       <Accordion.Header>
         <div className="row row-cols-2 row-cols-md-4 w-100 ts-text-gray-2">
           <div className="text-center mb-4 mb-md-0">
@@ -155,9 +171,23 @@ function AccordionItem({ simulation }) {
         </div>
       </Accordion.Header>
       <Accordion.Body>
-        <pre>
-          <code>{simulationStats}</code>
-        </pre>
+        {/* <pre>
+          <code>{simulation.stats}</code>
+        </pre> */}
+        <div dangerouslySetInnerHTML={{ __html: formattedStats }} />;
+        {/* <div>
+          <JSONView src={jsonData} />
+        </div> */}
+        {/* <JsonView
+          data={simulation.stats}
+          shouldExpandNode={allExpanded}
+          // style={defaultStyles}
+        /> */}
+        {/* {
+          <pre>
+            <code>{JSON.stringify(simulation.stats, null, 2)}</code>
+          </pre>
+        } */}
       </Accordion.Body>
     </Accordion.Item>
   );
