@@ -126,6 +126,7 @@
   left: 0;
   top: 50%;
   transform: translate(-45px, -50%);
+  z-index: 1000;
 
   &__sociallink {
     background: $color-white;
