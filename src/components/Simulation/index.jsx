@@ -320,7 +320,7 @@ function Iteration({ iterationValue, setIterationValue }) {
   };
 
   return (
-    <div className="ts-map-card__header mb-08">
+    <div className="ts-map-card__header ">
       <div className="d-flex flex-wrap align-items-center justify-content-between gap-3">
         <h1 className="ts-fs-22 ts-text-gray-5 mb-0 text-uppercase">
           SIMULATION ITRATION
