@@ -585,8 +585,8 @@ function Results() {
   const CombatantTeam = useSelector((state) => state.CombatantTeam);
   //
 
-  function addToTeam(team, id) {
-    dispatch(removeCombatantFromTeam({ team: team, id: id }));
+  function removeFromTeam(team, id, index) {
+    dispatch(removeCombatantFromTeam({ team: team, id: id, index, index }));
   }
   return (
     <>
@@ -604,11 +604,11 @@ function Results() {
                   </div>
 
                   <ul className="d-flex flex-column gap-3 list-unstyled ts-fs-22 fw-medium p-0 mb-0">
-                    {CombatantTeam.blue.map((combatant) => {
+                    {CombatantTeam.blue.map((combatant, index) => {
                       return (
                         <li
                           className="ts-team-level-card d-flex align-items-center justify-content-between mt-1"
-                          key={combatant.id}
+                          key={combatant.id + index}
                         >
                           <h2 className="ts-fs-20 fw-bold mb-0">
                             {combatant.name}
@@ -621,7 +621,9 @@ function Results() {
                     <span className="vr my-1"></span> */}
                             <button
                               className="btn p-0 border-0"
-                              onClick={() => addToTeam("blue", combatant.id)}
+                              onClick={() =>
+                                removeFromTeam("blue", combatant.id, index)
+                              }
                             >
                               <Close Width="18" Height="18" Fill="#353535" />
                             </button>
@@ -641,11 +643,11 @@ function Results() {
                     <h1 className="ts-fs-20 ">{CombatantTeam.red.length}/6</h1>
                   </div>
                   <ul className="d-flex flex-column gap-3 list-unstyled ts-fs-22 fw-medium p-0 mb-0">
-                    {CombatantTeam.red.map((combatant) => {
+                    {CombatantTeam.red.map((combatant, index) => {
                       return (
                         <li
                           className="ts-team-level-card d-flex align-items-center justify-content-between mt-1"
-                          key={combatant.id}
+                          key={combatant.id + index}
                         >
                           <h2 className="ts-fs-20 fw-bold mb-0">
                             {combatant.name}
@@ -658,7 +660,9 @@ function Results() {
                     <span className="vr my-1"></span> */}
                             <button
                               className="btn p-0 border-0"
-                              onClick={() => addToTeam("red", combatant.id)}
+                              onClick={() =>
+                                removeFromTeam("red", combatant.id, index)
+                              }
                             >
                               <Close Width="18" Height="18" Fill="#353535" />
                             </button>
