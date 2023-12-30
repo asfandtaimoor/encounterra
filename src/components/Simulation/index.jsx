@@ -56,16 +56,6 @@ export default function Simulation() {
           logLink: data.log_link,
         });
       } else if (response.status === 202) {
-        // Show error toast
-        toast.info("Simulation In Progress", {
-          position: "bottom-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
         setFetchingJob(true);
         setTimeout(() => pollForResult(lastJobId), 4000); // Poll every 4 seconds.
       } else if (response.status === 500 || response.status === 400) {
@@ -378,7 +368,10 @@ function Results({ jobState }) {
       </h1>
 
       <div className="mb-06">
-        <TsProgressBar BlueTeamProgress={76} RedTeamProgress={24} />
+        <TsProgressBar
+          BlueTeamProgress={jobState.blue_victories_percentage}
+          RedTeamProgress={jobState.red_victories_percentage}
+        />
       </div>
       <div className="mx-auto ts-text-gray-2" style={{ maxWidth: "920px" }}>
         <div className="row row-cols-sm-2 mb-10">

@@ -25,6 +25,7 @@ export default function Home() {
         },
       });
       setSimulationHistory(response.data);
+      console.log(response.data);
       // Show success toast
       toast.success("Simulatiuon History Get successfully", {
         position: "bottom-right",
@@ -160,15 +161,16 @@ function AccordionItem({ simulation, index }) {
               Blue Team
             </h3>
             <p className="p-0 ts-fs-20 fw-medium mb-0">
-              {/* {simulation.stats} */}
-              {/* {simulation.stats.BLUE.VICTORIES} */}
+              {simulation.blue_victories_percentage}
             </p>
           </div>
           <div className="text-center">
             <h3 className="ts-fs-22 ts-text-red text-uppercase fw-bold">
               Red Team
             </h3>
-            <p className="p-0 ts-fs-20 fw-medium mb-0"></p>
+            <p className="p-0 ts-fs-20 fw-medium mb-0">
+              {simulation.red_victories_percentage}
+            </p>
           </div>
         </div>
       </Accordion.Header>
