@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Accordion from "react-bootstrap/Accordion";
+import { Accordion, Spinner } from "react-bootstrap";
 
 import Head from "next/head";
 
@@ -92,8 +92,14 @@ export default function Home() {
                 simulation results
               </h1>
               <div className="ts-card-2 px-4 py-5">
-                {simulationHistory && (
+                {simulationHistory ? (
                   <Results simulationHistory={simulationHistory} />
+                ) : (
+                  <div className="d-flex justify-content-center">
+                    <Spinner animation="border" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                  </div>
                 )}
               </div>
             </div>
@@ -116,23 +122,30 @@ function Results({ simulationHistory }) {
 }
 
 function AccordionItem({ simulation, index }) {
-  // Replace actual newlines with <br> tag before displaying
-  // let encounteredDoubleBraces = false;
+  let encounteredDoubleBraces = 0;
 
   const formattedStats = simulation.stats.replace(
-    /(\{|\})|\n|(}})/g,
-    (match, brace, doubleBraces) => {
-      if (brace) {
-        return `<br>${brace}<br>`;
-      } else if (doubleBraces && !encounteredDoubleBraces) {
-        encounteredDoubleBraces = true;
-        return "";
+    /(\{(?!\s*\n))|(\})|,|(\}\})/g,
+    (match, openingBrace, closingBrace, doubleBraces) => {
+      if (openingBrace) {
+        return `${openingBrace}<br/>`;
+      } else if (closingBrace && encounteredDoubleBraces === 0) {
+        encounteredDoubleBraces++;
+        return `${closingBrace}<br/>`;
+      } else if (closingBrace && encounteredDoubleBraces === 1) {
+        encounteredDoubleBraces = 0;
+        return `${closingBrace}<br/>`;
+      } else if (doubleBraces) {
+        return `${closingBrace}<br/>${closingBrace}`;
+      } else if (match === ",") {
+        return "<br/>";
       } else {
-        return "<br>";
+        return "<br/>";
       }
     }
   );
-  <div dangerouslySetInnerHTML={{ __html: formattedStats }} />;
+
+  console.log(formattedStats);
 
   return (
     <Accordion.Item eventKey={index}>
@@ -174,7 +187,11 @@ function AccordionItem({ simulation, index }) {
         {/* <pre>
           <code>{simulation.stats}</code>
         </pre> */}
-        <div dangerouslySetInnerHTML={{ __html: formattedStats }} />;
+        <div className="d-flex justify-content-center">
+          <div dangerouslySetInnerHTML={{ __html: formattedStats }} />
+        </div>
+        {/* <br />
+        <div dangerouslySetInnerHTML={{ __html: simulation.stats }} /> */}
         {/* <div>
           <JSONView src={jsonData} />
         </div> */}
@@ -183,11 +200,11 @@ function AccordionItem({ simulation, index }) {
           shouldExpandNode={allExpanded}
           // style={defaultStyles}
         /> */}
-        {/* {
-          <pre>
-            <code>{JSON.stringify(simulation.stats, null, 2)}</code>
-          </pre>
-        } */}
+        {
+          // <pre>
+          //   <code>{JSON.stringify(simulation.stats, null, 2)}</code>
+          // </pre>
+        }
       </Accordion.Body>
     </Accordion.Item>
   );
