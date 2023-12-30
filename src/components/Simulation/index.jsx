@@ -444,9 +444,12 @@ function Results({ jobState }) {
       </div>
 
       <div className="d-flex justify-content-center gap-4">
-        <button className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary">
+        <a
+          className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary"
+          href={jobState.logLink}
+        >
           DOWNLOAD LOGS
-        </button>
+        </a>
       </div>
     </section>
   );
