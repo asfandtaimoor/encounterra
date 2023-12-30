@@ -27,15 +27,15 @@ export default function Home() {
       setSimulationHistory(response.data);
       console.log(response.data);
       // Show success toast
-      toast.success("Simulatiuon History Get successfully", {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      // toast.success("Simulatiuon History Get successfully", {
+      //   position: "bottom-right",
+      //   autoClose: 3000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      // });
       dispatch({ type: "SIMULATION_HISTORY_SUCCESS" });
     } catch (error) {
       console.error("Password reset error:", error);
@@ -161,7 +161,7 @@ function AccordionItem({ simulation, index }) {
               Blue Team
             </h3>
             <p className="p-0 ts-fs-20 fw-medium mb-0">
-              {simulation.blue_victories_percentage}
+              {simulation.blue_victories_percentage.toFixed(0)} %
             </p>
           </div>
           <div className="text-center">
@@ -169,7 +169,7 @@ function AccordionItem({ simulation, index }) {
               Red Team
             </h3>
             <p className="p-0 ts-fs-20 fw-medium mb-0">
-              {simulation.red_victories_percentage}
+              {simulation.red_victories_percentage.toFixed(0)} %
             </p>
           </div>
         </div>

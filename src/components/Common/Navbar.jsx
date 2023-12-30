@@ -71,8 +71,8 @@ function Navbar() {
                     {parseInt(userData.credits) === -1 ? (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
+                        width="24"
+                        height="24"
                         fill="currentColor"
                         className="bi bi-infinity"
                         viewBox="0 0 16 16"
@@ -82,7 +82,7 @@ function Navbar() {
                     ) : (
                       userData.credits
                     )}{" "}
-                    credits
+                    <span className="ms-1">credits</span>
                   </p>
                   <OverlayTrigger
                     overlay={<Tooltip id="tooltip-disabled">Tooltip!</Tooltip>}

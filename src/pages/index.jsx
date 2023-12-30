@@ -153,14 +153,14 @@ export default function Home() {
                 </button>
               )}
 
-              {activeTab === projectTabs[2].title && (
+              {/* {activeTab === projectTabs[2].title && (
                 <button
                   className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary"
                   onClick={() => doRefresh((prev) => prev + 1)}
                 >
                   Simulate
                 </button>
-              )}
+              )} */}
             </div>
           </Container>
         </div>

@@ -31,8 +31,10 @@ export default function Simulation({ refresh }) {
 
       if (response.status === 200) {
         // Simulation finished successfully
-        const data = await response.json();
-        toast.success("Simulation Compeleted", {
+        const data = response.data;
+        // console.log(data.BLUE);
+        // console.log(data.BLUE);
+        toast.success("Simulation Completed", {
           position: "bottom-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -77,7 +79,7 @@ export default function Simulation({ refresh }) {
       }
     } catch (error) {
       console.error("Error:", error);
-      toast.error(`LastSimulation Failed Fetch`, {
+      toast.error(`Last Simulation Failed Fetch`, {
         position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -86,7 +88,7 @@ export default function Simulation({ refresh }) {
         draggable: true,
         progress: undefined,
       });
-      setJobState({ lastSimulationStatus: "failed" });
+      // setJobState({ lastSimulationStatus: "failed" });
     }
   };
 
@@ -135,43 +137,84 @@ export default function Simulation({ refresh }) {
     }
   };
 
+  // useEffect(() => {
+  //   if (isMounted) {
+  //     // Code to run when refresh value changes after initial mount
+  //     handleSubmit();
+  //   } else {
+  //     // Code to run on initial mount
+  //     setIsMounted(true);
+  //   }
+  // }, [refresh]);
   useEffect(() => {
-    if (isMounted) {
-      // Code to run when refresh value changes after initial mount
-      handleSubmit();
-    } else {
-      // Code to run on initial mount
-      setIsMounted(true);
-    }
-  }, [refresh]);
+    // Set initial state for jobState only once when the component mounts
+    setJobState({
+      lastJobId: null,
+      lastSimulationStatus: "failed",
+      lastBlueVictories: 80,
+      lastRedVictories: 20,
+      lastBlueAtLeastOneDied: 3,
+      lastRedAtLeastOneDied: 5,
+      lastBlueAtLeastTwoDied: 2,
+      lastRedAtLeastTwoDied: 5,
+      lastBlueAtLeastThreeDied: 6,
+      lastRedAtLeastThreeDied: 1,
+      logLink: "log_link",
+    });
+  }, []); // Empty dependency array means this effect runs once on mount
 
   return (
     <div>
       <div className="mb-08">
-        {/* Assuming RecourceLevel is a component */}
-        {/* Pass handleSubmit as a prop */}
-        {/* Make sure RecourceLevel component uses handleSubmit prop */}
-
-        {/* <p>{lastJob}</p> */}
         <RecourceLevel
-          handleSubmit={handleSubmit}
+          // handleSubmit={handleSubmit}
           iterationValue={iterationValue}
           setIterationValue={setIterationValue}
         />
       </div>
+
+      <div>
+        {/* Display JSON string representation of jobState */}
+        {/* <pre>{jobState}</pre> */}
+      </div>
+
+      <div className="text-center">
+        <button
+          className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary"
+          onClick={handleSubmit}
+        >
+          Simulate
+        </button>
+      </div>
+
       {/* Assuming Results is a component */}
-      {fetchingJob && (
+      {fetchingJob ? (
         <div className="d-flex justify-content-center">
           <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
           </Spinner>
         </div>
+      ) : (
+        <>
+          {jobState && (
+            <>
+              {jobState.lastSimulationStatus === "success" ? (
+                <Results jobState={jobState} />
+              ) : (
+                <div className="d-flex justify-content-center my-5">
+                  <p>
+                    Simulation Failed: Try again or change simulation
+                    configuration
+                  </p>
+                </div>
+              )}
+            </>
+          )}
+        </>
       )}
-      {jobState && <Results jobState={jobState} />}
     </div>
   );
 }
-
 function RecourceLevel({ iterationValue, setIterationValue, handleSubmit }) {
   return (
     <section className="ts-card-2">
@@ -364,8 +407,8 @@ function Results({ jobState }) {
 
       <div className="mb-06">
         <TsProgressBar
-          BlueTeamProgress={jobState.blue_victories_percentage}
-          RedTeamProgress={jobState.red_victories_percentage}
+          BlueTeamProgress={jobState.lastBlueVictories}
+          RedTeamProgress={jobState.lastRedVictories}
         />
       </div>
       <div className="mx-auto ts-text-gray-2" style={{ maxWidth: "920px" }}>
@@ -393,10 +436,6 @@ function Results({ jobState }) {
                   <span>VIctories </span>
                   <span>: {jobState.lastBlueVictories}</span>
                 </li>
-                <li className="d-flex justify-content-between mt-1">
-                  <span>Classification </span>
-                  <span>: HAND</span>
-                </li>
               </ul>
             </div>
           </div>
@@ -423,10 +462,6 @@ function Results({ jobState }) {
                   <span>VIctories </span>
                   <span>: {jobState.lastRedVictories}</span>
                 </li>
-                <li className="d-flex justify-content-between mt-1">
-                  <span>Classification </span>
-                  <span>: HAND</span>
-                </li>
               </ul>
             </div>
           </div>
@@ -437,27 +472,28 @@ function Results({ jobState }) {
         <button className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary">
           DOWNLOAD LOGS
         </button>
-        <button className="btn ts-btn ts-btn--lg fw-bold ts-btn-outline-secondary">
-          NEW SIMULATE
-        </button>
       </div>
     </section>
   );
 }
 function TsProgressBar({ BlueTeamProgress, RedTeamProgress }) {
+  const total = BlueTeamProgress + RedTeamProgress;
+  const bluePercentage = (BlueTeamProgress / total) * 100;
+  const redPercentage = (RedTeamProgress / total) * 100;
+
   return (
     <div className="ts-progress-bar">
       <div
         className="ts-blue-team text-center"
-        style={{ width: `${BlueTeamProgress}%` }}
+        style={{ width: `${bluePercentage}%` }}
       >
-        {BlueTeamProgress}%
+        {bluePercentage.toFixed(0)}%
       </div>
       <div
         className="ts-red-team text-center"
-        style={{ width: `${RedTeamProgress}%` }}
+        style={{ width: `${redPercentage}%` }}
       >
-        {RedTeamProgress}%
+        {redPercentage.toFixed(0)}%
       </div>
     </div>
   );
