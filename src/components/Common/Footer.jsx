@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-
+import Modal from "react-bootstrap/Modal";
 import Container from "react-bootstrap/Container";
 
 import { Instagram, Facebook, Twitter, Discord } from "@/Icons/index";
@@ -56,17 +56,38 @@ function FooterSocialMedia() {
   );
 }
 function FooterLinks() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <nav className="d-flex  gap-4 gap-md-5 flex-wrap">
       <Link className="ts-footer__link" href="/">
         Home
       </Link>
-      <Link className="ts-footer__link" href="/">
+      <button className="ts-footer__link btn py-0" onClick={handleShow}>
         About
-      </Link>
+      </button>
       <a className="ts-footer__link" href="mailto:noreply@encounterra.com">
         Contact Us
       </a>
+      <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>About Us</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
+          temporibus facere mollitia error praesentium perferendis culpa
+          repellat dolorum voluptas inventore, fugiat, fuga provident ratione
+          voluptatum ex perspiciatis aperiam magnam officiis!
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn ts-btn-primary" onClick={handleClose}>
+            Okay Thanks
+          </button>
+        </Modal.Footer>
+      </Modal>
     </nav>
   );
 }
