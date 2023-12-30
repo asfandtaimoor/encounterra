@@ -46,7 +46,6 @@ function Navbar() {
   const handleLogout = () => {
     dispatch(logoutUser());
     dispatch(getLoginDetails(false));
-    console.log("user logged out");
   };
   return (
     <div className="ts-header">

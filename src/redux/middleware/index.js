@@ -3,8 +3,6 @@ import { updateUserData, fetchUserDataAsync } from "../reducers/UserData";
 // import { updateCombatants } from "../reducers/combatants";
 
 const loggerMiddleware = (store) => (next) => (action) => {
-  // console.log("Action:", action);
-
   // Check if the action type is logout and login value is false
   if (action.type === "LOGOUT_SUCCESS") {
     store.dispatch(updateUserData(null));

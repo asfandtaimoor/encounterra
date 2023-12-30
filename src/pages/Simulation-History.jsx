@@ -24,7 +24,6 @@ export default function Home() {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log(response.data);
       setSimulationHistory(response.data);
       // Show success toast
       toast.success("Simulatiuon History Get successfully", {

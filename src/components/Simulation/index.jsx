@@ -14,10 +14,6 @@ export default function Simulation() {
   const combatantTeam = useSelector((state) => state.CombatantTeam);
 
   const pollForResult = async (lastJobId) => {
-    // const { lastJobId } = lastJob;
-    // console.log("lastJob" + lastJob);
-    console.log("lastJob" + lastJobId);
-
     if (!lastJobId) return;
 
     try {
@@ -35,7 +31,6 @@ export default function Simulation() {
       if (response.status === 200) {
         // Simulation finished successfully
         const data = await response.json();
-        console.log("Data:", data);
         toast.success("Simulation Compeleted", {
           position: "bottom-right",
           autoClose: 3000,
@@ -106,7 +101,6 @@ export default function Simulation() {
 
   const handleSubmit = async () => {
     // Extract IDs from the team objects
-    console.log(combatantTeam);
     const blueTeamIds = combatantTeam.blue.map((combatant) => combatant.id);
     const redTeamIds = combatantTeam.red.map((combatant) => combatant.id);
     const data = {
@@ -114,8 +108,6 @@ export default function Simulation() {
       blue: blueTeamIds,
       red: redTeamIds,
     };
-
-    console.log("Data:", data);
 
     try {
       const response = await axiosInstance.post("simulate", data, {
@@ -126,14 +118,10 @@ export default function Simulation() {
 
       if (response.status === 403 || response.status === 401) {
         const errorData = response.data || {};
-        console.log("Error Data:", errorData);
         throw new Error(errorData.message);
       }
 
       const responseData = response.data || {};
-
-      console.log("Response Data:", responseData);
-
       let lastJobId = responseData.job_id;
       // Set initial state for job status
       setLastJob({

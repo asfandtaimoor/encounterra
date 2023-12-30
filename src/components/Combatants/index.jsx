@@ -293,8 +293,6 @@ function ListData({ combatantsDefinition }) {
     }
   });
 
-  // console.log(groupedEntities);
-
   return (
     <div>
       <SearchBar />

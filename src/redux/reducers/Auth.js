@@ -43,9 +43,6 @@ export const loginUser = (email, password) => async (dispatch) => {
     }
 
     dispatch(getLoginDetails(true));
-
-    console.log("Response:", response.data);
-
     const { data } = response.data;
 
     localStorage.setItem("AccessToken", data.AccessToken);
@@ -93,8 +90,6 @@ export const loginUser = (email, password) => async (dispatch) => {
 export const logoutUser = () => async (dispatch) => {
   try {
     const response = await axiosInstance.get("logout");
-    console.log("Logout " + response);
-
     if (!response.data || response.data.status !== "success") {
       throw new Error("Logout failed");
     }
