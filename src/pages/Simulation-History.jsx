@@ -6,12 +6,10 @@ import Head from "next/head";
 import Navbar from "@/components/Common/Navbar";
 import Footer from "@/components/Common/Footer";
 import SocialMedia from "@/components/Common/SocialMedia";
+
 import { ArrowLeft } from "@/Icons/index";
-
 import { toast } from "react-toastify";
-
 import { useDispatch } from "react-redux";
-
 import axiosInstance from "@/axios";
 
 export default function Home() {
@@ -123,7 +121,6 @@ function Results({ simulationHistory }) {
 
 function AccordionItem({ simulation, index }) {
   let encounteredDoubleBraces = 0;
-
   const formattedStats = simulation.stats.replace(
     /(\{(?!\s*\n))|(\})|,|(\}\})/g,
     (match, openingBrace, closingBrace, doubleBraces) => {
@@ -145,8 +142,6 @@ function AccordionItem({ simulation, index }) {
     }
   );
 
-  console.log(formattedStats);
-
   return (
     <Accordion.Item eventKey={index}>
       <Accordion.Header>
@@ -165,46 +160,46 @@ function AccordionItem({ simulation, index }) {
             <h3 className="ts-fs-22 ts-text-skyblue text-uppercase fw-bold">
               Blue Team
             </h3>
-            <ul className="list-unstyled p-0 ts-fs-20 fw-medium mb-0">
+            <p className="p-0 ts-fs-20 fw-medium mb-0">
+              {/* {simulation.stats} */}
+              {/* {simulation.stats.BLUE.VICTORIES} */}
+            </p>
+          </div>
+          <div className="text-center">
+            <h3 className="ts-fs-22 ts-text-red text-uppercase fw-bold">
+              Red Team
+            </h3>
+            <p className="p-0 ts-fs-20 fw-medium mb-0"></p>
+          </div>
+        </div>
+      </Accordion.Header>
+      <Accordion.Body>
+        <div className="row row-cols-2 mt-3">
+          <div className="text-center ">
+            <h3 className="ts-fs-22 ts-text-skyblue text-uppercase fw-bold mb-3">
+              Blue Team
+            </h3>
+            <ul className="list-unstyled p-0 ts-fs-20 fw-medium mb-0 d-flex flex-wrap gap-4 justify-content-around">
               {simulation.blue.map((name, index) => {
                 return <li key={index}>{name}</li>;
               })}
             </ul>
           </div>
           <div className="text-center">
-            <h3 className="ts-fs-22 ts-text-red text-uppercase fw-bold">
+            <h3 className="ts-fs-22 ts-text-red text-uppercase fw-bold mb-3">
               Red Team
             </h3>
-            <ul className="list-unstyled p-0 ts-fs-20 fw-medium mb-0">
+            <ul className="list-unstyled p-0 ts-fs-20 fw-medium mb-0 d-flex flex-wrap gap-4 justify-content-around">
               {simulation.red.map((name, index) => {
                 return <li key={index}>{name}</li>;
               })}
             </ul>
           </div>
         </div>
-      </Accordion.Header>
-      <Accordion.Body>
-        {/* <pre>
-          <code>{simulation.stats}</code>
-        </pre> */}
+        <hr />
         <div className="d-flex justify-content-center">
           <div dangerouslySetInnerHTML={{ __html: formattedStats }} />
         </div>
-        {/* <br />
-        <div dangerouslySetInnerHTML={{ __html: simulation.stats }} /> */}
-        {/* <div>
-          <JSONView src={jsonData} />
-        </div> */}
-        {/* <JsonView
-          data={simulation.stats}
-          shouldExpandNode={allExpanded}
-          // style={defaultStyles}
-        /> */}
-        {
-          // <pre>
-          //   <code>{JSON.stringify(simulation.stats, null, 2)}</code>
-          // </pre>
-        }
       </Accordion.Body>
     </Accordion.Item>
   );
