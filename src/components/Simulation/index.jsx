@@ -137,31 +137,15 @@ export default function Simulation({ refresh }) {
     }
   };
 
-  // useEffect(() => {
-  //   if (isMounted) {
-  //     // Code to run when refresh value changes after initial mount
-  //     handleSubmit();
-  //   } else {
-  //     // Code to run on initial mount
-  //     setIsMounted(true);
-  //   }
-  // }, [refresh]);
   useEffect(() => {
-    // Set initial state for jobState only once when the component mounts
-    setJobState({
-      lastJobId: null,
-      lastSimulationStatus: "failed",
-      lastBlueVictories: 80,
-      lastRedVictories: 20,
-      lastBlueAtLeastOneDied: 3,
-      lastRedAtLeastOneDied: 5,
-      lastBlueAtLeastTwoDied: 2,
-      lastRedAtLeastTwoDied: 5,
-      lastBlueAtLeastThreeDied: 6,
-      lastRedAtLeastThreeDied: 1,
-      logLink: "log_link",
-    });
-  }, []); // Empty dependency array means this effect runs once on mount
+    if (isMounted) {
+      // Code to run when refresh value changes after initial mount
+      handleSubmit();
+    } else {
+      // Code to run on initial mount
+      setIsMounted(true);
+    }
+  }, [refresh]);
 
   return (
     <div>
@@ -176,15 +160,6 @@ export default function Simulation({ refresh }) {
       <div>
         {/* Display JSON string representation of jobState */}
         {/* <pre>{jobState}</pre> */}
-      </div>
-
-      <div className="text-center">
-        <button
-          className="btn ts-btn ts-btn--lg fw-bold ts-btn-primary"
-          onClick={handleSubmit}
-        >
-          Simulate
-        </button>
       </div>
 
       {/* Assuming Results is a component */}
